@@ -1,7 +1,7 @@
 {
   "name": "UNML",
   "private": true,
-  "author": "Ray (@so1ve) <i@mk1.io>",
+  "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "license": "MIT",
   "main": "dist-electron/main/index.js",
   "debug": {
