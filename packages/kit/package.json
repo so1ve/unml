@@ -9,14 +9,14 @@
     "unml-kit"
   ],
   "type": "module",
-  "homepage": "https://github.com/so1ve/UNML/tree/main/packages/kit#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/so1ve/UNML.git",
+    "url": "git+https://github.com/so1ve/unml.git",
     "directory": "/"
   },
   "bugs": {
-    "url": "https://github.com/so1ve/UNML/issues"
+    "url": "https://github.com/so1ve/unml/issues"
   },
   "license": "MIT",
   "sideEffects": false,
