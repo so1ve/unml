@@ -1,22 +1,22 @@
 {
-  "name": "@umcl/kit",
+  "name": "@unml/kit",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-  "description": "UMCL Kit",
+  "description": "UNML Kit",
   "keywords": [
-    "umcl",
+    "unml",
     "kit",
-    "umcl-kit"
+    "unml-kit"
   ],
   "type": "module",
-  "homepage": "https://github.com/so1ve/clerc/tree/main/packages/toolkit#readme",
+  "homepage": "https://github.com/so1ve/UNML/tree/main/packages/kit#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/so1ve/clerc.git",
+    "url": "git+https://github.com/so1ve/UNML.git",
     "directory": "/"
   },
   "bugs": {
-    "url": "https://github.com/so1ve/clerc/issues"
+    "url": "https://github.com/so1ve/UNML/issues"
   },
   "license": "MIT",
   "sideEffects": false,
