@@ -1,0 +1,50 @@
+{
+  "name": "@umcl/kit",
+  "version": "0.0.0",
+  "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "description": "UMCL Kit",
+  "keywords": [
+    "umcl",
+    "kit",
+    "umcl-kit"
+  ],
+  "type": "module",
+  "homepage": "https://github.com/so1ve/clerc/tree/main/packages/toolkit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/so1ve/clerc.git",
+    "directory": "/"
+  },
+  "bugs": {
+    "url": "https://github.com/so1ve/clerc/issues"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "puild --minify",
+    "watch": "puild --watch"
+  }
+}
