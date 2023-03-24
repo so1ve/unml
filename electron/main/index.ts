@@ -41,10 +41,10 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 
-async function createWindow () {
+function createWindow () {
   win = new BrowserWindow({
-    title: "Main window",
-    icon: join(process.env.PUBLIC, "favicon.ico"),
+    title: "UNML",
+    icon: join(process.env.PUBLIC, "favicon.png"),
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
