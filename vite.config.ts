@@ -7,7 +7,9 @@ import renderer from "vite-plugin-electron-renderer";
 
 import pkg from "./package.json";
 
-// https://vitejs.dev/config/
+const HOST = "127.0.0.1";
+const PORT = 3344;
+
 export default defineConfig(({ command }) => {
   rmSync("dist-electron", { recursive: true, force: true });
 
@@ -20,7 +22,6 @@ export default defineConfig(({ command }) => {
       vue(),
       electron([
         {
-          // Main-Process entry file of the Electron App.
           entry: "electron/main/index.ts",
           async onstart (options) {
             if (process.env.VSCODE_DEBUG) {
@@ -65,13 +66,10 @@ export default defineConfig(({ command }) => {
         nodeIntegration: true,
       }),
     ],
-    server: process.env.VSCODE_DEBUG && (() => {
-      const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL);
-      return {
-        host: url.hostname,
-        port: +url.port,
-      };
-    })(),
+    server: process.env.VSCODE_DEBUG && {
+      host: HOST,
+      port: PORT,
+    },
     clearScreen: false,
   };
 });

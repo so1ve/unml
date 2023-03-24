@@ -44,7 +44,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "puild --minify",
-    "watch": "puild --watch"
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "devDependencies": {
+    "hookable": "^5.5.1",
+    "unbuild": "^1.1.2",
+    "unctx": "^2.1.2"
   }
 }

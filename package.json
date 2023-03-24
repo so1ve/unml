@@ -1,14 +1,11 @@
 {
-  "name": "UNML",
+  "name": "unml",
   "private": true,
+  "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "description": "UNML - UNLimited Minecraft Launcher",
   "license": "MIT",
   "main": "dist-electron/main/index.js",
-  "debug": {
-    "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:3344/"
-    }
-  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && electron-builder",

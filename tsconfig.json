@@ -12,14 +12,6 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "composite": true,
     "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "src",
-    "packages",
-    "vite.config.ts",
-    "package.json",
-    "electron"
-  ]
+  }
 }
