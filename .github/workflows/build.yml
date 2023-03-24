@@ -3,16 +3,6 @@ name: Build
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "**.md"
-      - "**.spec.js"
-      - .idea
-      - .vscode
-      - .dockerignore
-      - Dockerfile
-      - .gitignore
-      - ".github/**"
-      - "!.github/workflows/build.yml"
 
 jobs:
   build:
@@ -23,31 +13,31 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+
+      - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.x
+          cache: pnpm
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 7
+      - name: Setup
+        run: npm i -g @antfu/ni
 
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Install
+        run: nci
 
       - name: Build Release Files
-        run: pnpm run build
+        run: nr build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: release_on_${{ matrix. os }}
+          name: release_on_${{ matrix.os }}
           path: release/
           retention-days: 5

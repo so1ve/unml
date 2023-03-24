@@ -1,24 +1,57 @@
 name: CI
 
 on:
-  pull_request_target:
+  push:
     branches:
       - main
 
-permissions:
-  pull-requests: write
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  job2:
-    name: Lint Markdown
+  lint:
     runs-on: ubuntu-latest
-    needs: job1
-    if: ${{ always() && needs.job1.outputs.markdown_change == 'true' }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/checkout@v3
 
-      - name: Lint markdown
-        run: npx markdownlint-cli ${{ needs.job1.outputs.markdown_files }} --ignore node_modules
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Lint
+        run: nr lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Typecheck
+        run: nr typecheck
