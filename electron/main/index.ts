@@ -44,7 +44,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 function createWindow () {
   win = new BrowserWindow({
     title: "UNML",
-    icon: join(process.env.PUBLIC, "favicon.png"),
+    icon: join(process.env.PUBLIC, "favicon.ico"),
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
