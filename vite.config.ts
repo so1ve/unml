@@ -1,7 +1,7 @@
 import { rmSync } from "node:fs";
 
-import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
 import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
 
@@ -23,10 +23,10 @@ export default defineConfig(({ command }) => {
       electron([
         {
           entry: "electron/main/index.ts",
-          async onstart (options) {
+          async onstart(options) {
             if (process.env.VSCODE_DEBUG) {
               // eslint-disable-next-line no-console
-              console.log(/* For `.vscode/.debug.script.mjs` */"[startup] Electron App");
+              console.log(/* For `.vscode/.debug.script.mjs` */ "[startup] Electron App");
             } else {
               await options.startup();
             }
@@ -44,7 +44,7 @@ export default defineConfig(({ command }) => {
         },
         {
           entry: "electron/preload/index.ts",
-          onstart (options) {
+          onstart(options) {
             // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
             // instead of restarting the entire Electron App.
             options.reload();

@@ -20,10 +20,12 @@
 - ⚡️ Main、Renderer、preload, all built with vite
 
 ## 2022-01-27
+
 - Refactor the scripts part.
 - Remove `configs` directory.
 
 ## 2021-11-11
+
 - Refactor the project. Use vite.config.ts build `Main-process`, `Preload-script` and `Renderer-process` alternative rollup.
 - Scenic `Vue>=3.2.13`, `@vue/compiler-sfc` is no longer necessary.
 - If you prefer Rollup, Use rollup branch.

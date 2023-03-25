@@ -111,7 +111,7 @@ ipcMain.handle("open-win", (_, arg) => {
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${url}#${arg}`);
+    childWindow.loadURL(`${url}#${arg as string}`);
   } else {
     childWindow.loadFile(indexHtml, { hash: arg });
   }

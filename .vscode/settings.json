@@ -9,5 +9,6 @@
       ],
       "url": "https://json.schemastore.org/electron-builder"
     }
-  ]
+  ],
+  "dprint.path": "./node_modules/dprint/dprint.exe"
 }

@@ -4,27 +4,31 @@ importers:
 
   .:
     specifiers:
-      '@so1ve/eslint-config': ^0.48.0
+      '@so1ve/dprint-config': ^0.50.1
+      '@so1ve/eslint-config': ^0.50.1
       '@vitejs/plugin-vue': ^4.1.0
+      dprint: ^0.35.3
       electron: ^23.2.0
       electron-builder: ^23.6.0
       eslint: ^8.36.0
       typescript: ^5.0.2
       vite: ^4.2.1
       vite-plugin-electron: ^0.11.1
-      vite-plugin-electron-renderer: ^0.13.5
+      vite-plugin-electron-renderer: ^0.13.6
       vue: ^3.2.47
       vue-tsc: ^1.2.0
     devDependencies:
-      '@so1ve/eslint-config': 0.48.0_j4766f7ecgqbon3u7zlxn5zszu
+      '@so1ve/dprint-config': 0.50.1_dprint@0.35.3
+      '@so1ve/eslint-config': 0.50.1_j4766f7ecgqbon3u7zlxn5zszu
       '@vitejs/plugin-vue': 4.1.0_vite@4.2.1+vue@3.2.47
+      dprint: 0.35.3
       electron: 23.2.0
       electron-builder: 23.6.0
       eslint: 8.36.0
       typescript: 5.0.2
       vite: 4.2.1
       vite-plugin-electron: 0.11.1
-      vite-plugin-electron-renderer: 0.13.5
+      vite-plugin-electron-renderer: 0.13.6
       vue: 3.2.47
       vue-tsc: 1.2.0_typescript@5.0.2
 
@@ -742,14 +746,22 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /@so1ve/eslint-config-basic/0.48.0_y7rczx7zuvsmujgglzevd4vf44:
-    resolution: {integrity: sha512-Tu5Kc91xKRzmG2Ze7ykXJ2ee41NsNWETxYVXHXZC+9asiRT6mRK7hoQ4a9gf+AJNP3+zn/CnHJSFsncvjROe1g==}
+  /@so1ve/dprint-config/0.50.1_dprint@0.35.3:
+    resolution: {integrity: sha512-+EqBeP6EWU4/JE4nxClJyqtuvF7HKw7gDN7inqEap5FxrIMwOx90Bf6hK/xR9KU+f619f+16yH6lbs/2cAm/xA==}
+    peerDependencies:
+      dprint: '*'
+    dependencies:
+      dprint: 0.35.3
+    dev: true
+
+  /@so1ve/eslint-config-basic/0.50.1_y7rczx7zuvsmujgglzevd4vf44:
+    resolution: {integrity: sha512-Q9T+D81Q+9NqBthTXwcPNxQOXjLXax/8WEpgYDd4Ul3kaXNMyyAtey6B7lwSLRbVL6szbSKAwDDvAZdlWwMNMg==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
       '@html-eslint/eslint-plugin': 0.17.2
       '@html-eslint/parser': 0.17.1
-      '@so1ve/eslint-plugin': 0.48.0_j4766f7ecgqbon3u7zlxn5zszu
+      '@so1ve/eslint-plugin': 0.50.1_j4766f7ecgqbon3u7zlxn5zszu
       eslint: 8.36.0
       eslint-define-config: 1.17.0
       eslint-plugin-eslint-comments: 3.2.0_eslint@8.36.0
@@ -774,14 +786,14 @@ packages:
       - typescript
     dev: true
 
-  /@so1ve/eslint-config-ts/0.48.0_j4766f7ecgqbon3u7zlxn5zszu:
-    resolution: {integrity: sha512-nxZ4P9ofFDy703e2VpTXXfo7hxvrDhBtcJoYannJH5kLYJDgQuU99c9XdyisJMoseFpFTnewy8pAqsiAvtgQDg==}
+  /@so1ve/eslint-config-ts/0.50.1_j4766f7ecgqbon3u7zlxn5zszu:
+    resolution: {integrity: sha512-FooCr83U1kDadPrsi9mR+8uwFFt53yfxeO7c7o0tBFtHyiP0Z4Sr8EM+HICm1OrSbe7Rzx5mTNCZ95JMwTR6Lw==}
     peerDependencies:
       eslint: '>=7.4.0'
       typescript: '>=3.9'
     dependencies:
-      '@so1ve/eslint-config-basic': 0.48.0_y7rczx7zuvsmujgglzevd4vf44
-      '@so1ve/eslint-plugin': 0.48.0_j4766f7ecgqbon3u7zlxn5zszu
+      '@so1ve/eslint-config-basic': 0.50.1_y7rczx7zuvsmujgglzevd4vf44
+      '@so1ve/eslint-plugin': 0.50.1_j4766f7ecgqbon3u7zlxn5zszu
       '@typescript-eslint/eslint-plugin': 5.56.0_2hcjazgfnbtq42tcc73br2vup4
       '@typescript-eslint/parser': 5.56.0_j4766f7ecgqbon3u7zlxn5zszu
       eslint: 8.36.0
@@ -795,12 +807,12 @@ packages:
       - supports-color
     dev: true
 
-  /@so1ve/eslint-config-vue/0.48.0_j4766f7ecgqbon3u7zlxn5zszu:
-    resolution: {integrity: sha512-IEns6OYML8AAtqp7TmN0tyRwL4buqeaMjqMlkzYCwd324dCATq8X75FFi+ZI2qTf0igl6tHRBeuOBmVmerq/qw==}
+  /@so1ve/eslint-config-vue/0.50.1_j4766f7ecgqbon3u7zlxn5zszu:
+    resolution: {integrity: sha512-nTCs5eHlKkPTsroVK9rsqAeyHyTXkuo9H0NyXGehKJc0BFEo3El+4HTaGLDY6tY8OrUiQ/ty242w8b5TMMTLxQ==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@so1ve/eslint-config-ts': 0.48.0_j4766f7ecgqbon3u7zlxn5zszu
+      '@so1ve/eslint-config-ts': 0.50.1_j4766f7ecgqbon3u7zlxn5zszu
       eslint: 8.36.0
       eslint-define-config: 1.17.0
       eslint-plugin-vue: 9.9.0_eslint@8.36.0
@@ -812,12 +824,12 @@ packages:
       - typescript
     dev: true
 
-  /@so1ve/eslint-config/0.48.0_j4766f7ecgqbon3u7zlxn5zszu:
-    resolution: {integrity: sha512-rBCGXnzGYIAb2TO+wcbL/ha0qN1Mm+h1pwOT8TwDgYDmcQd/PvEN5zRtbzjTKqWTUw5Az+c+tsuZF2+aloehhw==}
+  /@so1ve/eslint-config/0.50.1_j4766f7ecgqbon3u7zlxn5zszu:
+    resolution: {integrity: sha512-hcaYIEHwUcRxioBMjPhqZV8PjdZu0v6HjGg93tcYT4a220a66LkJ43DTEsRwQpD2KFy1Bh0DXlnjKtsDMSiBcA==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@so1ve/eslint-config-vue': 0.48.0_j4766f7ecgqbon3u7zlxn5zszu
+      '@so1ve/eslint-config-vue': 0.50.1_j4766f7ecgqbon3u7zlxn5zszu
       '@typescript-eslint/eslint-plugin': 5.56.0_2hcjazgfnbtq42tcc73br2vup4
       '@typescript-eslint/parser': 5.56.0_j4766f7ecgqbon3u7zlxn5zszu
       eslint: 8.36.0
@@ -842,8 +854,8 @@ packages:
       - typescript
     dev: true
 
-  /@so1ve/eslint-plugin/0.48.0_j4766f7ecgqbon3u7zlxn5zszu:
-    resolution: {integrity: sha512-6wrpcc0skkJiiXU17vhhxxPTR7+3w8qbgoMt9swp6ffi/9A+4tUrNjMOrei7C+DpqWbu/fZsGYf7qs1Pxg0O5Q==}
+  /@so1ve/eslint-plugin/0.50.1_j4766f7ecgqbon3u7zlxn5zszu:
+    resolution: {integrity: sha512-VpMxI5QqFp+y89Qo4Yh/SVX/36tOs0IiKtYgpGLabK9CitK/ksvDrO4zX8tn71YWLqeruB3PJrEp4/4XD1ek3A==}
     dependencies:
       '@typescript-eslint/utils': 5.56.0_j4766f7ecgqbon3u7zlxn5zszu
       '@vue/reactivity': 3.2.47
@@ -2020,6 +2032,17 @@ packages:
   /dotenv/9.0.2:
     resolution: {integrity: sha512-I9OvvrHp4pIARv4+x9iuewrWycX6CcZtoAu1XrzPxc5UygMJXJZYmBsynku8IkrJwgypE5DGNjDPmPRhDCptUg==}
     engines: {node: '>=10'}
+    dev: true
+
+  /dprint/0.35.3:
+    resolution: {integrity: sha512-BWFdr2Ury2dtqyjaTI9P5vCpb1yn5laLfO3Yo5egrrDlK2A2mv6CSpe/oK2cuOPESMY1JT2dubMv2dPDiJfMnA==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      https-proxy-agent: 5.0.1
+      yauzl: 2.10.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /ejs/3.1.9:
@@ -4734,8 +4757,8 @@ packages:
     dev: true
     optional: true
 
-  /vite-plugin-electron-renderer/0.13.5:
-    resolution: {integrity: sha512-TmYiBW7w1f5waQBUmu/on93lV58DZcXuETgfjL1+v25rE2sOB/xYGdfBe0ktPNHEyazxlsuTJ1LuE1kmxAsFpw==}
+  /vite-plugin-electron-renderer/0.13.6:
+    resolution: {integrity: sha512-0ELMLoYxCnV2rAidknuBynza0DDrsZkcX25rWpBxA2B829YEay6EKIybVuqV5QtY/TYY1tQ1aHMYESFrzIxSDw==}
     requiresBuild: true
     dependencies:
       lib-esm: 0.3.0

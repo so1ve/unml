@@ -1,4 +1,4 @@
-function domReady (condition: Array<DocumentReadyState> = ["complete", "interactive"]) {
+function domReady (condition: DocumentReadyState[] = ["complete", "interactive"]) {
   return new Promise((resolve) => {
     if (condition.includes(document.readyState)) {
       resolve(true);
@@ -13,12 +13,12 @@ function domReady (condition: Array<DocumentReadyState> = ["complete", "interact
 }
 
 const safeDOM = {
-  append (parent: HTMLElement, child: HTMLElement) {
+  append(parent: HTMLElement, child: HTMLElement) {
     if (!Array.from(parent.children).find(e => e === child)) {
       return parent.appendChild(child);
     }
   },
-  remove (parent: HTMLElement, child: HTMLElement) {
+  remove(parent: HTMLElement, child: HTMLElement) {
     if (Array.from(parent.children).find(e => e === child)) {
       return parent.removeChild(child);
     }
@@ -69,11 +69,11 @@ function useLoading () {
   oDiv.innerHTML = `<div class="${className}"><div></div></div>`;
 
   return {
-    appendLoading () {
+    appendLoading() {
       safeDOM.append(document.head, oStyle);
       safeDOM.append(document.body, oDiv);
     },
-    removeLoading () {
+    removeLoading() {
       safeDOM.remove(document.head, oStyle);
       safeDOM.remove(document.body, oDiv);
     },
