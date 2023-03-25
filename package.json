@@ -9,7 +9,7 @@
   "main": "dist-electron/main/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "build": "nr typecheck && vite build && electron-builder",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -18,6 +18,7 @@
     "fmt": "dprint fmt"
   },
   "devDependencies": {
+    "@antfu/ni": "^0.20.0",
     "@so1ve/dprint-config": "^0.50.1",
     "@so1ve/eslint-config": "^0.50.1",
     "@vitejs/plugin-vue": "^4.1.0",
