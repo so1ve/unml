@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 
+// eslint-disable-next-line no-console
 console.log("[App.vue]", `Hello world from Electron ${process.versions.electron}!`);
 </script>
 
@@ -19,6 +20,7 @@ console.log("[App.vue]", `Hello world from Electron ${process.versions.electron}
   <HelloWorld msg="Electron + Vite + Vue" />
   <div class="flex-center">
     Place static files into the <code>/public</code> folder
+    <!-- eslint-disable-next-line vue/no-static-inline-styles -->
     <img alt="Node logo" src="/node.svg" style="width:5em;">
   </div>
 </template>
