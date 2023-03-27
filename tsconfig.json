@@ -12,6 +12,11 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@unml/kit": ["./packages/kit"],
+      "@unml/core": ["./packages/core"],
+      "@unml/schema": ["./packages/schema"]
+    }
   }
 }

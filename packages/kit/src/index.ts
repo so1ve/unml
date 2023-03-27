@@ -1,15 +1,16 @@
-import { createContext } from "unctx";
+import type { Unml } from "@unml/schema";
+import { getContext } from "unctx";
 
-import { Unml } from "./types";
+export const unmlCtx = getContext<Unml>("unml");
 
-const context = createContext<Unml>();
-
-const withEnsureContext = <A extends any[], T extends (...args: A) => any>(fn: T) => (...args: A): ReturnType<T> => {
-  if (!context.tryUse()) {
-    context.set(new Unml());
+export function useUnml (): Unml {
+  const instance = unmlCtx.tryUse();
+  if (!instance) {
+    throw new Error("Unml instance is unavailable!");
   }
-  return fn(...args);
-};
+  return instance;
+}
 
-export const useUnml = withEnsureContext(context.use);
-export const tryUseUnml = withEnsureContext(context.tryUse);
+export function tryUseNuxt (): Unml | null {
+  return unmlCtx.tryUse();
+}

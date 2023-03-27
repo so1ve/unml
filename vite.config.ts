@@ -3,6 +3,7 @@ import { rmSync } from "node:fs";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 import electron from "vite-plugin-electron";
+// eslint-disable-next-line import/default
 import renderer from "vite-plugin-electron-renderer";
 
 import pkg from "./package.json";
@@ -61,10 +62,7 @@ export default defineConfig(({ command }) => {
           },
         },
       ]),
-      // Use Node.js API in the Renderer-process
-      renderer({
-        nodeIntegration: true,
-      }),
+      renderer(),
     ],
     server: process.env.VSCODE_DEBUG && {
       host: HOST,
