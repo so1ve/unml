@@ -1,7 +1,6 @@
 import { unmlCtx } from "@unml/kit";
+import type { Unml, UnmlHooks } from "@unml/schema";
 import { createHooks } from "hookable";
-
-import type { Unml, UnmlHooks } from "./types";
 
 const initUnml = async (unml: Unml) => {
   unmlCtx.set(unml);
@@ -22,5 +21,3 @@ export const createUnml = () => {
 
   return unml;
 };
-
-export type { HookResult, Unml, UnmlHooks } from "./types";
