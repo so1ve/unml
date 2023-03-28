@@ -6,11 +6,11 @@ on:
     paths-ignore:
       - "**.md"
       - "**.spec.js"
-      - ".idea"
-      - ".vscode"
-      - ".dockerignore"
-      - "Dockerfile"
-      - ".gitignore"
+      - .idea
+      - .vscode
+      - .dockerignore
+      - Dockerfile
+      - .gitignore
       - ".github/**"
       - "!.github/workflows/build.yml"
 
