@@ -14,9 +14,9 @@
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@unml/kit": ["./packages/kit"],
-      "@unml/core": ["./packages/core"],
-      "@unml/schema": ["./packages/schema"]
+      "@unml/kit": ["./packages/kit/src/index.ts"],
+      "@unml/core": ["./packages/core/src/index.ts"],
+      "@unml/schema": ["./packages/schema/src/index.ts"]
     }
   }
 }
