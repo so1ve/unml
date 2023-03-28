@@ -1,10 +1,20 @@
 import { rmSync } from "node:fs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
-import electron from "vite-plugin-electron";
+// Force import order
+import VueI18n from "@intlify/unplugin-vue-i18n/vite";
+import Vue from "@vitejs/plugin-vue";
+import Unocss from "unocss/vite";
+import AutoImport from "unplugin-auto-import/vite";
+import VueComponents from "unplugin-vue-components/vite";
+import Electron from "vite-plugin-electron";
+import Pages from "vite-plugin-pages";
+import Layouts from "vite-plugin-vue-layouts";
+import Vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 // eslint-disable-next-line import/default
-import renderer from "vite-plugin-electron-renderer";
+import ElectronRenderer from "vite-plugin-electron-renderer";
 
 import pkg from "./package.json";
 
@@ -20,8 +30,42 @@ export default defineConfig(({ command }) => {
 
   return {
     plugins: [
-      vue(),
-      electron([
+      Vue({
+        template: { transformAssetUrls },
+      }),
+      Vuetify({
+        autoImport: true,
+        styles: {
+          configFile: "src/styles/settings.scss",
+        },
+      }),
+      Pages(),
+      Layouts(),
+      AutoImport({
+        dts: "src/auto-imports.d.ts",
+        imports: [
+          "vue",
+          "vue-i18n",
+          "vue-router",
+          "pinia",
+        ],
+        dirs: [
+          "src/composables",
+          "src/stores",
+        ],
+        vueTemplate: true,
+      }),
+      VueComponents({
+        dts: "src/components.d.ts",
+      }),
+      Unocss(),
+      VueI18n({
+        runtimeOnly: true,
+        compositionOnly: true,
+        fullInstall: true,
+        include: [resolve(__dirname, "src/locales/**")],
+      }),
+      Electron([
         {
           entry: "electron/main/index.ts",
           async onstart(options) {
@@ -44,9 +88,14 @@ export default defineConfig(({ command }) => {
           },
         },
       ]),
-      renderer(),
+      ElectronRenderer(),
     ],
-    server: process.env.VSCODE_DEBUG && {
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+    server: {
       host: HOST,
       port: PORT,
     },

@@ -10,5 +10,7 @@
       "url": "https://json.schemastore.org/electron-builder"
     }
   ],
-  "dprint.path": "./node_modules/dprint/dprint.exe"
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ]
 }

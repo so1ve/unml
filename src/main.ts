@@ -1,11 +1,8 @@
 import { createApp } from "vue";
 
-import "./style.css";
 import App from "./App.vue";
-import "./samples/node-api";
+import { registerPlugins } from "./plugins";
 
-createApp(App)
-  .mount("#app")
-  .$nextTick(() => {
-    postMessage({ payload: "removeLoading" }, "*");
-  });
+const app = createApp(App);
+registerPlugins(app);
+app.mount("#app");

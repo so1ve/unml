@@ -25,7 +25,8 @@
         "arch": [
           "x64"
         ]
-      }
+      },
+      "portable"
     ],
     "artifactName": "${productName}_${version}.${ext}"
   },

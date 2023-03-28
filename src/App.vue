@@ -1,28 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
-
 // eslint-disable-next-line no-console
 console.log("[App.vue]", `Hello world from Electron ${process.versions.electron}!`);
 </script>
 
 <template>
-  <div>
-    <a href="https://www.electronjs.org/" target="_blank">
-      <img alt="Electron logo" class="electron logo" src="./assets/electron.svg">
-    </a>
-    <a href="https://vitejs.dev/" target="_blank">
-      <img alt="Vite logo" class="logo" src="/vite.svg">
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img alt="Vue logo" class="logo vue" src="./assets/vue.svg">
-    </a>
-  </div>
-  <HelloWorld msg="Electron + Vite + Vue" />
-  <div class="flex-center">
-    Place static files into the <code>/public</code> folder
-    <!-- eslint-disable-next-line vue/no-static-inline-styles -->
-    <img alt="Node logo" src="/node.svg" style="width:5em;">
-  </div>
+  <RouterView />
 </template>
 
 <style>
