@@ -6,6 +6,8 @@ import { BrowserWindow, app, ipcMain, shell } from "electron";
 
 const TITLE = "UNML";
 const ICON = join(process.env.PUBLIC, "favicon.ico");
+const WIDTH = 1000;
+const HEIGHT = 750;
 const WEB_PREFERENCES: WebPreferences = {
   nodeIntegration: true,
   nodeIntegrationInSubFrames: true,
@@ -37,7 +39,12 @@ function createWindow () {
   win = new BrowserWindow({
     title: TITLE,
     icon: ICON,
+    width: WIDTH,
+    height: HEIGHT,
     webPreferences: WEB_PREFERENCES,
+    resizable: false,
+    titleBarStyle: "hidden",
+    frame: false,
   });
 
   if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298

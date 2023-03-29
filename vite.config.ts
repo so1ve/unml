@@ -10,11 +10,10 @@ import Unocss from "unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import VueComponents from "unplugin-vue-components/vite";
 import Electron from "vite-plugin-electron";
+import ElectronRenderer from "vite-plugin-electron-renderer";
 import Pages from "vite-plugin-pages";
 import Layouts from "vite-plugin-vue-layouts";
 import Vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
-// eslint-disable-next-line import/default
-import ElectronRenderer from "vite-plugin-electron-renderer";
 
 import pkg from "./package.json";
 
@@ -48,6 +47,10 @@ export default defineConfig(({ command }) => {
           "vue-i18n",
           "vue-router",
           "pinia",
+          "@vueuse/core",
+          {
+            vuetify: ["useTheme"],
+          },
         ],
         dirs: [
           "src/composables",
@@ -68,14 +71,6 @@ export default defineConfig(({ command }) => {
       Electron([
         {
           entry: "electron/main/index.ts",
-          async onstart(options) {
-            if (process.env.VSCODE_DEBUG) {
-              // eslint-disable-next-line no-console
-              console.log(/* For `.vscode/.debug.script.mjs` */ "[startup] Electron App");
-            } else {
-              await options.startup();
-            }
-          },
           vite: {
             build: {
               sourcemap,
