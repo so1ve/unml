@@ -4,6 +4,8 @@ import { join } from "node:path";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
+import registerControllers from "./controllers";
+
 const TITLE = "UNML";
 const ICON = join(process.env.PUBLIC, "favicon.ico");
 const WIDTH = 1000;
@@ -47,20 +49,21 @@ function createWindow () {
     frame: false,
   });
 
-  if (process.env.VITE_DEV_SERVER_URL) { // electron-vite-vue#298
+  registerControllers(win);
+
+  if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(url);
-    // Open devTool if the app is not packaged
-    win.webContents.openDevTools();
+    win.webContents.openDevTools({
+      mode: "undocked",
+    });
   } else {
     win.loadFile(indexHtml);
   }
 
-  // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 
-  // Make all links open with the browser, not with the application
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith("https:")) { shell.openExternal(url); }
     return { action: "deny" };

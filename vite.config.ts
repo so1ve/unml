@@ -51,6 +51,9 @@ export default defineConfig(({ command }) => {
           {
             vuetify: ["useTheme"],
           },
+          {
+            "@unml/kit": ["useUnml"],
+          },
         ],
         dirs: [
           "src/composables",

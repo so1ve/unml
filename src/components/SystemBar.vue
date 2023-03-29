@@ -1,37 +1,42 @@
 <script setup lang="ts">
+const unml = useUnml();
 
+console.log(unml);
 </script>
 
 <template>
   <VSystemBar
-    class="bg-u-black!"
+    class="bg-u-black! draggable"
     density="compact"
     :elevation="0"
     window
   >
-    <div class="h-full titlebar w-full" />
-    <span class="flex flex-grow-0 flex-shrink h-full p-0">
-      <span
-        class="cursor-pointer flex items-center px-3 py-1"
-        variant="plain"
-        @click="minimize"
+    <div>
+      <VBtn
+        class="ma-2 non-draggable"
+        size="x-small"
+        variant="text"
       >
-        <span class="i-material-symbols:minimize-rounded" />
-      </span>
-      <span
-        class="cursor-pointer flex items-center px-3 py-1"
-        variant="plain"
-        @click="close"
+        <span class="i-material-symbols:minimize-rounded text-lg" />
+      </VBtn>
+      <VBtn
+        class="ma-2 non-draggable"
+        size="x-small"
+        variant="text"
       >
-        <span class="i-material-symbols:close-rounded" />
-      </span>
-    </span>
+        <span class="i-material-symbols:close-rounded text-lg" />
+      </VBtn>
+    </div>
   </VSystemBar>
 </template>
 
 <style scoped>
-.titlebar {
+.draggable {
   -webkit-user-select: none;
   -webkit-app-region: drag;
+}
+
+.non-draggable {
+  -webkit-app-region: no-drag;
 }
 </style>
