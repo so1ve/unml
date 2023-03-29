@@ -5,8 +5,8 @@ importers:
   .:
     devDependencies:
       '@antfu/ni':
-        specifier: ^0.20.0
-        version: 0.20.0
+        specifier: ^0.21.0
+        version: 0.21.0
       '@iconify-json/material-symbols':
         specifier: ^1.1.36
         version: 1.1.36
@@ -119,9 +119,6 @@ importers:
 
   packages/kit:
     dependencies:
-      '@unml/core':
-        specifier: workspace:^
-        version: link:../core
       '@unml/schema':
         specifier: workspace:*
         version: link:../schema
@@ -159,8 +156,8 @@ packages:
       find-up: 5.0.0
     dev: true
 
-  /@antfu/ni@0.20.0:
-    resolution: {integrity: sha512-mBgAuq2b0daSA/14LMyjEjaInD7/Zd7KVXZge7bQPKmtQJFqy9/pWBml6DMkMreeHQEomMtIbbeqReNJ/74kjA==}
+  /@antfu/ni@0.21.0:
+    resolution: {integrity: sha512-phPNXsOEQKbv8LbKTVIzT6Oczl1gG6GNwb62IFZqKxHZdVmKnafUZhaZms6AdpDej5BsFZWj2xFVISw9gjW2cQ==}
     hasBin: true
     dev: true
 

@@ -18,7 +18,7 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.20.0",
+    "@antfu/ni": "^0.21.0",
     "@iconify-json/material-symbols": "^1.1.36",
     "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@mdi/font": "^7.2.96",
