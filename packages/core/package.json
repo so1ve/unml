@@ -44,14 +44,15 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pkgroll",
-    "watch": "pkgroll --watch"
+    "build": "unbuild",
+    "stub": "unbuild --stub"
+  },
+  "peerDependencies": {
+    "electron": "^23"
   },
   "dependencies": {
     "@unml/kit": "workspace:*",
+    "@unml/schema": "workspace:*",
     "hookable": "^5.5.2"
-  },
-  "devDependencies": {
-    "@unml/schema": "workspace:^"
   }
 }

@@ -1,5 +1,7 @@
 import type { Hookable } from "hookable";
 
+type Hooks = Hookable<UnmlHooks>;
+
 export type HookResult = Promise<void> | void;
 
 export interface UnmlHooks {
@@ -9,8 +11,6 @@ export interface UnmlHooks {
 }
 
 export interface Unml {
-  hooks: Hookable<UnmlHooks>;
-  hook: Unml["hooks"]["hook"];
-  callHook: Unml["hooks"]["callHook"];
-  addHooks: Unml["hooks"]["addHooks"];
+  hook: Hooks["hook"];
+  callHook: Hooks["callHook"];
 }

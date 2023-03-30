@@ -7,10 +7,12 @@
     permanent
     rail
   >
-    <VListItem
+    <!--
+      <VListItem
       nav
       prepend-avatar="https://randomuser.me/api/portraits/women/75.jpg"
-    />
+      /> 
+    -->
     <VDivider />
     <VList
       density="compact"

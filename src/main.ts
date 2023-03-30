@@ -9,7 +9,3 @@ import { registerPlugins } from "./plugins";
 const app = createApp(App);
 registerPlugins(app);
 app.mount("#app");
-
-const unml = useUnml();
-
-console.log(unml);

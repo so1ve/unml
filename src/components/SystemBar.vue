@@ -1,7 +1,12 @@
 <script setup lang="ts">
 const unml = useUnml();
 
-console.log(unml);
+const minimize = () => {
+  unml.callHook("window:minimize");
+};
+const close = () => {
+  unml.callHook("window:close");
+};
 </script>
 
 <template>
@@ -13,16 +18,18 @@ console.log(unml);
   >
     <div>
       <VBtn
-        class="ma-2 non-draggable"
+        class="non-draggable"
         size="x-small"
         variant="text"
+        @click="minimize"
       >
         <span class="i-material-symbols:minimize-rounded text-lg" />
       </VBtn>
       <VBtn
-        class="ma-2 non-draggable"
+        class="non-draggable"
         size="x-small"
         variant="text"
+        @click="close"
       >
         <span class="i-material-symbols:close-rounded text-lg" />
       </VBtn>

@@ -44,8 +44,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pkgroll",
-    "watch": "pkgroll --watch"
+    "build": "unbuild",
+    "stub": "unbuild --stub"
   },
   "dependencies": {
     "hookable": "^5.5.2"

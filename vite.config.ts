@@ -19,6 +19,10 @@ import pkg from "./package.json";
 
 const HOST = "127.0.0.1";
 const PORT = 3344;
+const EXTERNAL = [
+  ...Object.keys("dependencies" in (pkg as any) ? (pkg as any).dependencies : {}),
+  "jiti",
+];
 
 export default defineConfig(({ command }) => {
   rmSync("dist-electron", { recursive: true, force: true });
@@ -80,7 +84,25 @@ export default defineConfig(({ command }) => {
               minify: isBuild,
               outDir: "dist-electron/main",
               rollupOptions: {
-                external: Object.keys("dependencies" in (pkg as any) ? (pkg as any).dependencies : {}),
+                external: EXTERNAL,
+              },
+            },
+          },
+        },
+        {
+          entry: "electron/preload/index.ts",
+          onstart(options) {
+            // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
+            // instead of restarting the entire Electron App.
+            options.reload();
+          },
+          vite: {
+            build: {
+              sourcemap: sourcemap ? "inline" : undefined,
+              minify: isBuild,
+              outDir: "dist-electron/preload",
+              rollupOptions: {
+                external: EXTERNAL,
               },
             },
           },
@@ -88,6 +110,11 @@ export default defineConfig(({ command }) => {
       ]),
       ElectronRenderer(),
     ],
+    build: {
+      rollupOptions: {
+        external: EXTERNAL,
+      },
+    },
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
