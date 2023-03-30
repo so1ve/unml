@@ -1,9 +1,11 @@
 import type { Controller } from "../types";
 
-import windowController from "./window";
+const controllers = import.meta.glob<{ default: Controller }>("./*.ts", { eager: true });
 
 const registerControllers: Controller = (win) => {
-  windowController(win);
+  for (const controller of Object.values(controllers)) {
+    controller.default(win);
+  }
 };
 
 export default registerControllers;

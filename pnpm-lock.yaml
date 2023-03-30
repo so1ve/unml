@@ -25,6 +25,9 @@ importers:
       '@unml/kit':
         specifier: workspace:*
         version: link:packages/kit
+      '@unml/plugin':
+        specifier: workspace:^
+        version: link:packages/plugin
       '@unocss/preset-rem-to-px':
         specifier: ^0.50.6
         version: 0.50.6
@@ -139,6 +142,8 @@ importers:
       unctx:
         specifier: ^2.1.2
         version: 2.1.2
+
+  packages/plugin: {}
 
   packages/schema:
     dependencies:

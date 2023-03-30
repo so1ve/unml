@@ -8,6 +8,8 @@ export interface UnmlHooks {
   "window:minimize": () => void;
   "window:show": () => void;
   "window:close": () => void;
+  "ui:tabs": (tabs: any[]) => void;
+  [key: string]: (...args: any[]) => void;
 }
 
 export interface Unml {

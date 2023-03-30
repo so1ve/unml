@@ -40,7 +40,7 @@ if (!app.requestSingleInstanceLock()) {
 
 let win: BrowserWindow | null = null;
 
-function createWindow () {
+const createWindow = () => {
   win = new BrowserWindow({
     title: TITLE,
     icon: ICON,
@@ -69,7 +69,7 @@ function createWindow () {
     if (url.startsWith("https:")) { shell.openExternal(url); }
     return { action: "deny" };
   });
-}
+};
 
 app.whenReady().then(createWindow);
 

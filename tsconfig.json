@@ -17,7 +17,8 @@
       "@": ["./src"],
       "@unml/kit": ["./packages/kit/src/index.ts"],
       "@unml/core": ["./packages/core/src/index.ts"],
-      "@unml/schema": ["./packages/schema/src/index.ts"]
+      "@unml/schema": ["./packages/schema/src/index.ts"],
+      "@unml/plugin": ["./packages/plugin/src/index.ts"]
     }
   }
 }

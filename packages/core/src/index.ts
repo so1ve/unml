@@ -7,6 +7,7 @@ const initUnml = async (unml: Unml) => {
   unmlCtx.set(unml);
 };
 
+// FIXME: Pass References of data in hooks
 export const createNodeUnml = (win: BrowserWindow, ipcMain: IpcMain) => {
   const hooks = createHooks<UnmlHooks>();
 
@@ -34,6 +35,7 @@ export const createClientUnml = (ipcRenderer: IpcRenderer) => {
   const unml: Unml = {
     callHook: (...args) => {
       ipcRenderer.send(`unml:callHook-${args[0]}`, ...args);
+
       return hooks.callHook(...args);
     },
     hook: (...args) => {
