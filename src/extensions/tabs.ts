@@ -3,9 +3,7 @@ import type { Extension } from "../types";
 const extension: Extension = async () => {
   const unml = useUnml();
 
-  const tabs = [] as any[];
-
-  await unml.callHook("ui:tabs", tabs);
+  const tabs = await unml.callHook("ui:tabs", []);
 
   console.log(tabs);
 };

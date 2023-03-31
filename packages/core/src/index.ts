@@ -14,11 +14,18 @@ export const createNodeUnml = (win: BrowserWindow, ipcMain: IpcMain) => {
   const unml: Unml = {
     callHook: (...args) => {
       win.webContents.send(`unml:callHook-${args[0]}`, ...args);
-      return hooks.callHook(...args);
+      hooks.callHook(...args);
+      return new Promise((resolve) => {
+        ipcMain.once(`unml:callHook-${args[0]}:done`, (event, ...args) => {
+          resolve(args);
+        });
+      });
     },
     hook: (...args) => {
       ipcMain.on(`unml:callHook-${args[0]}`, (event, ...args) => {
-        hooks.callHook.apply(null, args as any);
+        hooks.callHook.apply(null, args as any).then(() => {
+          win.webContents.send(`unml:callHook-${args[0] as string}:done`, ...args);
+        });
       });
       return hooks.hook(...args);
     },
@@ -35,12 +42,18 @@ export const createClientUnml = (ipcRenderer: IpcRenderer) => {
   const unml: Unml = {
     callHook: (...args) => {
       ipcRenderer.send(`unml:callHook-${args[0]}`, ...args);
-
-      return hooks.callHook(...args);
+      hooks.callHook(...args);
+      return new Promise((resolve) => {
+        ipcRenderer.once(`unml:callHook-${args[0]}:done`, (event, ...args) => {
+          resolve(args);
+        });
+      });
     },
     hook: (...args) => {
       ipcRenderer.on(`unml:callHook-${args[0]}`, (event, ...args) => {
-        hooks.callHook.apply(null, args as any);
+        hooks.callHook.apply(null, args as any).then(() => {
+          ipcRenderer.send(`unml:callHook-${args[0] as string}:done`, ...args);
+        });
       });
       return hooks.hook(...args);
     },

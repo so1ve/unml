@@ -11,6 +11,13 @@ const controller: Controller = () => {
       path: "/extensions",
     });
   });
+
+  unml.hook("ui:tabs", (tabs) => {
+    tabs.push({
+      name: "Extensions1",
+      path: "/extensions1",
+    });
+  });
 };
 
 export default controller;
