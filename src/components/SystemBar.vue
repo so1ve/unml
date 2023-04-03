@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const unml = useUnml();
+// const unml = useUnml();
 
 const minimize = () => {
-  unml.callHook("window:minimize");
+  // unml.callHook("window:minimize");
 };
 const close = () => {
-  unml.callHook("window:close");
+  // unml.callHook("window:close");
 };
 </script>
 

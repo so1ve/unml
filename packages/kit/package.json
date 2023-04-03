@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@unml/schema": "workspace:*",
-    "hookable": "^5.5.2",
+    "hookable": "^5.5.3",
     "unctx": "^2.1.2"
   }
 }

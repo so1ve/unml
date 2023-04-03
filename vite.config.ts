@@ -2,6 +2,7 @@ import { rmSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import type { AliasOptions } from "vite";
 import { defineConfig } from "vite";
 // Force import order
 import VueI18n from "@intlify/unplugin-vue-i18n/vite";
@@ -17,12 +18,22 @@ import Vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 import pkg from "./package.json";
 
+const dirname = fileURLToPath(new URL(".", import.meta.url));
+const r = (pkg: string) => resolve(dirname, `${pkg}/src/index.ts`);
 const HOST = "127.0.0.1";
 const PORT = 3344;
 const EXTERNAL = [
   ...Object.keys("dependencies" in (pkg as any) ? (pkg as any).dependencies : {}),
   "jiti",
 ];
+const ALIAS: AliasOptions = {
+  "@unml/kit": r("@unml/kit"),
+  "@unml/schema": r("@unml/schema"),
+  "@unml/rpc": r("@unml/rpc"),
+  "@unml/core": r("@unml/core"),
+  "@unml/extensions": r("@unml/extensions"),
+  "@": fileURLToPath(new URL("./src", import.meta.url)),
+};
 
 export default defineConfig(({ command }) => {
   rmSync("dist-electron", { recursive: true, force: true });
@@ -73,7 +84,7 @@ export default defineConfig(({ command }) => {
         runtimeOnly: true,
         compositionOnly: true,
         fullInstall: true,
-        include: [resolve(__dirname, "src/locales/**")],
+        include: [resolve(dirname, "src/locales/**")],
       }),
       Electron([
         {
@@ -91,7 +102,7 @@ export default defineConfig(({ command }) => {
         },
         {
           entry: "electron/preload/index.ts",
-          onstart(options) {
+          onstart (options) {
             // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
             // instead of restarting the entire Electron App.
             options.reload();
@@ -112,13 +123,12 @@ export default defineConfig(({ command }) => {
     ],
     build: {
       rollupOptions: {
+        watch: "packages/**",
         external: EXTERNAL,
       },
     },
     resolve: {
-      alias: {
-        "@": fileURLToPath(new URL("./src", import.meta.url)),
-      },
+      alias: ALIAS,
     },
     server: {
       host: HOST,

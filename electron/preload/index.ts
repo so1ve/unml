@@ -1,4 +1,4 @@
-import { createClientUnml } from "@unml/core";
-import { ipcRenderer } from "electron";
+// import { createClientUnml } from "@unml/core";
+// import { ipcRenderer } from "electron";
 
-createClientUnml(ipcRenderer);
+// createClientUnml(ipcRenderer);

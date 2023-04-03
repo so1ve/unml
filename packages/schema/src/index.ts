@@ -1,1 +1,1 @@
-export type { HookResult, Unml, UnmlHooks } from "./types";
+export type * from "./types";

@@ -53,6 +53,6 @@
   "dependencies": {
     "@unml/kit": "workspace:*",
     "@unml/schema": "workspace:*",
-    "hookable": "^5.5.2"
+    "hookable": "^5.5.3"
   }
 }

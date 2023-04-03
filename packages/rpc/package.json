@@ -51,7 +51,14 @@
     "electron": "^23"
   },
   "dependencies": {
+    "@tinyhttp/app": "^2.0.29",
     "birpc": "^0.2.10",
-    "connect": "^3.7.0"
+    "flatted": "^3.2.7",
+    "tinyws": "^0.1.0",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.4",
+    "@unml/schema": "workspace:^"
   }
 }
