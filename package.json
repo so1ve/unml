@@ -23,7 +23,7 @@
     "@iconify-json/material-symbols": "^1.1.36",
     "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@mdi/font": "^7.2.96",
-    "@so1ve/eslint-config": "^0.56.1",
+    "@so1ve/eslint-config": "^0.61.0",
     "@unml/core": "workspace:^",
     "@unml/extensions": "workspace:^",
     "@unml/kit": "workspace:*",
