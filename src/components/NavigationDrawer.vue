@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const customTabs = await rpc.getCustomTabs();
+</script>
+
 <template>
   <VNavigationDrawer
     class="bg-u-black!"
@@ -18,8 +22,9 @@
       density="compact"
       nav
     >
-      <VListItem prepend-icon="mdi-view-dashboard" value="dashboard" />
-      <VListItem prepend-icon="mdi-forum" value="messages" />
+      <VListItem v-for="tab in customTabs" :key="tab.id">
+        <span :class="tab.icon" />
+      </VListItem>
     </VList>
   </VNavigationDrawer>
 </template>

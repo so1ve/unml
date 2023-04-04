@@ -22,7 +22,6 @@ export function setupCustomTabRPC({ unml, refresh }: UnmlServerContext) {
   return {
     getCustomTabs() {
       return [
-        114,
         ...iframeTabs,
         ...customTabs,
       ];

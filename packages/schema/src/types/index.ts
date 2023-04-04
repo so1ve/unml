@@ -1,6 +1,6 @@
 import type { Hookable } from "hookable";
 
-import type { UnmlServerContext } from "./rpc";
+import type { CustomTab, UnmlServerContext } from "./rpc";
 
 export type HookResult = Promise<void> | void;
 
@@ -10,7 +10,7 @@ export interface UnmlHooks {
   "window:minimize": () => void;
   "window:show": () => void;
   "window:close": () => void;
-  "ui:tabs": (tabs: any[]) => void;
+  "ui:tabs": (tabs: CustomTab[]) => void;
   "app:loaded": () => void;
 }
 

@@ -4,11 +4,8 @@ import "@unocss/reset/tailwind.css";
 
 import "./styles/main.scss";
 import App from "./App.vue";
-import runExtensions from "./extensions";
 import { registerPlugins } from "./plugins";
 
 const app = createApp(App);
 registerPlugins(app);
 app.mount("#app");
-
-runExtensions();

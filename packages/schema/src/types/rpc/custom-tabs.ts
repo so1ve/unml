@@ -8,9 +8,13 @@ export interface CustomTab {
    */
   icon?: string;
   /**
-   * Title of the tab
+   * Needs investigation
+   * Since we do not show the name now
    */
-  title: string;
+  // /**
+  //  * Title of the tab
+  //  */
+  // title: string;
   /**
    * View ID
    */

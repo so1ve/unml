@@ -4,7 +4,14 @@ import { defineConfig, presetIcons, presetUno, transformerVariantGroup } from "u
 
 export default defineConfig<Theme>({
   presets: [
-    presetIcons(),
+    presetIcons({
+      prefix: ["i-", ""],
+      scale: 1.5,
+      extraProperties: {
+        "display": "inline-block",
+        "vertical-align": "middle",
+      },
+    }),
     presetUno(),
     presetRemToPx(),
   ],
