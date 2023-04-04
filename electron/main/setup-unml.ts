@@ -1,3 +1,5 @@
 import { createUnml } from "@unml/core";
 
-createUnml();
+export default () => {
+  createUnml();
+};

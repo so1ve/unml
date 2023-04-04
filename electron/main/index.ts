@@ -1,2 +1,5 @@
-import "./setup-unml"; //  Setup it before setup electron
-import "./setup-electron";
+import setupElectron from "./setup-electron";
+import setupUnml from "./setup-unml";
+
+setupUnml();
+setupElectron();

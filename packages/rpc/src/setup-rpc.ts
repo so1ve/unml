@@ -18,7 +18,7 @@ import type { EnhancedRequest } from "./types";
 // import { setupTerminalRPC } from "./terminals";
 // import { setupWizardRPC } from "./wizard";
 
-export function setupRPC (unml: Unml) {
+export function setupRPC(unml: Unml) {
   const serverFunctions = {} as ServerFunctions;
   const extendedRpcMap = new Map<string, any>();
   const rpc = createBirpcGroup<ClientFunctions, ServerFunctions>(
@@ -37,17 +37,17 @@ export function setupRPC (unml: Unml) {
         const [namespace, fnName] = name.split(":");
         return extendedRpcMap.get(namespace)?.[fnName];
       },
-      onError (error, name) {
+      onError(error, name) {
         console.error(`[UNML RPC] RPC error on executing "${name}":`, error);
       },
     },
   );
 
-  function refresh (event: keyof ServerFunctions) {
+  function refresh(event: keyof ServerFunctions) {
     rpc.broadcast.refresh.asEvent(event);
   }
 
-  function extendServerRpc (namespace: string, functions: any): any {
+  function extendServerRpc(namespace: string, functions: any): any {
     extendedRpcMap.set(namespace, functions);
 
     return {

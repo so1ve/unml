@@ -11,6 +11,7 @@ import Unocss from "unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import VueComponents from "unplugin-vue-components/vite";
 import Electron from "vite-plugin-electron";
+// eslint-disable-next-line import/default
 import ElectronRenderer from "vite-plugin-electron-renderer";
 import Pages from "vite-plugin-pages";
 import Layouts from "vite-plugin-vue-layouts";
@@ -42,6 +43,22 @@ export default defineConfig(({ command }) => {
   const isBuild = command === "build";
   const sourcemap = isServe || !!process.env.VSCODE_DEBUG;
 
+  const makeEntry = (entry: string, outDir: string, { sourceMap = sourcemap }: {
+    sourceMap?: boolean | "inline" | "hidden";
+  } = {}) => ({
+    entry,
+    vite: {
+      build: {
+        sourcemap: sourceMap,
+        minify: isBuild,
+        outDir,
+        rollupOptions: {
+          external: EXTERNAL,
+        },
+      },
+    },
+  });
+
   return {
     plugins: [
       Vue({
@@ -66,9 +83,6 @@ export default defineConfig(({ command }) => {
           {
             vuetify: ["useTheme"],
           },
-          {
-            "@unml/kit": ["useUnml"],
-          },
         ],
         dirs: [
           "src/composables",
@@ -87,35 +101,15 @@ export default defineConfig(({ command }) => {
         include: [resolve(dirname, "src/locales/**")],
       }),
       Electron([
+        makeEntry("electron/main/index.ts", "dist-electron/main"),
         {
-          entry: "electron/main/index.ts",
-          vite: {
-            build: {
-              sourcemap,
-              minify: isBuild,
-              outDir: "dist-electron/main",
-              rollupOptions: {
-                external: EXTERNAL,
-              },
-            },
-          },
-        },
-        {
-          entry: "electron/preload/index.ts",
-          onstart (options) {
+          ...makeEntry("electron/preload/index.ts", "dist-electron/preload", {
+            sourceMap: sourcemap ? "inline" : undefined,
+          }),
+          onstart(options) {
             // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
             // instead of restarting the entire Electron App.
             options.reload();
-          },
-          vite: {
-            build: {
-              sourcemap: sourcemap ? "inline" : undefined,
-              minify: isBuild,
-              outDir: "dist-electron/preload",
-              rollupOptions: {
-                external: EXTERNAL,
-              },
-            },
           },
         },
       ]),
@@ -123,7 +117,9 @@ export default defineConfig(({ command }) => {
     ],
     build: {
       rollupOptions: {
-        watch: "packages/**",
+        watch: {
+          include: "packages/**",
+        },
         external: EXTERNAL,
       },
     },

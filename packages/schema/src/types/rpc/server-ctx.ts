@@ -4,9 +4,6 @@ import type { Unml } from "..";
 
 import type { ClientFunctions, ServerFunctions } from ".";
 
-/**
- * @internal
- */
 export interface UnmlServerContext {
   unml: Unml;
   rpc: BirpcGroup<ClientFunctions, ServerFunctions>;

@@ -1,15 +1,15 @@
 import type { CustomTab, ServerFunctions, UnmlServerContext } from "@unml/schema";
 
-export function setupCustomTabRPC ({ unml, refresh }: UnmlServerContext) {
+export function setupCustomTabRPC({ unml, refresh }: UnmlServerContext) {
   const iframeTabs: CustomTab[] = [];
   const customTabs: CustomTab[] = []; // TODO
 
-  async function initHooks () {
+  async function initHooks() {
     unml.hook("ui:tabs:refresh", initCustomTabs);
     await initCustomTabs();
   }
 
-  async function initCustomTabs () {
+  async function initCustomTabs() {
     customTabs.length = 0;
     await unml.callHook("ui:tabs", customTabs);
     refresh("getCustomTabs");
@@ -20,8 +20,9 @@ export function setupCustomTabRPC ({ unml, refresh }: UnmlServerContext) {
   });
 
   return {
-    getCustomTabs () {
+    getCustomTabs() {
       return [
+        114,
         ...iframeTabs,
         ...customTabs,
       ];

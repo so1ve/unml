@@ -2,10 +2,10 @@
 // const unml = useUnml();
 
 const minimize = () => {
-  // unml.callHook("window:minimize");
+  rpc["window:minimize"]();
 };
 const close = () => {
-  // unml.callHook("window:close");
+  rpc["window:close"]();
 };
 </script>
 

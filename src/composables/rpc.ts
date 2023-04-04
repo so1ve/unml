@@ -28,7 +28,7 @@ export const rpc = createBirpc<ServerFunctions>(clientFunctions, {
   },
   serialize: stringify,
   deserialize: parse,
-  resolver (name, fn) {
+  resolver(name, fn) {
     if (fn) {
       return fn;
     }
@@ -38,17 +38,17 @@ export const rpc = createBirpc<ServerFunctions>(clientFunctions, {
     const [namespace, fnName] = name.split(":");
     return extendedRpcMap.get(namespace)?.[fnName];
   },
-  onError (error, name) {
+  onError(error, name) {
     console.error(`[UNML RPC] RPC error on executing "${name}":`, error);
   },
 });
 
-async function connectWS () {
+async function connectWS() {
   const wsUrl = new URL("ws://host");
   wsUrl.protocol = location.protocol === "https:" ? "wss:" : "ws:";
   wsUrl.pathname = WS_ENTRY;
-  wsUrl.port = String(WS_PORT);
   wsUrl.host = location.host;
+  wsUrl.port = String(WS_PORT);
 
   const ws = new WebSocket(wsUrl.toString());
   ws.addEventListener("message", e => onMessage(String(e.data)));
