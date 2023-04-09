@@ -30,7 +30,7 @@
     "@unml/kit": "workspace:*",
     "@unml/rpc": "workspace:^",
     "@unml/schema": "workspace:*",
-    "@unocss/preset-rem-to-px": "^0.50.6",
+    "@unocss/preset-rem-to-px": "^0.51.0",
     "@unocss/reset": "^0.50.6",
     "@vitejs/plugin-vue": "^4.1.0",
     "@vueuse/core": "^9.13.0",
