@@ -45,7 +45,7 @@
     "tsx": "^3.12.6",
     "typescript": "^5.0.3",
     "unbuild": "^1.2.0",
-    "unocss": "^0.50.6",
+    "unocss": "^0.51.0",
     "unplugin-auto-import": "^0.15.2",
     "unplugin-vue-components": "^0.24.1",
     "unplugin-vue-macros": "^2.0.0",
