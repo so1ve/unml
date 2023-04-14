@@ -101,8 +101,8 @@ importers:
         specifier: ^0.11.1
         version: 0.11.1
       vite-plugin-electron-renderer:
-        specifier: 0.13.12
-        version: 0.13.12
+        specifier: 0.14.1
+        version: 0.14.1
       vite-plugin-pages:
         specifier: ^0.29.0
         version: 0.29.0(vite@4.2.1)
@@ -6479,9 +6479,8 @@ packages:
     dev: true
     optional: true
 
-  /vite-plugin-electron-renderer@0.13.12:
-    resolution: {integrity: sha512-Cd46e5dwoH7QJzgDXNh0Xh1q6yJg0TMaQ8+jNjaaxX4p4RRWet7rLY/AJbW/uzOHcZADtsolJ6lOIftFXQjPEQ==}
-    requiresBuild: true
+  /vite-plugin-electron-renderer@0.14.1:
+    resolution: {integrity: sha512-1s+FwZs+m4PUFPwtpYfxs3SNYEGOTdQlz3HCuRs3st/kWX20582gCTf/30PysF/uewexe6laSL151TqsENbmHg==}
     dependencies:
       lib-esm: 0.3.0
     dev: true
