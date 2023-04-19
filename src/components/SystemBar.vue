@@ -2,10 +2,10 @@
 // const unml = useUnml();
 
 const minimize = () => {
-  rpc["window:minimize"]();
+  // rpc["window:minimize"]();
 };
 const close = () => {
-  rpc["window:close"]();
+  // rpc["window:close"]();
 };
 </script>
 

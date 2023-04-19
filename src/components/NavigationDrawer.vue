@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const customTabs = await rpc.getCustomTabs();
+// const customTabs = await rpc.getCustomTabs();
 </script>
 
 <template>
@@ -22,9 +22,11 @@ const customTabs = await rpc.getCustomTabs();
       density="compact"
       nav
     >
-      <VListItem v-for="tab in customTabs" :key="tab.id">
+      <!--
+        <VListItem v-for="tab in customTabs" :key="tab.id">
         <span :class="tab.icon" />
-      </VListItem>
+        </VListItem> 
+      -->
     </VList>
   </VNavigationDrawer>
 </template>

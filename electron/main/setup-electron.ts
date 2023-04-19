@@ -2,14 +2,10 @@
 import { release } from "node:os";
 import { join } from "node:path";
 
-import { useUnml } from "@unml/kit";
-// import { startRpcServer } from "@unml/rpc";
-import { initServer } from "@unml/core";
-import { startRpcServer } from "@unml/rpc";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
-import registerControllers from "./controllers";
+// import registerControllers from "./controllers";
 
 export default () => {
   process.env.DIST_ELECTRON = join(__dirname, "..");
@@ -45,7 +41,7 @@ export default () => {
 
   let win: BrowserWindow | null = null;
 
-  const unml = useUnml();
+  // const unml = useUnml();
 
   const createWindow = () => {
     win = new BrowserWindow({
@@ -59,7 +55,7 @@ export default () => {
       frame: false,
     });
 
-    unml.callHook("app:loaded");
+    // unml.callHook("app:loaded");
 
     if (process.env.VITE_DEV_SERVER_URL) {
       win.loadURL(url);
@@ -76,15 +72,15 @@ export default () => {
     });
   };
 
-  const startup = () => {
-    startRpcServer(unml, (server) => {
-      initServer(server);
-      createWindow();
-      registerControllers(win!);
-    });
-  };
+  // const startup = () => {
+  //   startRpcServer(unml, (server) => {
+  //     initServer(server);
+  //     createWindow();
+  //     registerControllers(win!);
+  //   });
+  // };
 
-  app.whenReady().then(startup);
+  app.whenReady().then(createWindow);
 
   app.on("window-all-closed", () => {
     win = null;
@@ -100,7 +96,7 @@ export default () => {
 
   app.on("activate", () => {
     const allWindows = BrowserWindow.getAllWindows();
-    if (allWindows.length) {
+    if (allWindows.length > 0) {
       allWindows[0].focus();
     } else {
       createWindow();
