@@ -25,12 +25,7 @@ const close = () => {
       >
         <span class="i-material-symbols:minimize-rounded text-lg" />
       </VBtn>
-      <VBtn
-        class="non-draggable"
-        size="x-small"
-        variant="text"
-        @click="close"
-      >
+      <VBtn class="non-draggable" size="x-small" variant="text" @click="close">
         <span class="i-material-symbols:close-rounded text-lg" />
       </VBtn>
     </div>

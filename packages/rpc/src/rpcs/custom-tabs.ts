@@ -1,4 +1,8 @@
-import type { CustomTab, ServerFunctions, UnmlServerContext } from "@unml/schema";
+import type {
+  CustomTab,
+  ServerFunctions,
+  UnmlServerContext,
+} from "@unml/schema";
 
 export function setupCustomTabRPC({ unml, refresh }: UnmlServerContext) {
   const iframeTabs: CustomTab[] = [];
@@ -21,10 +25,7 @@ export function setupCustomTabRPC({ unml, refresh }: UnmlServerContext) {
 
   return {
     getCustomTabs() {
-      return [
-        ...iframeTabs,
-        ...customTabs,
-      ];
+      return [...iframeTabs, ...customTabs];
     },
     // async customTabAction(name, actionIndex) {
     //   const tab = customTabs.find(i => i.name === name);

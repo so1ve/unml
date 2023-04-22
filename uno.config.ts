@@ -1,6 +1,11 @@
 import presetRemToPx from "@unocss/preset-rem-to-px";
 import type { Theme } from "@unocss/preset-uno";
-import { defineConfig, presetIcons, presetUno, transformerVariantGroup } from "unocss";
+import {
+  defineConfig,
+  presetIcons,
+  presetUno,
+  transformerVariantGroup,
+} from "unocss";
 
 export default defineConfig<Theme>({
   presets: [
@@ -15,9 +20,7 @@ export default defineConfig<Theme>({
     presetUno(),
     presetRemToPx(),
   ],
-  transformers: [
-    transformerVariantGroup(),
-  ],
+  transformers: [transformerVariantGroup()],
   theme: {
     colors: {
       u: {

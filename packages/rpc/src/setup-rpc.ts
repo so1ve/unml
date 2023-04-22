@@ -1,5 +1,10 @@
 // Adapted from nuxt/devtools
-import type { ClientFunctions, ServerFunctions, Unml, UnmlServerContext } from "@unml/schema";
+import type {
+  ClientFunctions,
+  ServerFunctions,
+  Unml,
+  UnmlServerContext,
+} from "@unml/schema";
 import { createBirpcGroup } from "birpc";
 import type { ChannelOptions } from "birpc";
 import { parse, stringify } from "flatted";
@@ -40,7 +45,7 @@ export function setupRPC(unml: Unml) {
       onError(error, name) {
         console.error(`[UNML RPC] RPC error on executing "${name}":`, error);
       },
-    },
+    }
   );
 
   function refresh(event: keyof ServerFunctions) {
@@ -51,14 +56,17 @@ export function setupRPC(unml: Unml) {
     extendedRpcMap.set(namespace, functions);
 
     return {
-      broadcast: new Proxy({}, {
-        get: (_, key) => {
-          if (typeof key !== "string") {
-            return;
-          }
-          return (rpc.broadcast as any)[`${namespace}:${key}`];
-        },
-      }),
+      broadcast: new Proxy(
+        {},
+        {
+          get: (_, key) => {
+            if (typeof key !== "string") {
+              return;
+            }
+            return (rpc.broadcast as any)[`${namespace}:${key}`];
+          },
+        }
+      ),
     };
   }
 
@@ -69,27 +77,24 @@ export function setupRPC(unml: Unml) {
     extendServerRpc,
   };
 
-  Object.assign(
-    serverFunctions,
-    {
-      ...setupCustomTabRPC(ctx),
-      // TODO
-    } as any satisfies ServerFunctions,
-  );
+  Object.assign(serverFunctions, {
+    ...setupCustomTabRPC(ctx),
+    // TODO
+  } as any satisfies ServerFunctions);
 
   const wsClients = new Set<WebSocket>();
   const middleware = async (
     req: EnhancedRequest,
     res: any,
-    next: () => void | Promise<void>,
+    next: () => void | Promise<void>
   ) => {
     // Handle WebSocket
     if (req.ws) {
       const ws = await req.ws();
       wsClients.add(ws);
       const channel: ChannelOptions = {
-        post: d => ws.send(d),
-        on: fn => ws.on("message", fn),
+        post: (d) => ws.send(d),
+        on: (fn) => ws.on("message", fn),
         serialize: stringify,
         deserialize: parse,
       };

@@ -15,6 +15,6 @@ export interface UnmlServerContext {
 
   extendServerRpc: <ClientFunctions = {}, ServerFunctions = {}>(
     name: string,
-    functions: ServerFunctions,
+    functions: ServerFunctions
   ) => BirpcGroup<ClientFunctions, ServerFunctions>;
 }

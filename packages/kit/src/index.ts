@@ -9,7 +9,9 @@ export const unmlServerCtx = getContext<Server>(SERVER_CTX_KEY);
 
 export const useUnml = () => {
   const instance = unmlCtx.tryUse();
-  if (!instance) { throw new Error("Unml instance is unavailable!"); }
+  if (!instance) {
+    throw new Error("Unml instance is unavailable!");
+  }
   return instance;
 };
 export const tryUseUnml = () => unmlCtx.tryUse();
@@ -17,7 +19,9 @@ export const tryUseUnml = () => unmlCtx.tryUse();
 // TODO: Integrate this into useUnml
 export const useUnmlServer = () => {
   const instance = unmlServerCtx.tryUse();
-  if (!instance) { throw new Error("Unml server instance is unavailable!"); }
+  if (!instance) {
+    throw new Error("Unml server instance is unavailable!");
+  }
   return instance;
 };
 export const tryUseUnmlServer = () => unmlServerCtx.tryUse();

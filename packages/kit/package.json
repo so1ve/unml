@@ -50,6 +50,6 @@
   "dependencies": {
     "@unml/schema": "workspace:*",
     "hookable": "^5.5.3",
-    "unctx": "^2.1.2"
+    "unctx": "^2.3.0"
   }
 }

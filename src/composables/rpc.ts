@@ -1,6 +1,7 @@
-import type { ClientFunctions, ServerFunctions } from "@unml/schema";
 import { createBirpc } from "birpc";
 import { parse, stringify } from "flatted";
+
+import type { ClientFunctions, ServerFunctions } from "@unml/schema";
 
 // Copy again to avoid import the @tinyhttp/app package.
 export const WS_PORT = 11451; // Homo Port
@@ -51,7 +52,7 @@ async function connectWS() {
   wsUrl.port = String(WS_PORT);
 
   const ws = new WebSocket(wsUrl.toString());
-  ws.addEventListener("message", e => onMessage(String(e.data)));
+  ws.addEventListener("message", (e) => onMessage(String(e.data)));
   ws.addEventListener("error", (e) => {
     console.error(e);
     wsError.value = e;
@@ -66,7 +67,7 @@ async function connectWS() {
   });
   wsConnecting.value = true;
   if (ws.readyState !== WebSocket.OPEN) {
-    await new Promise(resolve => ws.addEventListener("open", resolve));
+    await new Promise((resolve) => ws.addEventListener("open", resolve));
   }
 
   // eslint-disable-next-line no-console

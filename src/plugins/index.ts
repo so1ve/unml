@@ -6,8 +6,5 @@ import router from "./router";
 import vuetify from "./vuetify";
 
 export const registerPlugins = (app: App) => {
-  app.use(router)
-    .use(pinia)
-    .use(i18n)
-    .use(vuetify);
+  app.use(router).use(pinia).use(i18n).use(vuetify);
 };

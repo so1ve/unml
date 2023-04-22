@@ -8,7 +8,7 @@ const main = async () => {
     const fileContent = await fsg.readFile(stubbedDistFile, "utf-8");
     const newFileContent = fileContent.replace(
       /^import jiti from ".+";/,
-      "import jiti from \"jiti\";",
+      'import jiti from "jiti";'
     );
     await fsg.writeFile(stubbedDistFile, newFileContent);
   }

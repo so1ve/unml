@@ -1,8 +1,8 @@
 // import { useUnml } from "@unml/kit";
 
-import { useUnml, useUnmlServer } from "@unml/kit";
-
 import type { Controller } from "../types";
+
+import { useUnml, useUnmlServer } from "@unml/kit";
 
 const controller: Controller = (win) => {
   const unmlServer = useUnmlServer();
