@@ -13,12 +13,12 @@ export async function runExtensions(
   cwd = process.cwd(),
 ) {
   extensions ??= await loadExtensionsFromCwd(cwd);
-  const extensionModules = await Promise.all(
-    extensions.map(async (name) => {
-      const extension = await import(name);
-      console.log(extension);
+  // const extensionModules = await Promise.all(
+  //   extensions.map(async (name) => {
+  //     const extension = await import(name);
+  //     console.log(extension);
 
-      return extension.default;
-    }),
-  );
+  //     return extension.default;
+  //   }),
+  // );
 }
