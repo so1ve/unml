@@ -8,16 +8,17 @@ export const filterExtensions = (packages: string[]) =>
 export const loadExtensionsFromCwd = (cwd = process.cwd()) =>
   loadPackagesFromCwd(cwd).then(filterExtensions);
 
-export const runExtensions = async (
+export async function runExtensions(
   extensions?: string[],
-  cwd = process.cwd()
-) => {
+  cwd = process.cwd(),
+) {
   extensions ??= await loadExtensionsFromCwd(cwd);
   const extensionModules = await Promise.all(
     extensions.map(async (name) => {
       const extension = await import(name);
       console.log(extension);
+
       return extension.default;
-    })
+    }),
   );
-};
+}

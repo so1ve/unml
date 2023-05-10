@@ -40,12 +40,13 @@ export function setupRPC(unml: Unml) {
         }
 
         const [namespace, fnName] = name.split(":");
+
         return extendedRpcMap.get(namespace)?.[fnName];
       },
       onError(error, name) {
         console.error(`[UNML RPC] RPC error on executing "${name}":`, error);
       },
-    }
+    },
   );
 
   function refresh(event: keyof ServerFunctions) {
@@ -63,9 +64,10 @@ export function setupRPC(unml: Unml) {
             if (typeof key !== "string") {
               return;
             }
+
             return (rpc.broadcast as any)[`${namespace}:${key}`];
           },
-        }
+        },
       ),
     };
   }
@@ -83,11 +85,11 @@ export function setupRPC(unml: Unml) {
   } as any satisfies ServerFunctions);
 
   const wsClients = new Set<WebSocket>();
-  const middleware = async (
+  async function middleware(
     req: EnhancedRequest,
     res: any,
-    next: () => void | Promise<void>
-  ) => {
+    next: () => void | Promise<void>,
+  ) {
     // Handle WebSocket
     if (req.ws) {
       const ws = await req.ws();
@@ -113,7 +115,7 @@ export function setupRPC(unml: Unml) {
     } else {
       next();
     }
-  };
+  }
 
   return {
     middleware,

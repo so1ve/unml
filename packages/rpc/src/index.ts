@@ -8,7 +8,7 @@ import type { EnhancedRequest } from "./types";
 
 export function startRpcServer(
   unml: Unml,
-  callback?: (ctx: UnmlServerContext) => any
+  callback?: (ctx: UnmlServerContext) => any,
 ) {
   const app = new App<any, EnhancedRequest>();
 

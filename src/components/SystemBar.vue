@@ -1,12 +1,12 @@
 <script setup lang="ts">
 // const unml = useUnml();
 
-const minimize = () => {
+function minimize() {
   rpc["window:minimize"]();
-};
-const close = () => {
+}
+function close() {
   rpc["window:close"]();
-};
+}
 </script>
 
 <template>

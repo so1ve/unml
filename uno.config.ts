@@ -1,5 +1,4 @@
 import presetRemToPx from "@unocss/preset-rem-to-px";
-import type { Theme } from "@unocss/preset-uno";
 import {
   defineConfig,
   presetIcons,
@@ -7,7 +6,7 @@ import {
   transformerVariantGroup,
 } from "unocss";
 
-export default defineConfig<Theme>({
+export default defineConfig({
   presets: [
     presetIcons({
       prefix: ["i-", ""],

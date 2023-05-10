@@ -37,6 +37,7 @@ export const rpc = createBirpc<ServerFunctions>(clientFunctions, {
       return;
     }
     const [namespace, fnName] = name.split(":");
+
     return extendedRpcMap.get(namespace)?.[fnName];
   },
   onError(error, name) {

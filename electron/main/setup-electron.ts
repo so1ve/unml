@@ -5,13 +5,6 @@ import { join } from "node:path";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
-import registerControllers from "./controllers";
-
-import { useUnml } from "@unml/kit";
-// import { startRpcServer } from "@unml/rpc";
-import { initServer } from "@unml/core";
-import { startRpcServer } from "@unml/rpc";
-
 export default () => {
   process.env.DIST_ELECTRON = join(__dirname, "..");
   process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
@@ -50,9 +43,7 @@ export default () => {
 
   let win: BrowserWindow | null = null;
 
-  const unml = useUnml();
-
-  const createWindow = () => {
+  function createWindow() {
     win = new BrowserWindow({
       title: TITLE,
       icon: ICON,
@@ -63,8 +54,6 @@ export default () => {
       titleBarStyle: "hidden",
       frame: false,
     });
-
-    unml.callHook("app:loaded");
 
     if (process.env.VITE_DEV_SERVER_URL) {
       win.loadURL(url);
@@ -79,19 +68,12 @@ export default () => {
       if (url.startsWith("https:")) {
         shell.openExternal(url);
       }
+
       return { action: "deny" };
     });
-  };
+  }
 
-  const startup = () => {
-    startRpcServer(unml, (server) => {
-      initServer(server);
-      createWindow();
-      registerControllers(win!);
-    });
-  };
-
-  app.whenReady().then(startup);
+  app.whenReady().then(createWindow);
 
   app.on("window-all-closed", () => {
     win = null;
