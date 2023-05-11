@@ -14,12 +14,12 @@
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@": ["./src"],
-      "@unml/kit": ["./packages/kit/src/index.ts"],
-      "@unml/core": ["./packages/core/src/index.ts"],
-      "@unml/schema": ["./packages/schema/src/index.ts"],
-      "@unml/extensions": ["./packages/extensions/src/index.ts"],
-      "@unml/rpc": ["./packages/rpc/src/index.ts"]
+      "@": ["./src"]
+      // "@unml/kit": ["./packages/kit/src/index.ts"],
+      // "@unml/core": ["./packages/core/src/index.ts"],
+      // "@unml/schema": ["./packages/schema/src/index.ts"],
+      // "@unml/extensions": ["./packages/extensions/src/index.ts"],
+      // "@unml/rpc": ["./packages/rpc/src/index.ts"]
     }
   }
 }

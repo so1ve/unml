@@ -29,10 +29,14 @@ export default () => {
   };
 
   // Disable GPU Acceleration for Windows 7
-  if (release().startsWith("6.1")) { app.disableHardwareAcceleration(); }
+  if (release().startsWith("6.1")) {
+    app.disableHardwareAcceleration();
+  }
 
   // Set application name for Windows 10+ notifications
-  if (process.platform === "win32") { app.setAppUserModelId(app.getName()); }
+  if (process.platform === "win32") {
+    app.setAppUserModelId(app.getName());
+  }
 
   if (!app.requestSingleInstanceLock()) {
     app.quit();
@@ -43,7 +47,7 @@ export default () => {
 
   // const unml = useUnml();
 
-  const createWindow = () => {
+  function createWindow() {
     win = new BrowserWindow({
       title: TITLE,
       icon: ICON,
@@ -67,10 +71,13 @@ export default () => {
     }
 
     win.webContents.setWindowOpenHandler(({ url }) => {
-      if (url.startsWith("https:")) { shell.openExternal(url); }
+      if (url.startsWith("https:")) {
+        shell.openExternal(url);
+      }
+
       return { action: "deny" };
     });
-  };
+  }
 
   // const startup = () => {
   //   startRpcServer(unml, (server) => {
@@ -84,12 +91,16 @@ export default () => {
 
   app.on("window-all-closed", () => {
     win = null;
-    if (process.platform !== "darwin") { app.quit(); }
+    if (process.platform !== "darwin") {
+      app.quit();
+    }
   });
 
   app.on("second-instance", () => {
     if (win) {
-      if (win.isMinimized()) { win.restore(); }
+      if (win.isMinimized()) {
+        win.restore();
+      }
       win.focus();
     }
   });

@@ -1,7 +1,13 @@
 import presetRemToPx from "@unocss/preset-rem-to-px";
 import type { Theme } from "@unocss/preset-uno";
-import { defineConfig, presetIcons, presetUno, transformerVariantGroup } from "unocss";
+import {
+  defineConfig,
+  presetIcons,
+  presetUno,
+  transformerVariantGroup,
+} from "unocss";
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-arguments
 export default defineConfig<Theme>({
   presets: [
     presetIcons({
@@ -15,9 +21,7 @@ export default defineConfig<Theme>({
     presetUno(),
     presetRemToPx(),
   ],
-  transformers: [
-    transformerVariantGroup(),
-  ],
+  transformers: [transformerVariantGroup()],
   theme: {
     colors: {
       u: {

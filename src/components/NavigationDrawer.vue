@@ -18,10 +18,7 @@
       /> 
     -->
     <VDivider />
-    <VList
-      density="compact"
-      nav
-    >
+    <VList density="compact" nav>
       <!--
         <VListItem v-for="tab in customTabs" :key="tab.id">
         <span :class="tab.icon" />
