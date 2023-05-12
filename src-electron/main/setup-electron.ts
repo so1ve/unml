@@ -7,6 +7,10 @@ import { BrowserWindow, app, ipcMain, shell } from "electron";
 
 // import registerControllers from "./controllers";
 
+function a(){
+  return 1
+}
+
 export default () => {
   process.env.DIST_ELECTRON = join(__dirname, "..");
   process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
