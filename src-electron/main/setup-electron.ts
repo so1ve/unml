@@ -5,8 +5,6 @@ import { join } from "node:path";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
-// import registerControllers from "./controllers";
-
 export default () => {
   process.env.DIST_ELECTRON = join(__dirname, "..");
   process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
