@@ -15,8 +15,10 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vite-plugin-electron/electron-env", "vitest/importMeta"],
     "paths": {
-      "@": ["./src"],
-      "@unml/extension-loader": ["./packages/extension-loader/src/index.ts"]
+      "@/*": ["./src/*"],
+      "@unml/extension-loader": ["./packages/extension-loader/src"],
+      "@unml/schema": ["./packages/schema/src"],
+      "@unml/kit": ["./packages/kit/src"]
     }
   }
 }

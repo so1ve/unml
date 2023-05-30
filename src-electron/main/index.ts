@@ -4,6 +4,8 @@ import { join } from "node:path";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
+import { ExtensionLoader } from "@unml/extension-loader";
+
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
@@ -40,6 +42,7 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 let win: BrowserWindow | null = null;
+let extensionLoader: ExtensionLoader | undefined;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -109,6 +112,8 @@ ipcMain.handle("open-win", (_, arg) => {
   }
 });
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   createWindow();
+  extensionLoader = new ExtensionLoader();
+  await extensionLoader.init();
 });
