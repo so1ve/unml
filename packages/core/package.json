@@ -2,13 +2,13 @@
   "name": "@unml/core",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "type": "module",
   "description": "UNML Core",
   "keywords": [
     "unml",
     "core",
     "unml-core"
   ],
-  "type": "module",
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/core#readme",
   "repository": {
     "type": "git",

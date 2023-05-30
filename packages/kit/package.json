@@ -2,13 +2,13 @@
   "name": "@unml/kit",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "type": "module",
   "description": "UNML Kit",
   "keywords": [
     "unml",
     "kit",
     "unml-kit"
   ],
-  "type": "module",
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
   "repository": {
     "type": "git",

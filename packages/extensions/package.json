@@ -2,13 +2,13 @@
   "name": "@unml/extensions",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "type": "module",
   "description": "UNML Extensions Loader",
   "keywords": [
     "unml",
     "extensions",
     "unml-extensions"
   ],
-  "type": "module",
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/extensions#readme",
   "repository": {
     "type": "git",

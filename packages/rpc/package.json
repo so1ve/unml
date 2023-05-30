@@ -2,13 +2,13 @@
   "name": "@unml/rpc",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "type": "module",
   "description": "UNML Rpc",
   "keywords": [
     "unml",
     "rpc",
     "unml-rpc"
   ],
-  "type": "module",
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/rpc#readme",
   "repository": {
     "type": "git",
