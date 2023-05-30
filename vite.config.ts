@@ -19,7 +19,7 @@ import Vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import pkg from "./package.json";
 
 const dirname = fileURLToPath(new URL(".", import.meta.url));
-// const r = (pkg: string) => resolve(dirname, `${pkg}/src/index.ts`);
+const r = (pkg: string) => resolve(dirname, `${pkg}/src/index.ts`);
 const HOST = "127.0.0.1";
 const PORT = 3344;
 const EXTERNAL = [
@@ -28,12 +28,8 @@ const EXTERNAL = [
   ),
   "jiti",
 ];
-const ALIAS: AliasOptions = {
-  // "@unml/kit": r("@unml/kit"),
-  // "@unml/schema": r("@unml/schema"),
-  // "@unml/rpc": r("@unml/rpc"),
-  // "@unml/core": r("@unml/core"),
-  // "@unml/extensions": r("@unml/extensions"),
+export const ALIAS: AliasOptions = {
+  "@unml/extension-loader": r("@unml/extension-loader"),
   "@": fileURLToPath(new URL("./src", import.meta.url)),
 };
 

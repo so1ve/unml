@@ -13,13 +13,10 @@
     "skipLibCheck": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
+    "types": ["vite-plugin-electron/electron-env", "vitest/importMeta"],
     "paths": {
-      "@": ["./src"]
-      // "@unml/kit": ["./packages/kit/src/index.ts"],
-      // "@unml/core": ["./packages/core/src/index.ts"],
-      // "@unml/schema": ["./packages/schema/src/index.ts"],
-      // "@unml/extensions": ["./packages/extensions/src/index.ts"],
-      // "@unml/rpc": ["./packages/rpc/src/index.ts"]
+      "@": ["./src"],
+      "@unml/extension-loader": ["./packages/extension-loader/src/index.ts"]
     }
   }
 }
