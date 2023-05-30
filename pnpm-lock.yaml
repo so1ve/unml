@@ -89,8 +89,8 @@ importers:
         specifier: ^0.11.2
         version: 0.11.2
       vite-plugin-electron-renderer:
-        specifier: 0.14.2
-        version: 0.14.2
+        specifier: 0.14.5
+        version: 0.14.5
       vite-plugin-pages:
         specifier: ^0.29.0
         version: 0.29.0(vite@4.3.5)
@@ -3912,9 +3912,6 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-    peerDependenciesMeta:
-      eslint:
-        optional: true
     dependencies:
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
@@ -5323,10 +5320,6 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
-    dev: true
-
-  /lib-esm@0.3.0:
-    resolution: {integrity: sha512-P7YcG7OnoaGL2h4j46g/m0P2xHMXlYf+0iCDvVrEfzUVxLe+abytgd2VjUhj9puqEgqRGEDbT504YWj75jHacA==}
     dev: true
 
   /lines-and-columns@1.2.4:
@@ -7426,10 +7419,8 @@ packages:
     dev: true
     optional: true
 
-  /vite-plugin-electron-renderer@0.14.2:
-    resolution: {integrity: sha512-fhp1cnez2qvL90UuHrvfI+mEzKAfn4u31wnZpndxU+s12DfCjFMtgNkV4QBJatueuw53IK1jQAvGUUhz0+d3qA==}
-    dependencies:
-      lib-esm: 0.3.0
+  /vite-plugin-electron-renderer@0.14.5:
+    resolution: {integrity: sha512-EQ7ORuPp8vFPCqfuGnVo7d36fXS0IFH4/RUlKb1drseix3TQEPcgwEuFADdXBxRgqMp70njz/1m0kdf5lEsm8w==}
     dev: true
 
   /vite-plugin-electron@0.11.2:
