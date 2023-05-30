@@ -26,7 +26,7 @@
     "@so1ve/eslint-config": "^0.81.1",
     "@types/node": "^18.16.6",
     "@unocss/preset-rem-to-px": "^0.51.12",
-    "@unocss/reset": "^0.51.12",
+    "@unocss/reset": "^0.52.0",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vueuse/core": "^10.1.2",
     "birpc": "^0.2.11",
