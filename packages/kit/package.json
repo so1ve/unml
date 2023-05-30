@@ -35,8 +35,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub"
+    "build": "unbuild"
   },
   "dependencies": {
     "unctx": "^2.3.1"
