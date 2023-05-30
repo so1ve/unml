@@ -23,8 +23,8 @@ importers:
         specifier: ^18.16.6
         version: 18.16.6
       '@unocss/preset-rem-to-px':
-        specifier: ^0.51.12
-        version: 0.51.12
+        specifier: ^0.52.0
+        version: 0.52.0
       '@unocss/reset':
         specifier: ^0.51.12
         version: 0.51.12
@@ -1825,6 +1825,10 @@ packages:
     resolution: {integrity: sha512-H8mLy6ZKu9nGZe5jlHhLPIVwh2G3cCDSBGl5aIZJFI1qpmDC+Zb3iueBGigNpX75IzkjaGKZiK1WUWq8TShjtA==}
     dev: true
 
+  /@unocss/core@0.52.0:
+    resolution: {integrity: sha512-MGyG1LpiVtyrHmWmXiDRnf7j+JaJua14K058FGBAhNSLaG37dG6xIfwPuVDBOqEI8EgICmNTJs1T/ImQJYWxtw==}
+    dev: true
+
   /@unocss/extractor-arbitrary-variants@0.51.12:
     resolution: {integrity: sha512-/HJH48LbnzTzPkq7yNf+F8tpq7F8b0ibuv0Y/PFQdRN+5OBpRoVwzK7pnJccpiOFbWqlfIQ/ao0MgVc+321tUw==}
     dependencies:
@@ -1875,10 +1879,10 @@ packages:
       '@unocss/extractor-arbitrary-variants': 0.51.12
     dev: true
 
-  /@unocss/preset-rem-to-px@0.51.12:
-    resolution: {integrity: sha512-b2o/4vCx7/KfJ5nozavu/Sm+KOK5n4p08/lAoeW3xML9DBLgjHsqt37n3OBuDwDzoy5wGibp+i094HxKkuF45Q==}
+  /@unocss/preset-rem-to-px@0.52.0:
+    resolution: {integrity: sha512-tmWF73pGAeegAqxChbG9ZYw4v5naY0QfEZJvJrryoCks7anKElFztbRLD8GivtpgN0aAJRPOACX+YGdYugJAGA==}
     dependencies:
-      '@unocss/core': 0.51.12
+      '@unocss/core': 0.52.0
     dev: true
 
   /@unocss/preset-tagify@0.51.12:
@@ -3912,9 +3916,6 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-    peerDependenciesMeta:
-      eslint:
-        optional: true
     dependencies:
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
