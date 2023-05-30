@@ -1,4 +1,4 @@
-import fsp from "node:fs/promises";
+import { access, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const EXTENSION_RE =
@@ -6,13 +6,19 @@ const EXTENSION_RE =
   /^@(\w+)\/unml-extension(?:-([-\w]+))?$|^unml-extension-([-\w]+)$/;
 
 const loadPackagesFromCwd = (cwd = process.cwd()) =>
-  fsp.readdir(path.join(cwd, "node_modules"));
+  readdir(path.join(cwd, "node_modules"));
 
 const filterExtensions = (packages: string[]) =>
   packages.filter((name) => EXTENSION_RE.test(name));
 
 export const loadExtensionsFromCwd = (cwd = process.cwd()) =>
   loadPackagesFromCwd(cwd).then(filterExtensions);
+
+export const exists = (d: string) =>
+  access(d).then(
+    () => true,
+    () => false,
+  );
 
 if (import.meta.vitest) {
   const { expect, it } = import.meta.vitest;
