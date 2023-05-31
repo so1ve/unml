@@ -101,7 +101,6 @@ app.on("activate", () => {
   }
 });
 
-// New window example arg: new windows url
 ipcMain.handle("open-win", (_, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: WEB_PREFERENCES,
