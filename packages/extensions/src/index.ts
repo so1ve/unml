@@ -1,10 +1,12 @@
-import type { Extension } from "@unml/schema";
+import type { Extension, LoadEvent, RunEvent } from "@unml/schema";
 
 import { NODE_MODULES_DIR, exists, loadExtensionsFromCwd } from "./utils";
 
 export class ExtensionLoader {
   #extensions: string[] = [];
   #loadedExtensions: Extension[] = [];
+  #loadEvents: LoadEvent[] = [];
+  #runEvents: RunEvent[] = [];
   #initialized = false;
   #loaded = false;
 
@@ -30,7 +32,16 @@ export class ExtensionLoader {
       throw new Error("ExtensionLoader is not loaded");
     }
     for (const extension of this.#loadedExtensions) {
-      await extension.activate();
+      const { load, run } = (await extension.activate()) ?? {};
+      load && this.#loadEvents.push(load);
+      run && this.#runEvents.push(run);
+    }
+
+    for (const loadEvent of this.#loadEvents) {
+      await loadEvent();
+    }
+    for (const runEvent of this.#runEvents) {
+      await runEvent();
     }
   }
 }

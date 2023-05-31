@@ -1,5 +1,5 @@
 import { getContext } from "unctx";
-import type { Unml } from "@unml/schema";
+import type { Tab, Unml, View } from "@unml/schema";
 
 export const unmlCtx = getContext<Unml>("unml");
 
@@ -13,3 +13,17 @@ export function useUnml() {
 }
 
 export const tryUseUnml = unmlCtx.tryUse;
+
+export function addView(view: View) {
+  const unml = useUnml();
+  unml.hook("ui:view", (views) => {
+    views.push(view);
+  });
+}
+
+export function addTab(tab: Tab) {
+  const unml = useUnml();
+  unml.hook("ui:tabs", (tabs) => {
+    tabs.push(tab);
+  });
+}

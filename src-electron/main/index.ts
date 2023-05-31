@@ -6,8 +6,8 @@ import { BrowserWindow, app, ipcMain, shell } from "electron";
 
 import { loadHooks } from "./hooks";
 import type { HookRegisterContext } from "./types";
+import { loadExtensions } from "./extensions";
 
-import { ExtensionLoader } from "@unml/extensions";
 import { createUnml, initUnml } from "@unml/core";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
@@ -44,7 +44,6 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 let win: BrowserWindow | null = null;
-let extensionLoader: ExtensionLoader | undefined;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -124,9 +123,5 @@ async function startApp() {
   };
 
   await loadHooks(hookRegisterContext);
-
-  extensionLoader = new ExtensionLoader();
-  await extensionLoader.init();
-  await extensionLoader.load();
-  await extensionLoader.run();
+  await loadExtensions();
 }

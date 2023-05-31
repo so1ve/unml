@@ -38,8 +38,6 @@
     "watch": "pkgroll --watch"
   },
   "dependencies": {
-    "@unml/kit": "workspace:*",
-    "@unml/schema": "workspace:*",
-    "hookable": "^5.5.3"
+    "@unml/kit": "workspace:*"
   }
 }

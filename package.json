@@ -27,7 +27,7 @@
     "@iconify-json/material-symbols": "^1.1.44",
     "@intlify/unplugin-vue-i18n": "^0.11.0",
     "@mdi/font": "^7.2.96",
-    "@so1ve/eslint-config": "^0.98.0",
+    "@so1ve/eslint-config": "^0.99.0",
     "@so1ve/utils": "^0.1.1",
     "@types/node": "^20.2.5",
     "@unocss/preset-rem-to-px": "^0.52.5",
