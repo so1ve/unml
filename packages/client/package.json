@@ -1,14 +1,14 @@
 {
-  "name": "@unml/kit",
+  "name": "@unml/client",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "type": "module",
-  "description": "Unml kit",
+  "description": "Unml client",
   "keywords": [
     "unml",
-    "kit"
+    "client"
   ],
-  "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/client#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so1ve/unml.git",
@@ -37,8 +37,5 @@
   "scripts": {
     "build": "pkgroll",
     "watch": "pkgroll --watch"
-  },
-  "dependencies": {
-    "unctx": "^2.3.1"
   }
 }

@@ -16,9 +16,11 @@
     "types": ["vite-plugin-electron/electron-env", "vitest/importMeta"],
     "paths": {
       "@/*": ["./src/*"],
-      "@unml/extension-loader": ["./packages/extension-loader/src"],
+      "@unml/core": ["./packages/core/src"],
+      "@unml/extensions": ["./packages/extensions/src"],
       "@unml/schema": ["./packages/schema/src"],
-      "@unml/kit": ["./packages/kit/src"]
+      "@unml/kit": ["./packages/kit/src"],
+      "@unml/client": ["./packages/client/src"]
     }
   }
 }

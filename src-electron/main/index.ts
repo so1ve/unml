@@ -4,7 +4,11 @@ import { join } from "node:path";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
-import { ExtensionLoader } from "@unml/extension-loader";
+import { loadHooks } from "./hooks";
+import type { HookRegisterContext } from "./types";
+
+import { ExtensionLoader } from "@unml/extensions";
+import { createUnml, initUnml } from "@unml/core";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
@@ -21,8 +25,6 @@ const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const WEB_PREFERENCES: WebPreferences = {
   preload,
-  nodeIntegration: true,
-  nodeIntegrationInSubFrames: true,
   contextIsolation: false,
 };
 
@@ -112,8 +114,20 @@ ipcMain.handle("open-win", (_, arg) => {
   }
 });
 
-app.whenReady().then(async () => {
+app.whenReady().then(startApp);
+
+async function startApp() {
   createWindow();
+  initUnml(createUnml());
+
+  const hookRegisterContext: HookRegisterContext = {
+    win: win!,
+  };
+
+  await loadHooks(hookRegisterContext);
+
   extensionLoader = new ExtensionLoader();
   await extensionLoader.init();
-});
+  await extensionLoader.load();
+  await extensionLoader.run();
+}

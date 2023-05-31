@@ -22,17 +22,16 @@ const dirname = fileURLToPath(new URL(".", import.meta.url));
 const r = (pkg: string) => resolve(dirname, `./packages/${pkg}/src/index.ts`);
 const HOST = "127.0.0.1";
 const PORT = 3344;
-const EXTERNAL = [
-  ...Object.keys(
-    "dependencies" in (pkg as any) ? (pkg as any).dependencies : {},
-  ),
-  "jiti",
-];
+const EXTERNAL = Object.keys(
+  "dependencies" in pkg ? (pkg as any).dependencies : {},
+);
 
 export const alias: AliasOptions = {
-  "@unml/extension-loader": r("extension-loader"),
+  "@unml/core": r("core"),
+  "@unml/extensions": r("extensions"),
   "@unml/schema": r("schema"),
   "@unml/kit": r("kit"),
+  "@unml/client": r("client"),
   "@": fileURLToPath(new URL("./src", import.meta.url)),
 };
 

@@ -1,14 +1,14 @@
 {
-  "name": "@unml/kit",
+  "name": "@unml/extensions",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "type": "module",
-  "description": "Unml kit",
+  "description": "Unml extensions",
   "keywords": [
     "unml",
-    "kit"
+    "extension"
   ],
-  "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/extensions#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so1ve/unml.git",
@@ -39,6 +39,6 @@
     "watch": "pkgroll --watch"
   },
   "dependencies": {
-    "unctx": "^2.3.1"
+    "@unml/schema": "workspace:*"
   }
 }

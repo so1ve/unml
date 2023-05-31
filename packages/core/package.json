@@ -1,14 +1,13 @@
 {
-  "name": "@unml/extension-loader",
+  "name": "@unml/core",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "type": "module",
-  "description": "Unml extension loader",
+  "description": "Unml core",
   "keywords": [
-    "unml",
-    "extension"
+    "unml"
   ],
-  "homepage": "https://github.com/so1ve/unml/tree/main/packages/extension-loader#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/core#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so1ve/unml.git",
@@ -35,6 +34,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "unbuild"
+    "build": "pkgroll",
+    "watch": "pkgroll --watch"
+  },
+  "dependencies": {
+    "@unml/kit": "workspace:*",
+    "@unml/schema": "workspace:*",
+    "hookable": "^5.5.3"
   }
 }
