@@ -15,9 +15,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
+    "stub": "nr --filter ./packages/* stub",
     "test": "vitest",
-    "typecheck": "vue-tsc --noEmit",
-    "watch": "nr --filter ./packages/* watch"
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@unml/unml-extension-test": "workspace:^"

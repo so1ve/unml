@@ -1,4 +1,5 @@
 import type { Hookable } from "hookable";
+import type { MaybePromise } from "@so1ve/utils";
 
 import type { Tab, View } from "./ui";
 
@@ -11,6 +12,7 @@ export interface UnmlHooks {
 }
 
 export interface Unml {
+  commands: Map<string, (...args: any[]) => MaybePromise<void>>;
   hooks: Hookable<UnmlHooks>;
   hook: Unml["hooks"]["hook"];
   callHook: Unml["hooks"]["callHook"];

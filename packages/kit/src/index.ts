@@ -27,3 +27,18 @@ export function addTab(tab: Tab) {
     tabs.push(tab);
   });
 }
+
+export function exposeCommand(name: string, fn: (...args: any[]) => void) {
+  const unml = useUnml();
+  unml.commands.set(name, fn);
+}
+
+export async function callCommand(name: string, args: any[] = []) {
+  const unml = useUnml();
+  const fn = unml.commands.get(name);
+  if (!fn) {
+    throw new Error(`Command "${name}" is not exposed!`);
+  }
+
+  await fn(...args);
+}

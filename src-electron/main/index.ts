@@ -26,6 +26,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 const WEB_PREFERENCES: WebPreferences = {
   preload,
   contextIsolation: false,
+  nodeIntegration: true,
 };
 
 // Disable GPU Acceleration for Windows 7
