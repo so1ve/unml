@@ -4,7 +4,7 @@ import { parse, stringify } from "flatted";
 import type { ClientFunctions, ServerFunctions } from "@unml/schema";
 
 // Copy again to avoid import the @tinyhttp/app package.
-export const WS_PORT = 11451; // Homo Port
+export const WS_PORT = 11_451; // Homo Port
 export const WS_ENTRY = "/ws";
 const RECONNECT_INTERVAL = 2000;
 
