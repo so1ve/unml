@@ -11,10 +11,17 @@ export interface UnmlHooks {
   "ui:tabs": (tabs: Tab[]) => void;
 }
 
+export type CommandFn = (...args: any[]) => MaybePromise<any>;
+export type CommandMap = Map<string, CommandFn>;
+
 export interface Unml {
-  commands: Map<string, (...args: any[]) => MaybePromise<void>>;
+  commands: CommandMap;
   hooks: Hookable<UnmlHooks>;
   hook: Unml["hooks"]["hook"];
   callHook: Unml["hooks"]["callHook"];
   addHooks: Unml["hooks"]["addHooks"];
+}
+
+export interface UnmlClient {
+  callCommand: (name: string, ...args: any[]) => MaybePromise<any>;
 }

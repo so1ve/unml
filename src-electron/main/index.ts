@@ -119,9 +119,7 @@ async function startApp() {
   createWindow();
   initUnml(createUnml());
 
-  const hookRegisterContext: HookRegisterContext = {
-    win: win!,
-  };
+  const hookRegisterContext: HookRegisterContext = { win: win! };
 
   await loadHooks(hookRegisterContext);
   await loadExtensions();

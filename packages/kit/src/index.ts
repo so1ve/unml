@@ -33,7 +33,7 @@ export function exposeCommand(name: string, fn: (...args: any[]) => void) {
   unml.commands.set(name, fn);
 }
 
-export async function callCommand(name: string, args: any[] = []) {
+export async function callCommand(name: string, ...args: any[]) {
   const unml = useUnml();
   const fn = unml.commands.get(name);
   if (!fn) {

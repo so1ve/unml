@@ -1,10 +1,9 @@
-import type { MaybePromise } from "@so1ve/utils";
 import { unmlCtx } from "@unml/kit";
-import type { Unml, UnmlHooks } from "@unml/schema";
+import type { CommandMap, Unml, UnmlHooks } from "@unml/schema";
 import { createHooks } from "hookable";
 
 export function createUnml(): Unml {
-  const commands = new Map<string, (...args: any[]) => MaybePromise<void>>();
+  const commands: CommandMap = new Map();
   const hooks = createHooks<UnmlHooks>();
 
   return {
