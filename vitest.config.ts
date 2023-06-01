@@ -6,7 +6,4 @@ export default defineConfig({
   resolve: {
     alias,
   },
-  test: {
-    includeSource: ["packages/**/*.ts"],
-  },
 });

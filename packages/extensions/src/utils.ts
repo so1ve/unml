@@ -3,10 +3,9 @@ import path, { basename } from "node:path";
 
 export const NODE_MODULES_DIR = "node_modules";
 
-const EXTENSION_RE =
-  // eslint-disable-next-line regexp/no-unused-capturing-group
+export const EXTENSION_RE =
   /^@(\w+)\/unml-extension(?:-([-\w]+))?$|^unml-extension-([-\w]+)$/;
-const PLAIN_PACKAGE_RE = /^[a-z\d][._\-a-z\d]*$/;
+export const PLAIN_PACKAGE_RE = /^[a-z\d][._\-a-z\d]*$/;
 
 async function loadModulesFromDir(dirname: string) {
   const dirs = await readdir(dirname);
@@ -41,14 +40,3 @@ export const exists = (d: string) =>
     () => true,
     () => false,
   );
-
-if (import.meta.vitest) {
-  const { expect, it } = import.meta.vitest;
-  it("utils", () => {
-    expect(EXTENSION_RE.test("@scope/unml-extension-name")).toBe(true);
-    expect(EXTENSION_RE.test("@scope/unml-extension")).toBe(true);
-    expect(EXTENSION_RE.test("@scope/unml-extension-name-1")).toBe(true);
-    expect(EXTENSION_RE.test("unml-extension-name")).toBe(true);
-    expect(EXTENSION_RE.test("unml-extension")).toBe(false);
-  });
-}
