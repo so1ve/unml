@@ -1,5 +1,10 @@
 <script setup lang="ts">
 // const customTabs = await rpc.getCustomTabs();
+import type { Tab } from "@unml/schema";
+
+const client = useClient();
+const tabs = await client.callCommand<Tab[]>("ui:getTabs");
+console.log(tabs);
 </script>
 
 <template>
@@ -19,11 +24,9 @@
     -->
     <VDivider />
     <VList density="compact" nav>
-      <!--
-        <VListItem v-for="tab in customTabs" :key="tab.id">
+      <VListItem v-for="tab in tabs" :key="tab.id">
         <span :class="tab.icon" />
-        </VListItem> 
-      -->
+      </VListItem>
     </VList>
   </VNavigationDrawer>
 </template>

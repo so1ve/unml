@@ -23,5 +23,5 @@ export interface Unml {
 }
 
 export interface UnmlClient {
-  callCommand: (name: string, ...args: any[]) => MaybePromise<any>;
+  callCommand: <T = any>(name: string, ...args: any[]) => MaybePromise<T>;
 }

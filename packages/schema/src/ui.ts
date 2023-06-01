@@ -6,4 +6,5 @@ export interface View {
 export interface Tab {
   id: string;
   view: string;
+  icon: string;
 }

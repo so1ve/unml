@@ -89,6 +89,9 @@ export default defineConfig(({ command }) => {
           {
             vuetify: ["useTheme"],
           },
+          {
+            "@unml/client": ["useClient"],
+          },
         ],
         dirs: ["src/composables", "src/stores"],
         vueTemplate: true,

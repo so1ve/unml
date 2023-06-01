@@ -126,6 +126,9 @@ importers:
       '@unml/schema':
         specifier: workspace:*
         version: link:../schema
+      crpr:
+        specifier: ^0.2.0
+        version: 0.2.0
       electron:
         specifier: '*'
         version: 25.0.0
@@ -3327,6 +3330,12 @@ packages:
     dev: true
     optional: true
 
+  /cride@0.3.1:
+    resolution: {integrity: sha512-Krx9lUZ4U1ElF/wclqMF/58NFdnFK0b+Jt5R3CLdPRlhLQMEc1itfelpBUMome2j5pRbCAvYFUwXVlgJXYCTaw==}
+    dependencies:
+      klona: 2.0.6
+    dev: false
+
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -3335,6 +3344,12 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crpr@0.2.0:
+    resolution: {integrity: sha512-Rs6IHiXOJrdHat/KcU7z7ilsE2cuYswM7KTbl86CViFQOxplT0arLWCN04d4doqvX91oCgYEaZy4hHmLAgo02A==}
+    dependencies:
+      cride: 0.3.1
+    dev: false
 
   /css-tree@2.3.1:
     resolution: {integrity: sha512-6Fv1DV/TYw//QF5IzQdqsNDjx/wc8TrMBZsqjL9eW01tWb7R7k/mq+/VXfJCl7SoD5emsJop9cOByJZfs8hYIw==}
@@ -5419,6 +5434,11 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+    dev: false
 
   /kolorist@1.7.0:
     resolution: {integrity: sha512-ymToLHqL02udwVdbkowNpzjFd6UzozMtshPQKVi5k1EjKRqKqBrOnE9QbLEb0/pV76SAiIT13hdL8R6suc+f3g==}

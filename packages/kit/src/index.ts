@@ -1,5 +1,5 @@
 import { getContext } from "unctx";
-import type { Tab, Unml, View } from "@unml/schema";
+import type { CommandFn, Tab, Unml, View } from "@unml/schema";
 
 export const unmlCtx = getContext<Unml>("unml");
 
@@ -28,7 +28,7 @@ export function addTab(tab: Tab) {
   });
 }
 
-export function exposeCommand(name: string, fn: (...args: any[]) => void) {
+export function exposeCommand(name: string, fn: CommandFn) {
   const unml = useUnml();
   unml.commands.set(name, fn);
 }
@@ -40,5 +40,5 @@ export async function callCommand(name: string, ...args: any[]) {
     throw new Error(`Command "${name}" is not exposed!`);
   }
 
-  await fn(...args);
+  return await fn(...args);
 }

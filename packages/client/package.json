@@ -39,7 +39,8 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@unml/schema": "workspace:*"
+    "@unml/schema": "workspace:*",
+    "crpr": "^0.2.0"
   },
   "peerDependencies": {
     "electron": "*"

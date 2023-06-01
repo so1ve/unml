@@ -1,12 +1,12 @@
 <script setup lang="ts">
-// const unml = useUnml();
+const client = useClient();
 
-const minimize = () => {
-  // rpc["window:minimize"]();
-};
-const close = () => {
-  // rpc["window:close"]();
-};
+function minimize() {
+  client.callCommand("window:minimize");
+}
+function close() {
+  client.callCommand("window:close");
+}
 </script>
 
 <template>
@@ -16,16 +16,11 @@ const close = () => {
     :elevation="0"
     window
   >
-    <div>
-      <VBtn
-        class="non-draggable"
-        size="x-small"
-        variant="text"
-        @click="minimize"
-      >
+    <div class="flex gap-1">
+      <VBtn class="non-draggable" size="small" variant="text" @click="minimize">
         <span class="i-material-symbols:minimize-rounded text-lg" />
       </VBtn>
-      <VBtn class="non-draggable" size="x-small" variant="text" @click="close">
+      <VBtn class="non-draggable" size="small" variant="text" @click="close">
         <span class="i-material-symbols:close-rounded text-lg" />
       </VBtn>
     </div>

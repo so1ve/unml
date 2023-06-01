@@ -1,18 +1,27 @@
 import type { HookRegister } from "../types";
 
-import { useUnml } from "@unml/kit";
+import { exposeCommand, useUnml } from "@unml/kit";
 
 export const registerHooks: HookRegister = ({ win }) => {
   const unml = useUnml();
+
+  function minimize() {
+    win.minimize();
+  }
+  function maximize() {
+    win.maximize();
+  }
+  function close() {
+    win.close();
+  }
+
   unml.addHooks({
-    "window:minimize": () => {
-      win.minimize();
-    },
-    "window:maximize": () => {
-      win.maximize();
-    },
-    "window:close": () => {
-      win.close();
-    },
+    "window:minimize": minimize,
+    "window:maximize": maximize,
+    "window:close": close,
   });
+
+  exposeCommand("window:minimize", minimize);
+  exposeCommand("window:maximize", maximize);
+  exposeCommand("window:close", close);
 };

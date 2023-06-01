@@ -7,6 +7,7 @@ import { BrowserWindow, app, ipcMain, shell } from "electron";
 import { loadHooks } from "./hooks";
 import type { HookRegisterContext } from "./types";
 import { loadExtensions } from "./extensions";
+import { initUi } from "./ui";
 
 import { createUnml, initUnml } from "@unml/core";
 
@@ -46,7 +47,7 @@ if (!app.requestSingleInstanceLock()) {
 
 let win: BrowserWindow | null = null;
 
-function createWindow() {
+async function createWindow() {
   win = new BrowserWindow({
     title: TITLE,
     icon: ICON,
@@ -59,12 +60,12 @@ function createWindow() {
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    win.loadURL(url);
+    await win.loadURL(url);
     win.webContents.openDevTools({
-      mode: "undocked",
+      mode: "detach",
     });
   } else {
-    win.loadFile(indexHtml);
+    await win.loadFile(indexHtml);
   }
 
   win.webContents.setWindowOpenHandler(({ url }) => {
@@ -116,11 +117,10 @@ ipcMain.handle("open-win", (_, arg) => {
 app.whenReady().then(startApp);
 
 async function startApp() {
-  createWindow();
   initUnml(createUnml());
-
-  const hookRegisterContext: HookRegisterContext = { win: win! };
-
-  await loadHooks(hookRegisterContext);
   await loadExtensions();
+  await initUi();
+  await createWindow();
+  const hookRegisterContext: HookRegisterContext = { win: win! };
+  await loadHooks(hookRegisterContext);
 }
