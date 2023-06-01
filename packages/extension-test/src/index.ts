@@ -1,11 +1,11 @@
-import { addTab, addView, exposeCommand } from "@unml/kit";
+import { addTab, addView, callCommand, exposeCommand } from "@unml/kit";
 
 import type { Activate } from "../../schema/src/extension";
 
 export const activate: Activate = () => ({
   load: () => {
-    exposeCommand("homo114514", () => {
-      console.log("114514");
+    exposeCommand("homo114514", async () => {
+      await callCommand("window:minimize");
 
       return 1_919_810;
     });
@@ -18,7 +18,7 @@ export const activate: Activate = () => ({
     addTab({
       id: "test",
       view: "test",
-      icon: "i-material-symbols:home-rounded", // TODO: fix icon
+      icon: "material-symbols:home-rounded",
     });
   },
 });
