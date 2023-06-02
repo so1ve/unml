@@ -2,10 +2,10 @@
 const client = useClient();
 
 function minimize() {
-  client.callCommand("window:minimize");
+  client.callNodeCommand("window:minimize");
 }
 function close() {
-  client.callCommand("window:close");
+  client.callNodeCommand("window:close");
 }
 </script>
 

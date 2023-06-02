@@ -4,7 +4,7 @@ import { crpr } from "crpr";
 export function useClient(): UnmlClient {
   if (window.self === window.top) {
     const client: UnmlClient = {
-      callCommand: async (...args) => {
+      callNodeCommand: async (...args) => {
         const { ipcRenderer } = await import("electron");
 
         return ipcRenderer.invoke("command:call", ...args);
@@ -14,7 +14,7 @@ export function useClient(): UnmlClient {
     return client;
   }
   const client: UnmlClient = {
-    callCommand: (...args) => {
+    callNodeCommand: (...args) => {
       window.parent.postMessage({ name: "command:call", args }, "*");
 
       const [promise, resolve] = crpr<any>();

@@ -1,11 +1,11 @@
-import { addTab, addView, callCommand, exposeCommand } from "@unml/kit";
+import { addTab, addView, callNodeCommand, exposeNodeCommand } from "@unml/kit";
 
 import type { Activate } from "../../schema/src/extension";
 
 export const activate: Activate = () => ({
   load: () => {
-    exposeCommand("homo114514", async () => {
-      await callCommand("window:minimize");
+    exposeNodeCommand("homo114514", async () => {
+      await callNodeCommand("window:minimize");
 
       return 1_919_810;
     });

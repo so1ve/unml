@@ -2,7 +2,7 @@
 import type { Tab } from "@unml/schema";
 
 const client = useClient();
-const tabs = await client.callCommand<Tab[]>("ui:getTabs");
+const tabs = await client.callNodeCommand<Tab[]>("ui:getTabs");
 </script>
 
 <template>

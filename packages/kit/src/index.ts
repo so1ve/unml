@@ -28,12 +28,12 @@ export function addTab(tab: Tab) {
   });
 }
 
-export function exposeCommand(name: string, fn: CommandFn) {
+export function exposeNodeCommand(name: string, fn: CommandFn) {
   const unml = useUnml();
   unml.commands.set(name, fn);
 }
 
-export async function callCommand(name: string, ...args: any[]) {
+export async function callNodeCommand(name: string, ...args: any[]) {
   const unml = useUnml();
   const fn = unml.commands.get(name);
   if (!fn) {
