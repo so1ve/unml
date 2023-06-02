@@ -9,10 +9,15 @@ export function useClient(): UnmlClient {
 
         return ipcRenderer.invoke("command:node:call", ...args);
       },
+
+      // TODO
+      exposeClientCommand: () => {},
     };
 
     return client;
   }
+  // In an iframe
+  // TODO
   const client: UnmlClient = {
     callNodeCommand: (...args) => {
       window.parent.postMessage({ name: "command:node:call", args }, "*");
@@ -28,6 +33,7 @@ export function useClient(): UnmlClient {
 
       return promise;
     },
+    exposeClientCommand: () => {},
   };
 
   return client;
