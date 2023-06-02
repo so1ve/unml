@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup pnpm
+      - name: Setup PNPM
         run: corepack enable
 
       - name: Setup node
@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup pnpm
+      - name: Setup PNPM
         run: corepack enable
 
       - name: Setup node
