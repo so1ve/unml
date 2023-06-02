@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Tab } from "@unml/schema";
 
-const client = useClient();
-const tabs = await client.callNodeCommand<Tab[]>("ui:getTabs");
+const { callNodeCommand } = useClient();
+const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
 </script>
 
 <template>

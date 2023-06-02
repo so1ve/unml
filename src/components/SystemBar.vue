@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const client = useClient();
+const { callNodeCommand } = useClient();
 
-function minimize() {
-  client.callNodeCommand("window:minimize");
+async function minimize() {
+  await callNodeCommand("window:minimize");
 }
-function close() {
-  client.callNodeCommand("window:close");
+async function close() {
+  await callNodeCommand("window:close");
 }
 </script>
 
