@@ -83,7 +83,7 @@ jobs:
         run: nci
 
       - name: Build
-        run: nr build
+        run: nr build:packages
 
       - name: Test
         run: nr test
