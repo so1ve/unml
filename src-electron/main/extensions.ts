@@ -10,8 +10,10 @@ export async function loadExtensions() {
   await extensionLoader.init();
   await extensionLoader.load();
   await extensionLoader.runLoadEvent();
-  ipcMain.handle("command:call", async (_event, name: string, ...args: any[]) =>
-    callNodeCommand(name, ...args),
+  ipcMain.handle(
+    "command:node:call",
+    async (_event, name: string, ...args: any[]) =>
+      callNodeCommand(name, ...args),
   );
   await extensionLoader.runRunEvent();
 }

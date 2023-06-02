@@ -7,7 +7,7 @@ export function useClient(): UnmlClient {
       callNodeCommand: async (...args) => {
         const { ipcRenderer } = await import("electron");
 
-        return ipcRenderer.invoke("command:call", ...args);
+        return ipcRenderer.invoke("command:node:call", ...args);
       },
     };
 
@@ -15,12 +15,12 @@ export function useClient(): UnmlClient {
   }
   const client: UnmlClient = {
     callNodeCommand: (...args) => {
-      window.parent.postMessage({ name: "command:call", args }, "*");
+      window.parent.postMessage({ name: "command:node:call", args }, "*");
 
       const [promise, resolve] = crpr<any>();
 
       window.addEventListener("message", function handler(event) {
-        if (event.data.name === "command:call:done") {
+        if (event.data.name === "command:node:call:done") {
           window.removeEventListener("message", handler);
           resolve(event.data.result);
         }
