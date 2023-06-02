@@ -2,7 +2,6 @@ name: Build
 
 on:
   push:
-    branches: [main]
     paths-ignore:
       - "**.md"
       - "**.spec.js"
@@ -27,13 +26,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+      - name: Setup pnpm
+        run: corepack enable
 
-      - name: Set node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
           cache: pnpm
 
       - name: Setup
