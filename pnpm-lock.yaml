@@ -26,8 +26,8 @@ importers:
         specifier: ^0.51.12
         version: 0.51.12
       '@unocss/reset':
-        specifier: ^0.51.12
-        version: 0.51.12
+        specifier: ^0.53.0
+        version: 0.53.0
       '@vitejs/plugin-vue':
         specifier: ^4.2.1
         version: 4.2.1(vite@4.3.5)(vue@3.2.47)
@@ -1918,6 +1918,10 @@ packages:
 
   /@unocss/reset@0.51.12:
     resolution: {integrity: sha512-VWcudNyGPGU/C+Jrfzbx8BqhFh/QENfUPkKcC8hpqxC4b5PsTJcF8zLu6KgabM0X0CzVouIvVcdZIcUCUEH77Q==}
+    dev: true
+
+  /@unocss/reset@0.53.0:
+    resolution: {integrity: sha512-4XJkEtVxUGYp+WX2aRTrZLNp6MEwulBvhhpkAjwfkS+wVdo9lMma0O93TCqJaFeYx7lU8W92APB4n918rz9scA==}
     dev: true
 
   /@unocss/scope@0.51.12:
@@ -3912,9 +3916,6 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-    peerDependenciesMeta:
-      eslint:
-        optional: true
     dependencies:
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
