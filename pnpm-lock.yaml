@@ -92,8 +92,8 @@ importers:
         specifier: 0.14.2
         version: 0.14.2
       vite-plugin-pages:
-        specifier: ^0.29.0
-        version: 0.29.0(vite@4.3.5)
+        specifier: ^0.31.0
+        version: 0.31.0(vite@4.3.5)
       vite-plugin-vue-layouts:
         specifier: ^0.8.0
         version: 0.8.0(vite@4.3.5)(vue-router@4.1.6)(vue@3.2.47)
@@ -1446,8 +1446,8 @@ packages:
       '@types/node': 18.16.6
       '@types/responselike': 1.0.0
 
-  /@types/debug@4.1.7:
-    resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
+  /@types/debug@4.1.8:
+    resolution: {integrity: sha512-/vPO1EPOs306Cvhwv7KfVfYvOJqA/S/AXjaHQiJboCZzcNDb+TIJFN9/2C9DZ//ijSKWioNyUxD792QmDJ+HKQ==}
     dependencies:
       '@types/ms': 0.7.31
     dev: true
@@ -2908,7 +2908,7 @@ packages:
     resolution: {integrity: sha512-QiQHweYsh8o+U/KNCZFSvISRnvRctb8m/2rB2I1JdByzvNKxPeFLlHFRPQRXab6aYeXc18j9LpsDLJ3sGQmWTQ==}
     dependencies:
       7zip-bin: 5.1.1
-      '@types/debug': 4.1.7
+      '@types/debug': 4.1.8
       '@types/fs-extra': 9.0.13
       app-builder-bin: 4.0.0
       bluebird-lst: 1.0.9
@@ -3264,9 +3264,10 @@ packages:
     dependencies:
       mimic-response: 3.1.0
 
-  /deep-equal@2.2.0:
-    resolution: {integrity: sha512-RdpzE0Hv4lhowpIUKKMJfeH6C1pXdtT1/it80ubgWqwI3qpuxUBpC1S4hnHg+zjnuOoDkzUtUCEEkG+XG5l3Mw==}
+  /deep-equal@2.2.1:
+    resolution: {integrity: sha512-lKdkdV6EOGoVn65XaOsPdH4rMxTZOnmFyuIkMjM1i5HHCbfjC97dawgTAy0deYNfuqUqW+Q5VrVaQYtUpSd6yQ==}
     dependencies:
+      array-buffer-byte-length: 1.0.0
       call-bind: 1.0.2
       es-get-iterator: 1.1.3
       get-intrinsic: 1.2.0
@@ -3279,7 +3280,7 @@ packages:
       object-is: 1.1.5
       object-keys: 1.1.1
       object.assign: 4.1.4
-      regexp.prototype.flags: 1.4.3
+      regexp.prototype.flags: 1.5.0
       side-channel: 1.0.4
       which-boxed-primitive: 1.0.2
       which-collection: 1.0.1
@@ -3609,7 +3610,7 @@ packages:
       object-inspect: 1.12.3
       object-keys: 1.1.1
       object.assign: 4.1.4
-      regexp.prototype.flags: 1.4.3
+      regexp.prototype.flags: 1.5.0
       safe-regex-test: 1.0.0
       string.prototype.trim: 1.2.7
       string.prototype.trimend: 1.0.6
@@ -3912,9 +3913,6 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-    peerDependenciesMeta:
-      eslint:
-        optional: true
     dependencies:
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
@@ -5639,7 +5637,7 @@ packages:
   /micromark@3.1.0:
     resolution: {integrity: sha512-6Mj0yHLdUZjHnOPgr5xfWIMqMWS12zDN6iws9SLuSz76W8jTtAv24MN4/CL7gJrl5vtxGInkkqDv/JIoRsQOvA==}
     dependencies:
-      '@types/debug': 4.1.7
+      '@types/debug': 4.1.8
       debug: 4.3.4
       decode-named-character-reference: 1.0.2
       micromark-core-commonmark: 1.0.6
@@ -6391,8 +6389,8 @@ packages:
     hasBin: true
     dev: true
 
-  /regexp.prototype.flags@1.4.3:
-    resolution: {integrity: sha512-fjggEOO3slI6Wvgjwflkc4NFRCTZAu5CnNfBd5qOMYhWdn67nJBBu34/TkD++eeFmd8C9r9jfXJ27+nSiRkSUA==}
+  /regexp.prototype.flags@1.5.0:
+    resolution: {integrity: sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
@@ -7436,8 +7434,8 @@ packages:
     resolution: {integrity: sha512-umQRmSuA80JVxKB3PfO55o8mFTrW+sEtu7kZ5TYKAnkuYpKw7qgxl4f/65gp8x5BGHJjYh/iIRIE26x3Xqc4mQ==}
     dev: true
 
-  /vite-plugin-pages@0.29.0(vite@4.3.5):
-    resolution: {integrity: sha512-vRgLflQNMs8QnDB8A5XwX8b2XYSIN1Mdy3Bx7A7N9NTFeybRj/zpvoosdbMgJ3LsJ84AznHC3GytWQZGNpE5BA==}
+  /vite-plugin-pages@0.31.0(vite@4.3.5):
+    resolution: {integrity: sha512-fw3onBfVTXQI7rOzAbSZhmfwvk50+3qNnGZpERjmD93c8nEjrGLyd53eFXYMxcJV4KA1vzi4qIHt2+6tS4dEMw==}
     peerDependencies:
       '@vue/compiler-sfc': ^2.7.0 || ^3.0.0
       vite: ^2.0.0 || ^3.0.0-0 || ^4.0.0
@@ -7445,16 +7443,16 @@ packages:
       '@vue/compiler-sfc':
         optional: true
     dependencies:
-      '@types/debug': 4.1.7
+      '@types/debug': 4.1.8
       debug: 4.3.4
-      deep-equal: 2.2.0
+      deep-equal: 2.2.1
       extract-comments: 1.1.0
       fast-glob: 3.2.12
       json5: 2.2.3
       local-pkg: 0.4.3
       picocolors: 1.0.0
       vite: 4.3.5(@types/node@18.16.6)(sass@1.62.1)
-      yaml: 2.2.1
+      yaml: 2.3.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7754,7 +7752,7 @@ packages:
     dependencies:
       eslint-visitor-keys: 3.4.1
       lodash: 4.17.21
-      yaml: 2.2.1
+      yaml: 2.3.1
     dev: true
 
   /yaml@1.10.2:
@@ -7762,8 +7760,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /yaml@2.2.1:
-    resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
+  /yaml@2.3.1:
+    resolution: {integrity: sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==}
     engines: {node: '>= 14'}
     dev: true
 
