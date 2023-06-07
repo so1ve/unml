@@ -20,7 +20,7 @@ export class ExtensionLoader {
     }
 
     for (const extension of this.#loadedExtensions) {
-      const { load, run } = (await extension.activate()) ?? {};
+      const { load, run } = extension ?? {};
       load && this.#loadEvents.push(load);
       run && this.#runEvents.push(run);
     }

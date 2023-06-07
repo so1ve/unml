@@ -1,6 +1,8 @@
 import { getContext } from "unctx";
 import type { CommandFn, Tab, Unml, View } from "@unml/schema";
 
+export * from "./helpers";
+
 export const unmlCtx = getContext<Unml>("unml");
 
 export function useUnml() {
