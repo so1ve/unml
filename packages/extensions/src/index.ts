@@ -16,7 +16,7 @@ export class ExtensionLoader {
 
   async load() {
     for (const extension of this.#extensions) {
-      this.#loadedExtensions.push(await import(extension));
+      this.#loadedExtensions.push((await import(extension)).default);
     }
 
     for (const extension of this.#loadedExtensions) {

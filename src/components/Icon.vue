@@ -9,7 +9,6 @@ const props = defineProps<{
 </script>
 
 <template>
-  {{ props.icon }}
   <span v-if="props.icon.type === 'svg'" v-html="props.icon.value" />
   <Icon
     v-else-if="props.icon.type === 'iconify'"
