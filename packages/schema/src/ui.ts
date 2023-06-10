@@ -3,8 +3,13 @@ export interface View {
   path: string;
 }
 
+export interface Icon {
+  type: "svg" | "iconify";
+  value: string;
+}
+
 export interface Tab {
   id: string;
   view: string;
-  icon: string;
+  icon: Icon;
 }

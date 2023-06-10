@@ -22,7 +22,10 @@ export default defineExtension({
     addTab({
       id: "test",
       view: "test",
-      icon: "material-symbols:home-rounded",
+      icon: {
+        type: "iconify",
+        value: "material-symbols:home-rounded",
+      },
     });
   },
 });
