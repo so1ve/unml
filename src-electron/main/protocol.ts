@@ -21,8 +21,6 @@ export function preInitProtocol() {
 }
 
 export function initProtocol() {
-  // unml-resource://[path]
-  // Only allow fetching files under the installation directory
   protocol.handle(RESOURCE_PROTOCOL, ({ url }) => {
     const filepath = normalizePath(url.slice(RESOURCE_PROTOCOL.length + 3));
     if (!checkIsPathAllowed(filepath)) {
