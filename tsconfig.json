@@ -16,11 +16,11 @@
     "types": ["vite-plugin-electron/electron-env"],
     "paths": {
       "@/*": ["./src/*"],
-      "@unml/core": ["./packages/core/src"],
-      "@unml/extensions": ["./packages/extensions/src"],
-      "@unml/schema": ["./packages/schema/src"],
-      "@unml/kit": ["./packages/kit/src"],
-      "@unml/client": ["./packages/client/src"]
+      "@unml/core": ["./packages/core/src/index.ts"],
+      "@unml/extensions": ["./packages/extensions/src/index.ts"],
+      "@unml/schema": ["./packages/schema/src/index.ts"],
+      "@unml/kit": ["./packages/kit/src/index.ts"],
+      "@unml/client": ["./packages/client/src/index.ts"]
     }
   }
 }
