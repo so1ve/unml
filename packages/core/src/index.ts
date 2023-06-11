@@ -7,12 +7,12 @@ export function createUnml(): Unml {
   const hooks = createHooks<UnmlHooks>();
 
   return {
-    commands,
+    __commands__: commands,
     hooks,
     hook: hooks.hook,
     callHook: hooks.callHook,
     addHooks: hooks.addHooks,
-  };
+  } as Unml;
 }
 
 export function initUnml(unml: Unml) {

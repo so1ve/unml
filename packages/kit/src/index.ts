@@ -1,5 +1,5 @@
 import { getContext } from "unctx";
-import type { CommandFn, Tab, Unml, View } from "@unml/schema";
+import type { CommandFn, Tab, Unml, UnmlInternal, View } from "@unml/schema";
 
 export * from "./helpers";
 
@@ -31,13 +31,13 @@ export function addTab(tab: Tab) {
 }
 
 export function exposeNodeCommand(name: string, fn: CommandFn) {
-  const unml = useUnml();
-  unml.commands.set(name, fn);
+  const unml = useUnml() as UnmlInternal;
+  unml.__commands__.set(name, fn);
 }
 
 export async function callNodeCommand(name: string, ...args: any[]) {
-  const unml = useUnml();
-  const fn = unml.commands.get(name);
+  const unml = useUnml() as UnmlInternal;
+  const fn = unml.__commands__.get(name);
   if (!fn) {
     throw new Error(`Command "${name}" is not exposed!`);
   }
