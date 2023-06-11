@@ -1,14 +1,13 @@
 {
-  "name": "@unml/client",
+  "name": "@unml/constants",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "type": "module",
-  "description": "Unml client",
+  "description": "Unml constants",
   "keywords": [
-    "unml",
-    "client"
+    "unml"
   ],
-  "homepage": "https://github.com/so1ve/unml/tree/main/packages/client#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/constants#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so1ve/unml.git",
@@ -37,18 +36,5 @@
   "scripts": {
     "build": "pkgroll",
     "stub": "unbuild --stub"
-  },
-  "dependencies": {
-    "@unml/constants": "workspace:*",
-    "@unml/schema": "workspace:*",
-    "crpr": "^0.2.0"
-  },
-  "peerDependencies": {
-    "electron": "*"
-  },
-  "peerDependenciesMeta": {
-    "electron": {
-      "optional": true
-    }
   }
 }

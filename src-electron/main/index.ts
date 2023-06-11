@@ -8,6 +8,7 @@ import { loadHooks } from "./hooks";
 import type { HookRegisterContext } from "./types";
 import { loadExtensions } from "./extensions";
 import { initUi } from "./ui";
+import { initProtocol, preInitProtocol } from "./protocol";
 
 import { createUnml, initUnml } from "@unml/core";
 
@@ -26,7 +27,6 @@ const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const WEB_PREFERENCES: WebPreferences = {
   preload,
-  webSecurity: false,
   contextIsolation: false,
   nodeIntegration: true,
 };
@@ -115,10 +115,13 @@ ipcMain.handle("open-win", (_, arg) => {
   }
 });
 
+preInitProtocol();
+
 app.whenReady().then(startApp);
 
 async function startApp() {
   initUnml(createUnml());
+  initProtocol();
   await loadExtensions();
   await initUi();
   await createWindow();

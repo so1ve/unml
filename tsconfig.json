@@ -20,7 +20,8 @@
       "@unml/extensions": ["./packages/extensions/src/index.ts"],
       "@unml/schema": ["./packages/schema/src/index.ts"],
       "@unml/kit": ["./packages/kit/src/index.ts"],
-      "@unml/client": ["./packages/client/src/index.ts"]
+      "@unml/client": ["./packages/client/src/index.ts"],
+      "@unml/constants": ["./packages/constants/src/index.ts"]
     }
   }
 }
