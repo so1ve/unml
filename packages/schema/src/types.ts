@@ -7,7 +7,7 @@ export interface UnmlHooks {
   "window:minimize": () => void;
   "window:maximize": () => void;
   "window:close": () => void;
-  "ui:view": (views: View[]) => void;
+  "ui:views": (views: View[]) => void;
   "ui:tabs": (tabs: Tab[]) => void;
 }
 

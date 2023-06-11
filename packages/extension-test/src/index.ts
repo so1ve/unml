@@ -1,3 +1,6 @@
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import {
   addTab,
   addView,
@@ -5,6 +8,8 @@ import {
   defineExtension,
   exposeNodeCommand,
 } from "@unml/kit";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineExtension({
   load: () => {
@@ -17,7 +22,7 @@ export default defineExtension({
   run: () => {
     addView({
       id: "test",
-      path: "114",
+      path: join(__dirname, "a.html"),
     });
     addTab({
       id: "test",

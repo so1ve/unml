@@ -26,6 +26,7 @@ const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const WEB_PREFERENCES: WebPreferences = {
   preload,
+  webSecurity: false,
   contextIsolation: false,
   nodeIntegration: true,
 };

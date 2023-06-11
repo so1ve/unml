@@ -18,7 +18,7 @@ export const tryUseUnml = unmlCtx.tryUse;
 
 export function addView(view: View) {
   const unml = useUnml();
-  unml.hook("ui:view", (views) => {
+  unml.hook("ui:views", (views) => {
     views.push(view);
   });
 }
@@ -32,11 +32,13 @@ export function addTab(tab: Tab) {
 
 export function exposeNodeCommand(name: string, fn: CommandFn) {
   const unml = useUnml() as UnmlInternal;
+  // eslint-disable-next-line etc/no-internal
   unml.__commands__.set(name, fn);
 }
 
 export async function callNodeCommand(name: string, ...args: any[]) {
   const unml = useUnml() as UnmlInternal;
+  // eslint-disable-next-line etc/no-internal
   const fn = unml.__commands__.get(name);
   if (!fn) {
     throw new Error(`Command "${name}" is not exposed!`);
