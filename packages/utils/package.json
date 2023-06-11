@@ -1,14 +1,14 @@
 {
-  "name": "@unml/kit",
+  "name": "@unml/utils",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "type": "module",
-  "description": "Unml kit",
+  "description": "Unml utils",
   "keywords": [
     "unml",
-    "kit"
+    "utils"
   ],
-  "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/utils#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so1ve/unml.git",
@@ -40,6 +40,8 @@
   },
   "dependencies": {
     "@unml/constants": "workspace:*",
-    "pathe": "^1.1.1"
+    "@unml/schema": "workspace:*",
+    "pathe": "^1.1.1",
+    "unctx": "^2.3.1"
   }
 }

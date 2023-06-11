@@ -173,18 +173,33 @@ importers:
 
   packages/kit:
     dependencies:
-      '@unml/schema':
+      '@unml/constants':
         specifier: workspace:*
-        version: link:../schema
-      unctx:
-        specifier: ^2.3.1
-        version: 2.3.1
+        version: link:../constants
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
 
   packages/schema:
     dependencies:
       hookable:
         specifier: ^5.5.3
         version: 5.5.3
+
+  packages/utils:
+    dependencies:
+      '@unml/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@unml/schema':
+        specifier: workspace:*
+        version: link:../schema
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
+      unctx:
+        specifier: ^2.3.1
+        version: 2.3.1
 
 packages:
 
@@ -6336,7 +6351,6 @@ packages:
 
   /pathe@1.1.1:
     resolution: {integrity: sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==}
-    dev: true
 
   /pathval@1.1.1:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
