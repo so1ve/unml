@@ -4,7 +4,7 @@ export interface View {
 }
 
 export interface Icon {
-  type: "svg" | "iconify";
+  type: "html" | "iconify";
   value: string;
 }
 
