@@ -15,15 +15,12 @@ export type CommandFn = (...args: any[]) => MaybePromise<any>;
 export type CommandMap = Map<string, CommandFn>;
 
 export interface Unml {
+  /** @internal */
+  __commands__: CommandMap;
   hooks: Hookable<UnmlHooks>;
   hook: Unml["hooks"]["hook"];
   callHook: Unml["hooks"]["callHook"];
   addHooks: Unml["hooks"]["addHooks"];
-}
-
-export interface UnmlInternal extends Unml {
-  /** @internal */
-  __commands__: CommandMap;
 }
 
 export interface UnmlClient {
