@@ -1,11 +1,11 @@
 <script setup lang="ts">
-// const unml = useUnml();
+const { callNodeCommand } = useClient();
 
-function minimize() {
-  rpc["window:minimize"]();
+async function minimize() {
+  await callNodeCommand("window:minimize");
 }
-function close() {
-  rpc["window:close"]();
+async function close() {
+  await callNodeCommand("window:close");
 }
 </script>
 
@@ -16,16 +16,11 @@ function close() {
     :elevation="0"
     window
   >
-    <div>
-      <VBtn
-        class="non-draggable"
-        size="x-small"
-        variant="text"
-        @click="minimize"
-      >
+    <div class="flex gap-1">
+      <VBtn class="non-draggable" size="small" variant="text" @click="minimize">
         <span class="i-material-symbols:minimize-rounded text-lg" />
       </VBtn>
-      <VBtn class="non-draggable" size="x-small" variant="text" @click="close">
+      <VBtn class="non-draggable" size="small" variant="text" @click="close">
         <span class="i-material-symbols:close-rounded text-lg" />
       </VBtn>
     </div>

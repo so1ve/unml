@@ -1,6 +1,8 @@
 <script setup lang="ts">
-// const customTabs = await rpc.getCustomTabs();
-const customTabs = [];
+import type { Tab } from "@unml/schema";
+
+const { callNodeCommand } = useClient();
+const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
 </script>
 
 <template>
@@ -12,16 +14,10 @@ const customTabs = [];
     permanent
     rail
   >
-    <!--
-      <VListItem
-      nav
-      prepend-avatar="https://randomuser.me/api/portraits/women/75.jpg"
-      /> 
-    -->
     <VDivider />
     <VList density="compact" nav>
-      <VListItem v-for="tab in customTabs" :key="tab.id">
-        <span :class="tab.icon" />
+      <VListItem v-for="tab in tabs" :key="tab.id">
+        <Icon :icon="tab.icon" />
       </VListItem>
     </VList>
   </VNavigationDrawer>

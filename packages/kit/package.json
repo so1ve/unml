@@ -2,13 +2,12 @@
   "name": "@unml/kit",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-  "description": "UNML Kit",
+  "type": "module",
+  "description": "Unml kit",
   "keywords": [
     "unml",
-    "kit",
-    "unml-kit"
+    "kit"
   ],
-  "type": "module",
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
   "repository": {
     "type": "git",
@@ -29,14 +28,6 @@
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
@@ -44,12 +35,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "unbuild",
+    "build": "pkgroll",
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@unml/schema": "workspace:*",
-    "hookable": "^5.5.3",
-    "unctx": "^2.3.0"
+    "@unml/constants": "workspace:*",
+    "pathe": "^1.1.1"
   }
 }

@@ -1,29 +1,53 @@
-import type { Server, Unml } from "@unml/schema";
 import { getContext } from "unctx";
+import type { CommandFn, Tab, Unml, View } from "@unml/schema";
 
-const CTX_KEY = "unml";
-const SERVER_CTX_KEY = "unml-server";
+export * from "./helpers";
 
-export const unmlCtx = getContext<Unml>(CTX_KEY);
-export const unmlServerCtx = getContext<Server>(SERVER_CTX_KEY);
+export const unmlCtx = getContext<Unml>("unml");
 
-export function useUnml() {
+function useUnml() {
   const instance = unmlCtx.tryUse();
   if (!instance) {
-    throw new Error("Unml instance is unavailable!");
+    throw new Error("UNML instance is unavailable!");
   }
 
   return instance;
 }
-export const tryUseUnml = () => unmlCtx.tryUse();
 
-// TODO: Integrate this into useUnml
-export function useUnmlServer() {
-  const instance = unmlServerCtx.tryUse();
-  if (!instance) {
-    throw new Error("Unml server instance is unavailable!");
+export const addHook: Unml["hook"] = (...args) => useUnml().hook(...args);
+export const addHooks: Unml["addHooks"] = (...args) =>
+  useUnml().addHooks(...args);
+export const callHook: Unml["callHook"] = (...args) =>
+  useUnml().callHook(...args);
+
+export function addView(view: View) {
+  addHook("ui:views", (views) => {
+    views.push(view);
+  });
+}
+
+export function addTab(tab: Tab) {
+  addHook("ui:tabs", (tabs) => {
+    tabs.push(tab);
+  });
+}
+
+export function exposeNodeCommand(name: string, fn: CommandFn) {
+  const unml = useUnml();
+  // eslint-disable-next-line etc/no-internal
+  unml.__commands__.set(name, fn);
+}
+
+export async function callNodeCommand(name: string, ...args: any[]) {
+  const unml = useUnml();
+  // eslint-disable-next-line etc/no-internal
+  const fn = unml.__commands__.get(name);
+  if (!fn) {
+    throw new Error(`Command "${name}" is not exposed!`);
   }
 
-  return instance;
+  return await fn(...args);
 }
-export const tryUseUnmlServer = () => unmlServerCtx.tryUse();
+
+// TODO: add callClientCommand
+export function callClientCommand() {}

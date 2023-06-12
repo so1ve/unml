@@ -2,13 +2,12 @@
   "name": "@unml/schema",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-  "description": "UNML Schema",
+  "type": "module",
+  "description": "Unml schema",
   "keywords": [
     "unml",
-    "schema",
-    "unml-schema"
+    "schema"
   ],
-  "type": "module",
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/schema#readme",
   "repository": {
     "type": "git",
@@ -29,14 +28,6 @@
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
@@ -44,7 +35,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "unbuild",
+    "build": "pkgroll",
     "stub": "unbuild --stub"
   },
   "dependencies": {

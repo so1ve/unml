@@ -1,24 +1,40 @@
-import { loadPackagesFromCwd } from "./utils";
+import type { Extension, LoadEvent, RunEvent } from "@unml/schema";
 
-export const EXTENSION_NAME_RE = /^(@[\w-]+\/)?unml-extension(-[\w-]+)?$/;
+import { NODE_MODULES_DIR, exists, loadExtensionsFromCwd } from "./utils";
 
-export const filterExtensions = (packages: string[]) =>
-  packages.filter((name) => EXTENSION_NAME_RE.test(name));
+export class ExtensionLoader {
+  #extensions: string[] = [];
+  #loadedExtensions: Extension[] = [];
+  #loadEvents: LoadEvent[] = [];
+  #runEvents: RunEvent[] = [];
 
-export const loadExtensionsFromCwd = (cwd = process.cwd()) =>
-  loadPackagesFromCwd(cwd).then(filterExtensions);
+  async init() {
+    this.#extensions = (await exists(NODE_MODULES_DIR))
+      ? await loadExtensionsFromCwd()
+      : [];
+  }
 
-export async function runExtensions(
-  extensions?: string[],
-  cwd = process.cwd(),
-) {
-  extensions ??= await loadExtensionsFromCwd(cwd);
-  // const extensionModules = await Promise.all(
-  //   extensions.map(async (name) => {
-  //     const extension = await import(name);
-  //     console.log(extension);
+  async load() {
+    for (const extension of this.#extensions) {
+      this.#loadedExtensions.push((await import(extension)).default);
+    }
 
-  //     return extension.default;
-  //   }),
-  // );
+    for (const extension of this.#loadedExtensions) {
+      const { load, run } = extension ?? {};
+      load && this.#loadEvents.push(load);
+      run && this.#runEvents.push(run);
+    }
+  }
+
+  async runLoadEvent() {
+    for (const loadEvent of this.#loadEvents) {
+      await loadEvent();
+    }
+  }
+
+  async runRunEvent() {
+    for (const runEvent of this.#runEvents) {
+      await runEvent();
+    }
+  }
 }
