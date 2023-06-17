@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - work
     paths-ignore:
       - "**.md"
       - "**.spec.js"
