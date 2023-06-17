@@ -34,13 +34,13 @@ export function addTab(tab: Tab) {
 
 export function exposeNodeCommand(name: string, fn: CommandFn) {
   const unml = useUnml();
-  // eslint-disable-next-line etc/no-internal
+
   unml.commands.set(name, fn);
 }
 
 export async function callNodeCommand(name: string, ...args: any[]) {
   const unml = useUnml();
-  // eslint-disable-next-line etc/no-internal
+
   const fn = unml.commands.get(name);
   if (!fn) {
     throw new Error(`Command "${name}" is not exposed!`);

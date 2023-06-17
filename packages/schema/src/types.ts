@@ -15,7 +15,6 @@ export type CommandFn = (...args: any[]) => MaybePromise<any>;
 export type CommandMap = Map<string, CommandFn>;
 
 export interface Unml {
-  
   commands: CommandMap;
   hooks: Hookable<UnmlHooks>;
   hook: Unml["hooks"]["hook"];
