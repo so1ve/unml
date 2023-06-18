@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { pathToResourceUrl } from "@unml/utils";
 import type { View } from "@unml/schema";
+import { pathToResourceUrl } from "@unml/utils";
 
 const route = useRoute();
 const { callNodeCommand } = useClient();

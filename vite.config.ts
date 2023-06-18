@@ -2,13 +2,13 @@ import { rmSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { AliasOptions } from "vite";
-import { defineConfig } from "vite";
 import VueI18n from "@intlify/unplugin-vue-i18n/vite";
 import Vue from "@vitejs/plugin-vue";
 import Unocss from "unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import VueComponents from "unplugin-vue-components/vite";
+import type { AliasOptions } from "vite";
+import { defineConfig } from "vite";
 // eslint-disable-next-line import/default
 import Electron from "vite-plugin-electron";
 import ElectronRenderer from "vite-plugin-electron-renderer";

@@ -1,5 +1,5 @@
-import type { Hookable } from "hookable";
 import type { MaybePromise } from "@so1ve/utils";
+import type { Hookable } from "hookable";
 
 import type { Tab, View } from "./ui";
 

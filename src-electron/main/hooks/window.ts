@@ -1,6 +1,6 @@
-import type { HookRegister } from "../types";
-
 import { exposeNodeCommand } from "@unml/kit";
+
+import type { HookRegister } from "../types";
 
 export const registerHooks: HookRegister = ({ win }) => {
   function minimize() {

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-
 import type { Icon as IconType } from "@unml/schema";
 
 const props = defineProps<{

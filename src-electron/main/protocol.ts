@@ -1,11 +1,10 @@
 import os from "node:os";
 
+import { RESOURCE_PROTOCOL } from "@unml/constants";
 import { app, net, protocol } from "electron";
 import { normalize } from "pathe";
 
 import { isParentDirectory } from "./utils";
-
-import { RESOURCE_PROTOCOL } from "@unml/constants";
 
 export function preInitProtocol() {
   protocol.registerSchemesAsPrivileged([

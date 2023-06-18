@@ -1,8 +1,7 @@
-import { ipcMain } from "electron";
-
 import { COMMAND_NODE_CALL } from "@unml/constants";
-import { callNodeCommand } from "@unml/kit";
 import { ExtensionLoader } from "@unml/extensions";
+import { callNodeCommand } from "@unml/kit";
+import { ipcMain } from "electron";
 
 let extensionLoader: ExtensionLoader | null = null;
 

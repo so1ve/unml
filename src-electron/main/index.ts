@@ -1,16 +1,15 @@
 import { release } from "node:os";
 import { join } from "node:path";
 
+import { createUnml, initUnml } from "@unml/core";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
-import { loadHooks } from "./hooks";
-import type { HookRegisterContext } from "./types";
 import { loadExtensions } from "./extensions";
-import { initUi } from "./ui";
+import { loadHooks } from "./hooks";
 import { initProtocol, preInitProtocol } from "./protocol";
-
-import { createUnml, initUnml } from "@unml/core";
+import type { HookRegisterContext } from "./types";
+import { initUi } from "./ui";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
