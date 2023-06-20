@@ -1,4 +1,4 @@
 {
   "extends": "@so1ve",
-  "rules": {"@unocss/order-attributify":"off"}
+  "rules": { "@unocss/order-attributify": "off" }
 }
