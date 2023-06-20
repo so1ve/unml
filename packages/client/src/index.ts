@@ -2,14 +2,19 @@ import { COMMAND_NODE_CALL, COMMAND_NODE_CALL_DONE } from "@unml/constants";
 import type { UnmlClient } from "@unml/schema";
 import { crpr } from "crpr";
 
+declare global {
+  interface Window {
+    __UNML_API__: {
+      callNodeCommand: (...args: any[]) => Promise<any>;
+    };
+  }
+}
+
 export function useClient(): UnmlClient {
   if (window.self === window.top) {
     const client: UnmlClient = {
-      callNodeCommand: async (...args) => {
-        const { ipcRenderer } = await import("electron");
-
-        return ipcRenderer.invoke(COMMAND_NODE_CALL, ...args);
-      },
+      callNodeCommand: async (...args) =>
+        window.__UNML_API__.callNodeCommand(...args),
 
       // TODO
       exposeClientCommand: () => {},
