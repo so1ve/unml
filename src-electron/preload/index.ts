@@ -25,7 +25,7 @@ contextBridge.exposeInMainWorld(API_VAR, {
           failed = true;
           result = e;
         }
-        ipcRenderer.send(COMMAND_CLIENT_CALL_DONE, name, {
+        event.sender.send(COMMAND_CLIENT_CALL_DONE, name, {
           failed,
           result,
         });
