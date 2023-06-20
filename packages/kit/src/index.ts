@@ -51,6 +51,5 @@ export async function callNodeCommand(name: string, ...args: any[]) {
   return await fn(...args);
 }
 
-// TODO: add callClientCommand
 export const callClientCommand = async (name: string, ...args: any[]) =>
   await callNodeCommand(COMMAND_CLIENT_CALL, name, ...args);
