@@ -5,6 +5,6 @@ import pinia from "./pinia";
 import router from "./router";
 import vuetify from "./vuetify";
 
-export function registerPlugins(app: App) {
+export function registerVuePlugins(app: App) {
   app.use(router).use(pinia).use(i18n).use(vuetify);
 }

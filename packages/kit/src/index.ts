@@ -1,3 +1,4 @@
+import { COMMAND_CLIENT_CALL } from "@unml/constants";
 import type { CommandFn, Tab, Unml, View } from "@unml/schema";
 import { getContext } from "unctx";
 
@@ -34,6 +35,9 @@ export function addTab(tab: Tab) {
 
 export function exposeNodeCommand(name: string, fn: CommandFn) {
   const unml = useUnml();
+  if (unml.commands.has(name)) {
+    throw new Error(`Command "${name}" is already exposed!`);
+  }
   unml.commands.set(name, fn);
 }
 
@@ -48,4 +52,5 @@ export async function callNodeCommand(name: string, ...args: any[]) {
 }
 
 // TODO: add callClientCommand
-export function callClientCommand() {}
+export const callClientCommand = async (name: string, ...args: any[]) =>
+  await callNodeCommand(COMMAND_CLIENT_CALL, name, ...args);

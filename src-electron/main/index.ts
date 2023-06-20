@@ -2,13 +2,13 @@ import { release } from "node:os";
 import { join } from "node:path";
 
 import { createUnml, initUnml } from "@unml/core";
+import { callClientCommand } from "@unml/kit";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
 import { loadExtensions } from "./extensions";
 import { loadHooks } from "./hooks";
 import { initProtocol, preInitProtocol } from "./protocol";
-import type { HookRegisterContext } from "./types";
 import { initUi } from "./ui";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
@@ -120,9 +120,10 @@ app.whenReady().then(startApp);
 async function startApp() {
   initUnml(createUnml());
   initProtocol();
-  await loadExtensions();
-  await initUi();
-  await createWindow();
-  const hookRegisterContext: HookRegisterContext = { win: win! };
-  await loadHooks(hookRegisterContext);
+  await Promise.resolve()
+    .then(createWindow)
+    .then(() => loadHooks({ win: win! }))
+    .then(() => loadExtensions(win!))
+    .then(initUi)
+    .then(() => callClientCommand("loaded"));
 }

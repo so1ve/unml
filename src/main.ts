@@ -5,8 +5,15 @@ import "@unocss/reset/tailwind.css";
 import "./styles/main.scss";
 
 import App from "./App.vue";
-import { registerPlugins } from "./plugins";
+import { handleExtensions } from "./extensions";
+import { registerVuePlugins } from "./vue-plugins";
 
-const app = createApp(App);
-registerPlugins(app);
-app.mount("#app");
+handleExtensions();
+
+const { exposeClientCommand } = useClient();
+
+exposeClientCommand("loaded", () => {
+  const app = createApp(App);
+  registerVuePlugins(app);
+  app.mount("#app");
+});

@@ -1,23 +1,34 @@
-import { COMMAND_NODE_CALL, COMMAND_NODE_CALL_DONE } from "@unml/constants";
-import type { UnmlClient } from "@unml/schema";
+import {
+  API_VAR,
+  COMMAND_NODE_CALL,
+  COMMAND_NODE_CALL_DONE,
+} from "@unml/constants";
+import type { CommandMap, UnmlClient } from "@unml/schema";
 import { crpr } from "crpr";
 
-declare global {
-  interface Window {
-    __UNML_API__: {
-      callNodeCommand: (...args: any[]) => Promise<any>;
-    };
-  }
-}
+// TODO
+const commands: CommandMap = new Map();
 
 export function useClient(): UnmlClient {
   if (window.self === window.top) {
     const client: UnmlClient = {
       callNodeCommand: async (...args) =>
-        window.__UNML_API__.callNodeCommand(...args),
+        window[API_VAR].callNodeCommand(...args),
 
-      // TODO
-      exposeClientCommand: () => {},
+      callClientCommand: async (name, ...args) => {
+        if (!commands.has(name)) {
+          throw new Error(`Command "${name}" is not exposed!`);
+        }
+
+        return commands.get(name)!(...args);
+      },
+
+      exposeClientCommand: (name, fn) => {
+        if (commands.has(name)) {
+          throw new Error(`Command "${name}" is already exposed!`);
+        }
+        commands.set(name, fn);
+      },
     };
 
     return client;
@@ -39,6 +50,9 @@ export function useClient(): UnmlClient {
 
       return promise;
     },
+
+    // TODO
+    callClientCommand: async () => undefined as any,
     exposeClientCommand: () => {},
   };
 

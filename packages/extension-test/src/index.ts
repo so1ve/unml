@@ -19,7 +19,7 @@ export default defineExtension({
       return 1_919_810;
     });
   },
-  run: () => {
+  run: async () => {
     addView({
       id: "test",
       path: join(__dirname, "a.html"),

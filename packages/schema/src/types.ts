@@ -24,6 +24,7 @@ export interface Unml {
 
 export interface UnmlClient {
   callNodeCommand: <T = any>(name: string, ...args: any[]) => Promise<T>;
+  callClientCommand: <T = any>(name: string, ...args: any[]) => Promise<T>;
   // TODO: add callClientCommand
   exposeClientCommand: (name: string, fn: CommandFn) => void;
 }
