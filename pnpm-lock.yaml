@@ -191,6 +191,9 @@ importers:
 
   packages/utils:
     dependencies:
+      '@types/node':
+        specifier: ^18.16.12
+        version: 18.16.12
       '@unml/constants':
         specifier: workspace:*
         version: link:../constants
@@ -203,10 +206,6 @@ importers:
       unctx:
         specifier: ^2.3.1
         version: 2.3.1
-    devDependencies:
-      '@types/node':
-        specifier: '18'
-        version: 18.16.12
 
 packages:
 
@@ -2814,6 +2813,7 @@ packages:
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+    requiresBuild: true
     dev: true
 
   /big-integer@1.6.51:
@@ -3884,7 +3884,7 @@ packages:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.12.1
-      resolve: 1.22.3
+      resolve: 1.22.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8404,6 +8404,7 @@ packages:
   /xmlbuilder@15.1.1:
     resolution: {integrity: sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==}
     engines: {node: '>=8.0'}
+    requiresBuild: true
     dev: true
 
   /y18n@5.0.8:
