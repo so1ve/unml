@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["vite-plugin-electron/electron-env"],
+    "types": ["vite-plugin-electron/electron-env", "node"],
     "paths": {
       "@/*": ["./src/*"],
       "@unml/core": ["./packages/core/src/index.ts"],
