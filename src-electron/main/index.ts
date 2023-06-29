@@ -123,7 +123,7 @@ async function startApp() {
   await Promise.resolve()
     .then(createWindow)
     .then(() => loadHooks({ win: win! }))
-    .then(() => loadExtensions(win!))
+    .then(loadExtensions)
     .then(initUi)
     .then(() => callClientCommand("loaded"));
 }

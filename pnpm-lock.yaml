@@ -54,6 +54,9 @@ importers:
       electron:
         specifier: ^25.1.1
         version: 25.1.1
+      electron-better-ipc:
+        specifier: ^2.0.1
+        version: 2.0.1
       electron-builder:
         specifier: ^24.4.0
         version: 24.4.0
@@ -3694,6 +3697,12 @@ packages:
       jake: 10.8.7
     dev: true
 
+  /electron-better-ipc@2.0.1:
+    resolution: {integrity: sha512-S/h2vjQjev9FVicGnZeuP2wH/ycO9pOv63JGaTjYB2m5JcKDuXHAM713YmnmDC+VVXP7mh1Y9rtxi6BoNK7YJA==}
+    dependencies:
+      serialize-error: 8.1.0
+    dev: true
+
   /electron-builder@24.4.0:
     resolution: {integrity: sha512-D5INxodxaUIJgEX6p/fqBd8wQNS8XRAToNIJ9SQC+taNS5D73ZsjLuXiRraFGCB0cVk9KeKhEkdEOH5AaVya4g==}
     engines: {node: '>=14.0.0'}
@@ -7221,6 +7230,13 @@ packages:
     dependencies:
       type-fest: 0.13.1
     optional: true
+
+  /serialize-error@8.1.0:
+    resolution: {integrity: sha512-3NnuWfM6vBYoy5gZFvHiYsVbafvI9vZv/+jlIigFn4oP4zjNPK3LhcY0xSCgeb1a5L8jO71Mit9LlNoi2UfDDQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      type-fest: 0.20.2
+    dev: true
 
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
