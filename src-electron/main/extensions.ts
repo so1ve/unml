@@ -1,7 +1,6 @@
 import { COMMAND_CLIENT_CALL, COMMAND_NODE_CALL } from "@unml/constants";
 import { ExtensionLoader } from "@unml/extensions";
 import { callNodeCommand, exposeNodeCommand } from "@unml/kit";
-import type { BrowserWindow } from "electron";
 import { ipcMain } from "electron-better-ipc";
 
 let extensionLoader: ExtensionLoader | null = null;
