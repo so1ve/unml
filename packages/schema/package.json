@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Unml schema",
   "keywords": [
-    "unml",
-    "schema"
+    "schema",
+    "unml"
   ],
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/schema#readme",
   "repository": {
