@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Unml client",
   "keywords": [
-    "unml",
-    "client"
+    "client",
+    "unml"
   ],
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/client#readme",
   "repository": {

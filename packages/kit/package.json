@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Unml kit",
   "keywords": [
-    "unml",
-    "kit"
+    "kit",
+    "unml"
   ],
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
   "repository": {

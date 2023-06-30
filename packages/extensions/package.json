@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Unml extensions",
   "keywords": [
-    "unml",
-    "extension"
+    "extension",
+    "unml"
   ],
   "homepage": "https://github.com/so1ve/unml/tree/main/packages/extensions#readme",
   "repository": {
