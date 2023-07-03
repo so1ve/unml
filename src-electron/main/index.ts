@@ -4,7 +4,8 @@ import { join } from "node:path";
 import { createUnml, initUnml } from "@unml/core";
 import { callClientCommand } from "@unml/kit";
 import type { WebPreferences } from "electron";
-import { BrowserWindow, app, ipcMain, shell } from "electron";
+import { BrowserWindow, app, shell } from "electron";
+import electronDebug from "electron-debug";
 
 import { loadExtensions } from "./extensions";
 import { loadHooks } from "./hooks";
@@ -101,18 +102,7 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.handle("open-win", (_, arg) => {
-  const childWindow = new BrowserWindow({
-    webPreferences: WEB_PREFERENCES,
-  });
-
-  if (process.env.VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${url}#${arg as string}`);
-  } else {
-    childWindow.loadFile(indexHtml, { hash: arg });
-  }
-});
-
+// Initialization
 preInitProtocol();
 
 app.whenReady().then(startApp);
@@ -125,5 +115,6 @@ async function startApp() {
     .then(() => loadHooks({ win: win! }))
     .then(loadExtensions)
     .then(initUi)
-    .then(() => callClientCommand("loaded"));
+    .then(() => callClientCommand("loaded"))
+    .then(() => electronDebug());
 }
