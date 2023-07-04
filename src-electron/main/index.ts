@@ -2,7 +2,6 @@ import { release } from "node:os";
 import { join } from "node:path";
 
 import { createUnml, initUnml } from "@unml/core";
-import { callClientCommand } from "@unml/kit";
 import type { WebPreferences } from "electron";
 import { BrowserWindow, app, shell } from "electron";
 import electronDebug from "electron-debug";
@@ -115,6 +114,5 @@ async function startApp() {
     .then(() => loadHooks({ win: win! }))
     .then(loadExtensions)
     .then(initUi)
-    .then(() => callClientCommand("loaded"))
     .then(() => electronDebug());
 }

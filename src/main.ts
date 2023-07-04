@@ -10,10 +10,6 @@ import "./styles/main.scss";
 
 handleExtensions();
 
-const { exposeClientCommand } = useClient();
-
-exposeClientCommand("loaded", () => {
-  const app = createApp(App);
-  registerVuePlugins(app);
-  app.mount("#app");
-});
+const app = createApp(App);
+registerVuePlugins(app);
+app.mount("#app");
