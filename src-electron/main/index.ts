@@ -8,7 +8,6 @@ import { initProtocol, preInitProtocol } from "./protocol";
 import { initUi } from "./ui";
 import { createWindow } from "./window";
 
-// Initialization
 preInitProtocol();
 
 app
@@ -19,4 +18,4 @@ app
   .then((win) => loadHooks({ win }))
   .then(loadExtensions)
   .then(initUi)
-  .then(() => electronDebug());
+  .then(electronDebug);
