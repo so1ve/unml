@@ -19,4 +19,5 @@ contextBridge.exposeInMainWorld(API_VAR, {
       ([name, args]: [string, any[]]) => handler(name, ...args),
     );
   },
+  process,
 } as UnmlApi);

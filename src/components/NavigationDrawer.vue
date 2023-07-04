@@ -16,7 +16,7 @@ const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
   >
     <VDivider />
     <VList density="compact" nav>
-      <VListItem v-for="tab in tabs" :key="tab.id">
+      <VListItem v-for="tab in tabs" :key="tab.id" :to="`/plugin/${tab.id}`">
         <Icon :icon="tab.icon" />
       </VListItem>
     </VList>

@@ -5,4 +5,5 @@ export interface UnmlApi {
   onCallClientCommand: (
     handler: (name: string, ...args: any[]) => MaybePromise<any>,
   ) => void;
+  process: NodeJS.Process;
 }

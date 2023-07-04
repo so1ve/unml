@@ -1,5 +1,6 @@
+import os from "node:os";
+
 import { RESOURCE_PROTOCOL } from "@unml/constants";
-import { normalizePath } from "@unml/utils";
 import { app, net, protocol } from "electron";
 import { normalize } from "pathe";
 
@@ -30,6 +31,18 @@ export function initProtocol() {
 
     return net.fetch(`file://${filepath}`);
   });
+}
+
+function normalizePath(path: string) {
+  if (os.platform() !== "win32") {
+    return path;
+  }
+  path = normalize(path);
+  const splitted = path.split("/");
+  const drive = splitted[0].toUpperCase();
+  const rest = splitted.slice(1).join("/");
+
+  return `${drive}:/${rest}`;
 }
 
 function checkIsPathAllowed(path: string) {
