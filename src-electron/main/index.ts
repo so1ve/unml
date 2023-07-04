@@ -18,4 +18,4 @@ app
   .then((win) => loadHooks({ win }))
   .then(loadExtensions)
   .then(initUi)
-  .then(electronDebug);
+  .then(() => electronDebug());
