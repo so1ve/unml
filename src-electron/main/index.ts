@@ -11,13 +11,12 @@ import { createWindow } from "./window";
 // Initialization
 preInitProtocol();
 
-app.whenReady().then(async () => {
-  initUnml(createUnml());
-  initProtocol();
-  await Promise.resolve()
-    .then(createWindow)
+app.whenReady().then(async () => 
+  initUnml(createUnml())).then(async()=>
+  initProtocol())
+      .then(createWindow)
     .then((win) => loadHooks({ win }))
     .then(loadExtensions)
     .then(initUi)
     .then(() => electronDebug());
-});
+
