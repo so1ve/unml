@@ -11,17 +11,18 @@ async function close() {
 
 <template>
   <VSystemBar
-    class="draggable bg-u-black!"
+    bg="u-black!"
+    class="draggable"
     density="compact"
     :elevation="0"
     window
   >
-    <div class="flex gap-1">
+    <div flex gap-1>
       <VBtn class="non-draggable" size="small" variant="text" @click="minimize">
-        <span class="i-material-symbols:minimize-rounded text-lg" />
+        <span i-material-symbols:minimize-rounded text-lg />
       </VBtn>
       <VBtn class="non-draggable" size="small" variant="text" @click="close">
-        <span class="i-material-symbols:close-rounded text-lg" />
+        <span i-material-symbols:close-rounded text-lg />
       </VBtn>
     </div>
   </VSystemBar>

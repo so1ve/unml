@@ -2,6 +2,7 @@ import presetRemToPx from "@unocss/preset-rem-to-px";
 import type { Theme } from "@unocss/preset-uno";
 import {
   defineConfig,
+  presetAttributify,
   presetIcons,
   presetUno,
   transformerVariantGroup,
@@ -19,6 +20,7 @@ export default defineConfig<Theme>({
       },
     }),
     presetUno(),
+    presetAttributify(),
     presetRemToPx(),
   ],
   transformers: [transformerVariantGroup()],

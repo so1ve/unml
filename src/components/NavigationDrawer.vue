@@ -10,7 +10,7 @@ const { state: tabs } = useAsyncState(
 
 <template>
   <VNavigationDrawer
-    class="bg-u-black!"
+    bg="u-black!"
     disable-resize-watcher
     disable-route-watcher
     :elevation="0"
@@ -19,13 +19,13 @@ const { state: tabs } = useAsyncState(
   >
     <VList density="compact" nav>
       <VListItem to="/">
-        <Icon icon="material-symbols:home-rounded" type="iconify"></Icon>
+        <Icon icon="material-symbols:home-rounded" type="iconify" />
       </VListItem>
     </VList>
     <VDivider />
     <!-- TODO: Loading -->
     <VList density="compact" nav>
-      <VListItem v-for="tab in tabs" :key="tab.id" :to="`/plugin/${tab.id}`">
+      <VListItem v-for="tab in tabs" :key="tab.id" :to="`/extension/${tab.id}`">
         <Icon v-bind="tab.icon" />
       </VListItem>
     </VList>

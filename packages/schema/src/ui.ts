@@ -1,6 +1,7 @@
 export interface View {
   id: string;
   path: string;
+  persistent?: boolean;
 }
 
 export interface Icon {

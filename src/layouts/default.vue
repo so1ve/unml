@@ -4,7 +4,7 @@
       <NavigationDrawer />
       <SystemBar />
       <VMain>
-        <div class="p-4">
+        <div h-full p-4>
           <RouterView />
         </div>
       </VMain>

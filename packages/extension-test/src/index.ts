@@ -23,6 +23,7 @@ export default defineExtension({
     addView({
       id: "test",
       path: join(__dirname, "a.html"),
+      persistent: true,
     });
     addTab({
       id: "test",

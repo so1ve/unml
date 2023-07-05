@@ -9,9 +9,5 @@ const props = defineProps<{
 
 <template>
   <span v-if="props.type === 'html'" v-html="props.icon" />
-  <Icon
-    v-else-if="props.type === 'iconify'"
-    class="text-2xl"
-    :icon="props.icon"
-  />
+  <Icon v-else-if="props.type === 'iconify'" :icon="props.icon" text-2xl />
 </template>
