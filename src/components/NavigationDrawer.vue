@@ -14,8 +14,8 @@ const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
     permanent
     rail
   >
-    <VList>
-      <VListItem>
+    <VList density="compact" nav>
+      <VListItem to="/">
         <Icon icon="material-symbols:home-rounded" type="iconify"></Icon>
       </VListItem>
     </VList>

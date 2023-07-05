@@ -16,7 +16,6 @@ async function close() {
     :elevation="0"
     window
   >
-    {{ `${2}` }}
     <div class="flex gap-1">
       <VBtn class="non-draggable" size="small" variant="text" @click="minimize">
         <span class="i-material-symbols:minimize-rounded text-lg" />
