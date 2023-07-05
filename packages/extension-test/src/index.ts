@@ -29,7 +29,7 @@ export default defineExtension({
       view: "test",
       icon: {
         type: "iconify",
-        value: "material-symbols:home-rounded",
+        icon: "material-symbols:home-rounded",
       },
     });
   },

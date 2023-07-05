@@ -14,10 +14,15 @@ const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
     permanent
     rail
   >
+    <VList>
+      <VListItem>
+        <Icon icon="material-symbols:home-rounded" type="iconify"></Icon>
+      </VListItem>
+    </VList>
     <VDivider />
     <VList density="compact" nav>
       <VListItem v-for="tab in tabs" :key="tab.id" :to="`/plugin/${tab.id}`">
-        <Icon :icon="tab.icon" />
+        <Icon v-bind="tab.icon" />
       </VListItem>
     </VList>
   </VNavigationDrawer>

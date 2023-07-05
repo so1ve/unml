@@ -5,7 +5,7 @@ export interface View {
 
 export interface Icon {
   type: "html" | "iconify";
-  value: string;
+  icon: string;
 }
 
 export interface Tab {
