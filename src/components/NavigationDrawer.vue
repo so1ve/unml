@@ -2,7 +2,10 @@
 import type { Tab } from "@unml/schema";
 
 const { callNodeCommand } = useClient();
-const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
+const { state: tabs } = useAsyncState(
+  () => callNodeCommand<Tab[]>("ui:getTabs"),
+  [],
+);
 </script>
 
 <template>
@@ -20,6 +23,7 @@ const tabs = await callNodeCommand<Tab[]>("ui:getTabs");
       </VListItem>
     </VList>
     <VDivider />
+    <!-- TODO: Loading -->
     <VList density="compact" nav>
       <VListItem v-for="tab in tabs" :key="tab.id" :to="`/plugin/${tab.id}`">
         <Icon v-bind="tab.icon" />

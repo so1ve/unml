@@ -19,5 +19,9 @@ const iframeUrl = computed(() => {
 
 <template>
   <div v-if="!view">View {{ viewId }} not found</div>
-  <iframe v-else :src="iframeUrl"></iframe>
+  <iframe
+    v-else
+    class="h-[calc(100vh_-_32px)] w-[calc(32px_+_100%)] -m-4"
+    :src="iframeUrl"
+  ></iframe>
 </template>
