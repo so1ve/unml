@@ -21,7 +21,7 @@ const iframeEl = ref<HTMLIFrameElement | null>(null);
 const box = reactive(useElementBounding(anchor));
 
 onMounted(() => {
-  const isPersistent = props.view.persistent !== false;
+  const isPersistent = !!props.view.persistent;
   const allowedPermissions = ["clipboard-write", "clipboard-read"];
 
   if (iframeCacheMap.get(key.value) && isPersistent) {
