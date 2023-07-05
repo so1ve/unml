@@ -2,8 +2,8 @@ import { createUnml, initUnml } from "@unml/core";
 import { app } from "electron";
 import electronDebug from "electron-debug";
 
+import { loadCommands } from "./commands";
 import { loadExtensions } from "./extensions";
-import { loadHooks } from "./hooks";
 import { initProtocol, preInitProtocol } from "./protocol";
 import { initUi } from "./ui";
 import { createWindow } from "./window";
@@ -12,10 +12,10 @@ preInitProtocol();
 
 app
   .whenReady()
-  .then(async () => initUnml(createUnml()))
-  .then(async () => initProtocol())
+  .then(() => initUnml(createUnml()))
+  .then(initProtocol)
   .then(createWindow)
-  .then((win) => loadHooks({ win }))
+  .then((win) => loadCommands({ win }))
   .then(loadExtensions)
   .then(initUi)
   .then(() => electronDebug());
