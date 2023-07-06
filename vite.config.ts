@@ -127,6 +127,9 @@ export default defineConfig(({ command }) => {
       ]),
       ElectronRenderer(),
     ],
+    optimizeDeps: {
+      include: ["pathe"],
+    },
     build: {
       rollupOptions: {
         external: EXTERNAL,
