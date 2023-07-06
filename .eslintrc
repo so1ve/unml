@@ -1,5 +1,5 @@
 {
-	"extends": "@so1ve",
-	// Disable temporarily
-	"rules": { "@unocss/order-attributify": "off" }
+  "extends": "@so1ve",
+  // Disable temporarily
+  "rules": { "@unocss/order-attributify": "off" }
 }

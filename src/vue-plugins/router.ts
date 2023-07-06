@@ -5,6 +5,6 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = setupLayouts(generatedRoutes);
 
 export default createRouter({
-	history: createWebHistory(),
-	routes,
+  history: createWebHistory(),
+  routes,
 });

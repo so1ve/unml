@@ -10,6 +10,6 @@ const view = computed(() => views.find((v) => v.id === viewId.value));
 </script>
 
 <template>
-	<div v-if="!view">View {{ viewId }} not found</div>
-	<IframeView v-else :view="view" />
+  <div v-if="!view">Custom view {{ viewId }} not found</div>
+  <IframeView v-else :view="view" />
 </template>

@@ -1,16 +1,22 @@
 export interface View {
-	id: string;
-	path: string;
-	persistent?: boolean;
+  id: string;
+  path: string;
+  persistent?: boolean;
 }
 
 export interface Icon {
-	type: "html" | "iconify";
-	icon: string;
+  type: "html" | "iconify";
+  icon: string;
 }
 
-export interface Tab {
-	id: string;
-	view: string;
-	icon: Icon;
+interface TabBase {
+  id: string;
+  icon: Icon;
 }
+type TabView = TabBase & {
+  view: string;
+};
+type TabPath = TabBase & {
+  path: string;
+};
+export type Tab = TabView | TabPath;

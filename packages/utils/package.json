@@ -1,48 +1,48 @@
 {
-	"name": "@unml/utils",
-	"version": "0.0.0",
-	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-	"type": "module",
-	"description": "Unml utils",
-	"keywords": [
-		"unml",
-		"utils"
-	],
-	"homepage": "https://github.com/so1ve/unml/tree/main/packages/utils#readme",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/so1ve/unml.git",
-		"directory": "/"
-	},
-	"bugs": {
-		"url": "https://github.com/so1ve/unml/issues"
-	},
-	"license": "MIT",
-	"sideEffects": false,
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs"
-		}
-	},
-	"main": "dist/index.mjs",
-	"module": "dist/index.mjs",
-	"types": "dist/index.d.ts",
-	"files": [
-		"dist"
-	],
-	"publishConfig": {
-		"access": "public"
-	},
-	"scripts": {
-		"build": "pkgroll",
-		"stub": "unbuild --stub"
-	},
-	"dependencies": {
-		"@types/node": "^18.16.12",
-		"@unml/constants": "workspace:*",
-		"@unml/schema": "workspace:*",
-		"pathe": "^1.1.1",
-		"unctx": "^2.3.1"
-	}
+  "name": "@unml/utils",
+  "version": "0.0.0",
+  "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "type": "module",
+  "description": "Unml utils",
+  "keywords": [
+    "unml",
+    "utils"
+  ],
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/so1ve/unml.git",
+    "directory": "/"
+  },
+  "bugs": {
+    "url": "https://github.com/so1ve/unml/issues"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "pkgroll",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@types/node": "^18.16.12",
+    "@unml/constants": "workspace:*",
+    "@unml/schema": "workspace:*",
+    "pathe": "^1.1.1",
+    "unctx": "^2.3.1"
+  }
 }

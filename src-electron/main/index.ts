@@ -11,11 +11,11 @@ import { createWindow } from "./window";
 preInitProtocol();
 
 app
-	.whenReady()
-	.then(() => initUnml(createUnml()))
-	.then(initProtocol)
-	.then(createWindow)
-	.then((win) => loadCommands({ win }))
-	.then(loadExtensions)
-	.then(initUi)
-	.then(() => electronDebug());
+  .whenReady()
+  .then(() => initUnml(createUnml()))
+  .then(initProtocol)
+  .then(createWindow)
+  .then((win) => loadCommands({ win }))
+  .then(loadExtensions)
+  .then(initUi)
+  .then(() => electronDebug());
