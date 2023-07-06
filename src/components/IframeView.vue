@@ -12,7 +12,7 @@ import type { View } from "@unml/schema";
 import { pathToResourceUrl } from "@unml/utils";
 
 const props = defineProps<{
-  view: View;
+	view: View;
 }>();
 
 const anchor = ref<HTMLDivElement>();
@@ -21,69 +21,69 @@ const iframeEl = ref<HTMLIFrameElement | null>(null);
 const box = reactive(useElementBounding(anchor));
 
 onMounted(() => {
-  const isPersistent = !!props.view.persistent;
-  const allowedPermissions = ["clipboard-write", "clipboard-read"];
+	const isPersistent = !!props.view.persistent;
+	const allowedPermissions = ["clipboard-write", "clipboard-read"];
 
-  if (iframeCacheMap.get(key.value) && isPersistent) {
-    iframeEl.value = iframeCacheMap.get(key.value)!;
-    iframeEl.value.style.visibility = "visible";
-  } else {
-    iframeEl.value = document.createElement("iframe");
-    iframeEl.value.setAttribute("allow", allowedPermissions.join("; "));
+	if (iframeCacheMap.get(key.value) && isPersistent) {
+		iframeEl.value = iframeCacheMap.get(key.value)!;
+		iframeEl.value.style.visibility = "visible";
+	} else {
+		iframeEl.value = document.createElement("iframe");
+		iframeEl.value.setAttribute("allow", allowedPermissions.join("; "));
 
-    if (isPersistent) {
-      iframeCacheMap.set(key.value, iframeEl.value);
-    }
-    iframeEl.value.src = pathToResourceUrl(props.view.path);
-    // CORS
-    try {
-      iframeEl.value.style.opacity = "0.01";
-      iframeEl.value.onload = () => {
-        injectClient();
-        iframeEl.value!.style.opacity = "1";
-      };
-    } catch (e) {
-      iframeEl.value.style.opacity = "1";
-    }
-    document.body.appendChild(iframeEl.value);
-    nextTick(updateIframeBox);
-  }
+		if (isPersistent) {
+			iframeCacheMap.set(key.value, iframeEl.value);
+		}
+		iframeEl.value.src = pathToResourceUrl(props.view.path);
+		// CORS
+		try {
+			iframeEl.value.style.opacity = "0.01";
+			iframeEl.value.onload = () => {
+				injectClient();
+				iframeEl.value!.style.opacity = "1";
+			};
+		} catch (e) {
+			iframeEl.value.style.opacity = "1";
+		}
+		document.body.appendChild(iframeEl.value);
+		nextTick(updateIframeBox);
+	}
 });
 
 watchEffect(updateIframeBox);
 watchEffect(injectClient);
 
 onUnmounted(() => {
-  if (iframeEl.value) {
-    iframeEl.value.style.visibility = "hidden";
-  }
+	if (iframeEl.value) {
+		iframeEl.value.style.visibility = "hidden";
+	}
 });
 
 function injectClient() {
-  if (!iframeEl.value || !iframeEl.value.contentWindow) {
-    return;
-  }
-  try {
-    // TODO
-    iframeEl.value.contentWindow[IFRAME_CLIENT_VAR] = useClient();
-  } catch (e) {}
+	if (!iframeEl.value || !iframeEl.value.contentWindow) {
+		return;
+	}
+	try {
+		// TODO
+		iframeEl.value.contentWindow[IFRAME_CLIENT_VAR] = useClient();
+	} catch (e) {}
 }
 
 function updateIframeBox() {
-  if (!iframeEl.value) {
-    return;
-  }
-  Object.assign(iframeEl.value.style, {
-    position: "fixed",
-    left: `${box.left}px`,
-    top: `${box.top}px`,
-    width: `${box.width}px`,
-    height: `${box.height}px`,
-    outline: "none",
-  });
+	if (!iframeEl.value) {
+		return;
+	}
+	Object.assign(iframeEl.value.style, {
+		position: "fixed",
+		left: `${box.left}px`,
+		top: `${box.top}px`,
+		width: `${box.width}px`,
+		height: `${box.height}px`,
+		outline: "none",
+	});
 }
 </script>
 
 <template>
-  <div ref="anchor" h="[calc(100vh_-_32px)]" m--4 />
+	<div ref="anchor" h="[calc(100vh_-_32px)]" m--4 />
 </template>
