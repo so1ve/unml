@@ -17,26 +17,26 @@ async function close() {
     :elevation="0"
     window
   >
-    <div flex mt--0.2 mx--2>
+    <div flex mt--2 mx--2>
       <VBtn
         class="non-draggable"
         hover:bg="gray-300/50"
-        size="small"
+        size="x-small"
         u-systembar-control
         variant="text"
         @click="minimize"
       >
-        <span i-material-symbols:minimize-rounded text-lg />
+        <span i-material-symbols:minimize-rounded text-xs />
       </VBtn>
       <VBtn
         class="non-draggable"
         hover:bg="red-600"
-        size="small"
+        size="x-small"
         u-systembar-control
         variant="text"
         @click="close"
       >
-        <span i-material-symbols:close-rounded text-lg />
+        <span i-material-symbols:close-rounded text-xs />
       </VBtn>
     </div>
   </VSystemBar>
