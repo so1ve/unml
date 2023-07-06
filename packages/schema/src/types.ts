@@ -3,7 +3,7 @@ import type { Hookable } from "hookable";
 
 import type { Tab, View } from "./ui";
 
-export interface UnmlHooks {
+export interface Hooks {
   "window:minimize": () => void;
   "window:maximize": () => void;
   "window:close": () => void;
@@ -16,13 +16,13 @@ export type CommandMap = Map<string, CommandFn>;
 
 export interface Unml {
   commands: CommandMap;
-  hooks: Hookable<UnmlHooks>;
+  hooks: Hookable<Hooks>;
   hook: Unml["hooks"]["hook"];
   callHook: Unml["hooks"]["callHook"];
   addHooks: Unml["hooks"]["addHooks"];
 }
 
-export interface UnmlClient {
+export interface Client {
   callNodeCommand: <T = any>(name: string, ...args: any[]) => Promise<T>;
   callClientCommand: <T = any>(name: string, ...args: any[]) => Promise<T>;
   exposeClientCommand: (name: string, fn: CommandFn) => void;

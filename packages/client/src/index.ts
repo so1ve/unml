@@ -1,13 +1,13 @@
 import { API_VAR, COMMAND_NODE_CALL } from "@unml/constants";
-import type { CommandMap, UnmlClient } from "@unml/schema";
+import type { Client, CommandMap } from "@unml/schema";
 import { crpr } from "crpr";
 
 // TODO
 const commands: CommandMap = new Map();
 
-export function useClient(): UnmlClient {
+export function useClient(): Client {
   if (window.self === window.top) {
-    const client: UnmlClient = {
+    const client: Client = {
       callNodeCommand: async (...args) =>
         window[API_VAR].callNodeCommand(...args),
 
@@ -31,7 +31,7 @@ export function useClient(): UnmlClient {
   }
   // In an iframe
   // TODO
-  const client: UnmlClient = {
+  const client: Client = {
     callNodeCommand: (...args) => {
       window.parent.postMessage({ name: COMMAND_NODE_CALL, args }, "*");
 

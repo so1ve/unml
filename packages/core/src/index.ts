@@ -1,10 +1,10 @@
 import { unmlCtx } from "@unml/kit";
-import type { CommandMap, Unml, UnmlHooks } from "@unml/schema";
+import type { CommandMap, Unml, Hooks } from "@unml/schema";
 import { createHooks } from "hookable";
 
 export function createUnml(): Unml {
   const commands: CommandMap = new Map();
-  const hooks = createHooks<UnmlHooks>();
+  const hooks = createHooks<Hooks>();
 
   return {
     commands,

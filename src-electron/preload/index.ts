@@ -4,7 +4,7 @@ import {
   COMMAND_CLIENT_CALL,
   COMMAND_NODE_CALL,
 } from "@unml/constants";
-import type { UnmlApi } from "@unml/schema";
+import type { Api } from "@unml/schema";
 import { contextBridge } from "electron";
 import { ipcRenderer } from "electron-better-ipc";
 
@@ -20,4 +20,4 @@ contextBridge.exposeInMainWorld(API_VAR, {
     );
   },
   process,
-} as UnmlApi);
+} as Api);
