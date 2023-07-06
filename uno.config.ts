@@ -11,6 +11,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-arguments
 export default defineConfig<Theme>({
   shortcuts: {
+    "u-systembar-control": "rounded-none duration-130",
     "u-view": "h-[calc(100vh_-_32px)] m--4",
   },
   presets: [

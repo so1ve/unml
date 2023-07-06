@@ -17,11 +17,25 @@ async function close() {
     :elevation="0"
     window
   >
-    <div flex gap-1>
-      <VBtn class="non-draggable" size="small" variant="text" @click="minimize">
+    <div flex mt--0.2 mx--2>
+      <VBtn
+        class="non-draggable"
+        hover:bg="gray-300/50"
+        size="small"
+        u-systembar-control
+        variant="text"
+        @click="minimize"
+      >
         <span i-material-symbols:minimize-rounded text-lg />
       </VBtn>
-      <VBtn class="non-draggable" size="small" variant="text" @click="close">
+      <VBtn
+        class="non-draggable"
+        hover:bg="red-600"
+        size="small"
+        u-systembar-control
+        variant="text"
+        @click="close"
+      >
         <span i-material-symbols:close-rounded text-lg />
       </VBtn>
     </div>
