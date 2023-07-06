@@ -1,5 +1,5 @@
 import { unmlCtx } from "@unml/kit";
-import type { CommandMap, Unml, Hooks } from "@unml/schema";
+import type { CommandMap, Hooks, Unml } from "@unml/schema";
 import { createHooks } from "hookable";
 
 export function createUnml(): Unml {
