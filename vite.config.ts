@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import VueI18n from "@intlify/unplugin-vue-i18n/vite";
 import Vue from "@vitejs/plugin-vue";
+import { FontaineTransform } from "fontaine";
 import Unocss from "unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import VueComponents from "unplugin-vue-components/vite";
@@ -15,6 +16,7 @@ import ElectronRenderer from "vite-plugin-electron-renderer";
 import Pages from "vite-plugin-pages";
 import Layouts from "vite-plugin-vue-layouts";
 import Vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+import { ViteWebfontDownload } from "vite-plugin-webfont-dl";
 
 import pkg from "./package.json";
 import tsconfig from "./tsconfig.json";
@@ -107,6 +109,19 @@ export default defineConfig(({ command }) => {
         compositionOnly: true,
         fullInstall: true,
         include: [resolve(dirname, "src/locales/**")],
+      }),
+      ViteWebfontDownload([
+        "https://fonts.googleapis.com/css2?family=Fira+Code&display=swap",
+        "https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap",
+      ]),
+      FontaineTransform.vite({
+        fallbacks: [
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Helvetica Neue",
+          "Arial",
+          "Noto Sans",
+        ],
       }),
       Electron([
         makeEntry("src-electron/main/index.ts", "dist-electron/main"),
