@@ -1,2 +1,5 @@
 common:
   not-found: Page {page} Not Found :(
+pages:
+  custom-view:
+    loading: Loading Page {page}...

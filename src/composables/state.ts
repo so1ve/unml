@@ -1,11 +1,11 @@
-import type { Tab } from "@unml/schema";
+import type { Tab, View } from "@unml/schema";
 
 const TAB_ROUTE_RE = /^\/extension\/(?!custom\/)/;
 
 export function useTabs() {
   const { callNodeCommand } = useClient();
   const { state: customTabs, isLoading } = useAsyncState(
-    () => callNodeCommand<Tab[]>("ui:getTabs"),
+    callNodeCommand<Tab[]>("ui:getTabs"),
     [],
   );
   const router = useRouter();
@@ -27,4 +27,14 @@ export function useTabs() {
   const tabs = computed(() => [...builtinTabs.value, ...customTabs.value]);
 
   return { tabs, isLoading };
+}
+
+export function useViews() {
+  const { callNodeCommand } = useClient();
+  const { state: views, isLoading } = useAsyncState(
+    callNodeCommand<View[]>("ui:getViews"),
+    [],
+  );
+
+  return { views, isLoading };
 }

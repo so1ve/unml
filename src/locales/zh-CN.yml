@@ -1,2 +1,5 @@
 common:
   not-found: 页面 {page} 消失力 :(
+pages:
+  custom-view:
+    loading: 加载页面 {page} 中...

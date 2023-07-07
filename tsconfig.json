@@ -22,8 +22,8 @@
       "@unml/kit": ["./packages/kit/src/index.ts"],
       "@unml/client": ["./packages/client/src/index.ts"],
       "@unml/constants": ["./packages/constants/src/index.ts"],
-      "@unml/utils": ["./packages/utils/src/index.ts"],
-      "@unml/utils/client": ["./packages/utils/src/client.ts"]
+      "@unml/utils/client": ["./packages/utils/src/client.ts"],
+      "@unml/utils": ["./packages/utils/src/index.ts"]
     }
   }
 }
