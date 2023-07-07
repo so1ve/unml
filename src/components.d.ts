@@ -7,7 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    copy: typeof import('./components/NavigationDrawerTabItem copy.vue')['default']
     Icon: typeof import('./components/Icon.vue')['default']
     IframeView: typeof import('./components/IframeView.vue')['default']
     NavigationDrawer: typeof import('./components/NavigationDrawer.vue')['default']
