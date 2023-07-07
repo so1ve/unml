@@ -10,12 +10,12 @@
   "scripts": {
     "build": "nr build:packages && nr build:app",
     "build:app": "nr typecheck && vite build && electron-builder",
-    "build:packages": "nr --filter './packages/*' build",
+    "build:packages": "nr --filter \"./packages/*\" build",
     "dev": "vite",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "stub": "nr --filter ./packages/* stub",
+    "stub": "nr --filter \"./packages/*\" stub",
     "test": "vitest",
     "typecheck": "vue-tsc --noEmit"
   },
