@@ -22,7 +22,7 @@ export default defineExtension({
   run: async () => {
     addView({
       id: "test",
-      path: join(__dirname, "a.html"),
+      path: join(__dirname, "../src/a.html"),
       persistent: true,
     });
     addTab({
