@@ -12,20 +12,12 @@ const { tabs } = useTabs();
     rail
   >
     <VList density="compact" nav>
-      <VListItem to="/">
-        <Icon icon="material-symbols:home-rounded" type="iconify" />
-      </VListItem>
+      <NavigationDrawerItem icon="material-symbols:home-rounded" to="/" />
     </VList>
     <VDivider />
     <!-- TODO: Loading -->
     <VList density="compact" nav>
-      <VListItem
-        v-for="tab in tabs"
-        :key="tab.id"
-        :to="'path' in tab ? tab.path : `/extension/custom/${tab.view}`"
-      >
-        <Icon v-bind="tab.icon" />
-      </VListItem>
+      <NavigationDrawerTabItem v-for="tab in tabs" :key="tab.id" :tab="tab" />
     </VList>
   </VNavigationDrawer>
 </template>

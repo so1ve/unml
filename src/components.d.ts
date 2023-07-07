@@ -7,9 +7,12 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./components/NavigationDrawerTabItem copy.vue')['default']
     Icon: typeof import('./components/Icon.vue')['default']
     IframeView: typeof import('./components/IframeView.vue')['default']
     NavigationDrawer: typeof import('./components/NavigationDrawer.vue')['default']
+    NavigationDrawerItem: typeof import('./components/NavigationDrawerItem.vue')['default']
+    NavigationDrawerTabItem: typeof import('./components/NavigationDrawerTabItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SystemBar: typeof import('./components/SystemBar.vue')['default']
