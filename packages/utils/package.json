@@ -23,6 +23,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.mjs"
     }
   },
   "main": "dist/index.mjs",
@@ -43,6 +47,7 @@
     "@unml/constants": "workspace:*",
     "@unml/schema": "workspace:*",
     "pathe": "^1.1.1",
+    "ufo": "^1.1.2",
     "unctx": "^2.3.1"
   }
 }

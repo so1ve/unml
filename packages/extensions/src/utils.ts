@@ -1,4 +1,4 @@
-import { access, readdir } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import path, { basename } from "node:path";
 
 export const NODE_MODULES_DIR = "node_modules";
@@ -34,9 +34,3 @@ export async function loadExtensionsFromCwd(cwd = process.cwd()) {
 
   return flattenDirs.filter((name) => EXTENSION_RE.test(name));
 }
-
-export const exists = (d: string) =>
-  access(d).then(
-    () => true,
-    () => false,
-  );

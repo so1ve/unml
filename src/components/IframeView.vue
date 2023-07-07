@@ -9,7 +9,7 @@ import { IFRAME_CLIENT_VAR } from "@unml/constants";
 // eslint-disable-next-line import/first
 import type { View } from "@unml/schema";
 // eslint-disable-next-line import/first
-import { pathToResourceUrl } from "@unml/utils";
+import { pathToResourceUrl } from "@unml/utils/client";
 
 const props = defineProps<{
   view: View;

@@ -1,18 +1,30 @@
-import { API_VAR, RESOURCE_PROTOCOL } from "@unml/constants";
+import { access } from "node:fs/promises";
+import os from "node:os";
+
 import { normalize } from "pathe";
+import { withTrailingSlash } from "ufo";
 
-export const process = globalThis.process ?? window[API_VAR].process;
+export const exists = (d: string) =>
+  access(d).then(
+    () => true,
+    () => false,
+  );
 
-export function pathToResourceUrl(path: string) {
-  const isWindows = process.platform === "win32";
-  if (isWindows) {
-    path = normalize(path);
-    const splitted = path.split("/");
-    if (splitted[0].endsWith(":")) {
-      splitted[0] = splitted[0].slice(0, -1);
-    }
-    path = splitted.join("/");
+export function normalizePath(path: string) {
+  if (os.platform() !== "win32") {
+    return path;
   }
+  path = normalize(path);
+  const splitted = path.split("/");
+  const drive = splitted[0].toUpperCase();
+  const rest = splitted.slice(1).join("/");
 
-  return `${RESOURCE_PROTOCOL}://${path}`;
+  return `${drive}:/${rest}`;
+}
+
+export function isParentDirectory(dir: string, file: string): boolean {
+  dir = withTrailingSlash(dir);
+
+  // TODO: case sensitive filesystem
+  return file.startsWith(dir);
 }

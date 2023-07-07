@@ -1,6 +1,7 @@
 import type { Extension, LoadEvent, RunEvent } from "@unml/schema";
+import { exists } from "@unml/utils";
 
-import { NODE_MODULES_DIR, exists, loadExtensionsFromCwd } from "./utils";
+import { NODE_MODULES_DIR, loadExtensionsFromCwd } from "./utils";
 
 export class ExtensionLoader {
   #extensions: string[] = [];

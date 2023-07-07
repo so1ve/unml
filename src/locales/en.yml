@@ -1,1 +1,2 @@
-aaa: "1"
+common:
+  not-found: Page {page} Not Found :(
