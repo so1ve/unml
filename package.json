@@ -14,7 +14,7 @@
     "dev": "nuxi dev",
     "postinstall": "nuxi prepare",
     "lint": "eslint . && prettier . --check",
-    "lint:fix": "eslint . --fix && prettier . --fix",
+    "lint:fix": "eslint . --fix && prettier . --write",
     "preview": "vite preview",
     "stub": "nr --filter \"./packages/*\" stub",
     "test": "vitest",
