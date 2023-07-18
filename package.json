@@ -30,6 +30,7 @@
     "@pinia/nuxt": "^0.4.11",
     "@so1ve/eslint-config": "^0.113.0",
     "@so1ve/prettier-config": "^0.113.0",
+    "@so1ve/utils": "^0.3.0",
     "@types/node": "^18.16.12",
     "@unocss/nuxt": "^0.53.5",
     "@unocss/preset-rem-to-px": "^0.53.5",
