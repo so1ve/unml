@@ -42,8 +42,7 @@
     "build": "pkgroll",
     "stub": "unbuild --stub"
   },
-  "dependencies": {
-    "@types/node": "^18.16.12",
+  "dependencies": {    
     "@unml/constants": "workspace:*",
     "@unml/schema": "workspace:*",
     "pathe": "^1.1.1",

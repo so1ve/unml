@@ -2,4 +2,4 @@
 const { t } = useI18n();
 </script>
 
-<template>Home {{ t("aaa") }}</template>
+<template>Home {{ t("aaa") }} {{ $props }}</template>
