@@ -116,7 +116,19 @@ export default defineNuxtConfig({
   },
 
   vuetify: {
-    vuetifyOptions: {},
+    vuetifyOptions: {
+      theme: {
+        defaultTheme: "dark",
+        themes: {
+          dark: {
+            colors: {
+              primary: "#1867C0",
+              secondary: "#5CBBF6",
+            },
+          },
+        },
+      },
+    },
   },
 
   devtools: {
