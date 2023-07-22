@@ -7,8 +7,8 @@ handleExtensions();
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtLoadingIndicator />
-    <NuxtPage />
-  </NuxtLayout>
+	<NuxtLayout>
+		<NuxtLoadingIndicator />
+		<NuxtPage />
+	</NuxtLayout>
 </template>

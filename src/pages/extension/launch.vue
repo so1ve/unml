@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  order: 2,
-  icon: "material-symbols:rocket-launch",
+	order: 2,
+	icon: "material-symbols:rocket-launch",
 });
 </script>
 
