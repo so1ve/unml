@@ -46,7 +46,7 @@
 		"@unml/constants": "workspace:*",
 		"@unml/schema": "workspace:*",
 		"pathe": "^1.1.1",
-		"ufo": "^1.1.2",
+		"ufo": "^1.2.0",
 		"unctx": "^2.3.1"
 	}
 }
