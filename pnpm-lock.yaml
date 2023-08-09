@@ -37,8 +37,8 @@ importers:
         specifier: ^18.16.12
         version: 18.16.12
       '@unocss/preset-rem-to-px':
-        specifier: ^0.53.4
-        version: 0.53.4
+        specifier: ^0.55.0
+        version: 0.55.0
       '@unocss/reset':
         specifier: ^0.53.4
         version: 0.53.4
@@ -1844,7 +1844,7 @@ packages:
   /@types/fs-extra@9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
-      '@types/node': 18.16.12
+      '@types/node': 18.17.3
     dev: true
 
   /@types/http-cache-semantics@4.0.1:
@@ -1891,7 +1891,7 @@ packages:
     resolution: {integrity: sha512-ULqvZNGMv0zRFvqn8/4LSPtnmN4MfhlPNtJCTpKuIIxGVGZ2rYWzFXrvEBoh9CVyqSE7D6YFRJ1hydLHI6kbWw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.16.12
+      '@types/node': 18.17.3
       xmlbuilder: 15.1.1
     dev: true
     optional: true
@@ -2236,6 +2236,10 @@ packages:
     resolution: {integrity: sha512-wuaLjWCzKUisHUxo4pjIdzcimdSmVa2hMHA3V7wVFBiSFX96/s7l0bvhHGFF/gMjbOnvJ+y+lBl3VKqcj9kwbA==}
     dev: true
 
+  /@unocss/core@0.55.0:
+    resolution: {integrity: sha512-TcTugpuhsv6OwMsP3iFIG8FVc9N5JzkojIGNAKF8I2WBftZ//3QcpEHiHc1mH3MlPYfJgUvCcT6/Gad55qmHzg==}
+    dev: true
+
   /@unocss/eslint-config@0.53.6(eslint@8.44.0)(typescript@5.1.6):
     resolution: {integrity: sha512-shS4CV/TcyCqYsj/uk2uxohVNkm9qojuafej889KmiTySosIN+WDcyP0zhAX5vLHIeLbPJUbYCTrdu1TIXhsTA==}
     engines: {node: '>=14'}
@@ -2312,10 +2316,10 @@ packages:
       '@unocss/extractor-arbitrary-variants': 0.53.4
     dev: true
 
-  /@unocss/preset-rem-to-px@0.53.4:
-    resolution: {integrity: sha512-VkWMb+sMfarNCN2uVdv+LlmqfN/PTC8WpidPspcsHOD/DzZ4Rywg+RCBClkp1UUKv4hKf5dQ3hsf6GB5epUq/A==}
+  /@unocss/preset-rem-to-px@0.55.0:
+    resolution: {integrity: sha512-jsuDGJjrzMNurH3DXMaEsyYvxyC2mTC5c7yXPbq3HO+vlb8nqnNDCGFl9Vb4SnXMzcTif9ds0MNLs2B7rwtHPA==}
     dependencies:
-      '@unocss/core': 0.53.4
+      '@unocss/core': 0.55.0
     dev: true
 
   /@unocss/preset-tagify@0.53.4:
