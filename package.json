@@ -50,7 +50,7 @@
     "typescript": "^5.1.6",
     "ufo": "^1.1.2",
     "unbuild": "^1.2.1",
-    "unocss": "^0.53.4",
+    "unocss": "^0.55.0",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
     "unplugin-vue-macros": "^2.3.0",
