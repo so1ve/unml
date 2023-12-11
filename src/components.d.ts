@@ -5,16 +5,16 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 export {}
 
-declare module 'vue' {
-  export interface GlobalComponents {
-    Icon: typeof import('./components/Icon.vue')['default']
-    IframeView: typeof import('./components/IframeView.vue')['default']
-    Loading: typeof import('./components/Loading.vue')['default']
-    NavigationDrawer: typeof import('./components/NavigationDrawer.vue')['default']
-    NavigationDrawerItem: typeof import('./components/NavigationDrawerItem.vue')['default']
-    NavigationDrawerTabItem: typeof import('./components/NavigationDrawerTabItem.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    SystemBar: typeof import('./components/SystemBar.vue')['default']
-  }
+declare module "vue" {
+	export interface GlobalComponents {
+		Icon: (typeof import("./components/Icon.vue"))["default"];
+		IframeView: (typeof import("./components/IframeView.vue"))["default"];
+		Loading: (typeof import("./components/Loading.vue"))["default"];
+		NavigationDrawer: (typeof import("./components/NavigationDrawer.vue"))["default"];
+		NavigationDrawerItem: (typeof import("./components/NavigationDrawerItem.vue"))["default"];
+		NavigationDrawerTabItem: (typeof import("./components/NavigationDrawerTabItem.vue"))["default"];
+		RouterLink: (typeof import("vue-router"))["RouterLink"];
+		RouterView: (typeof import("vue-router"))["RouterView"];
+		SystemBar: (typeof import("./components/SystemBar.vue"))["default"];
+	}
 }

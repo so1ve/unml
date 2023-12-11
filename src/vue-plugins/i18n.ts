@@ -3,10 +3,10 @@ import { locale } from "intl-locale";
 import { createI18n } from "vue-i18n";
 
 const i18n = createI18n({
-  legacy: false,
-  locale,
-  fallbackLocale: "en",
-  messages,
+	legacy: false,
+	locale,
+	fallbackLocale: "en",
+	messages,
 });
 
 export default i18n;

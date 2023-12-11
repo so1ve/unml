@@ -4,5 +4,5 @@ const { t } = useI18n();
 </script>
 
 <template>
-  {{ t("common.not-found", { page: route.path }) }}
+	{{ t("common.not-found", { page: route.path }) }}
 </template>

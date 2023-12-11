@@ -8,11 +8,11 @@ const view = computed(() => views.value.find((v) => v.id === viewId.value));
 </script>
 
 <template>
-  <div v-if="!view && !isLoading">Custom view {{ viewId }} not found</div>
-  <Loading
-    v-else-if="!view && isLoading"
-    :loading="isLoading"
-    :text="t('pages.custom-view.loading', { page: viewId })"
-  />
-  <IframeView v-else :view="view!" />
+	<div v-if="!view && !isLoading">Custom view {{ viewId }} not found</div>
+	<Loading
+		v-else-if="!view && isLoading"
+		:loading="isLoading"
+		:text="t('pages.custom-view.loading', { page: viewId })"
+	/>
+	<IframeView v-else :view="view!" />
 </template>
