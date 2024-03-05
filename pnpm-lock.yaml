@@ -106,8 +106,8 @@ importers:
         specifier: ^0.16.6
         version: 0.16.7(@vueuse/core@10.7.2)(rollup@3.29.4)
       unplugin-vue-components:
-        specifier: ^0.25.1
-        version: 0.25.2(rollup@3.29.4)(vue@3.4.15)
+        specifier: ^0.26.0
+        version: 0.26.0(rollup@3.29.4)(vue@3.4.15)
       unplugin-vue-macros:
         specifier: ^2.3.0
         version: 2.7.10(@vueuse/core@10.7.2)(rollup@3.29.4)(typescript@5.3.3)(vite@4.5.2)(vue@3.4.15)
@@ -9238,8 +9238,8 @@ packages:
       vite: 4.5.2(@types/node@18.19.14)(sass@1.70.0)
     dev: true
 
-  /unplugin-vue-components@0.25.2(rollup@3.29.4)(vue@3.4.15):
-    resolution: {integrity: sha512-OVmLFqILH6w+eM8fyt/d/eoJT9A6WO51NZLf1vC5c1FZ4rmq2bbGxTy8WP2Jm7xwFdukaIdv819+UI7RClPyCA==}
+  /unplugin-vue-components@0.26.0(rollup@3.29.4)(vue@3.4.15):
+    resolution: {integrity: sha512-s7IdPDlnOvPamjunVxw8kNgKNK8A5KM1YpK5j/p97jEKTjlPNrA0nZBiSfAKKlK1gWZuyWXlKL5dk3EDw874LQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@babel/parser': ^7.15.8
