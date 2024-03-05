@@ -103,8 +103,8 @@ importers:
         specifier: ^0.53.4
         version: 0.53.6(postcss@8.4.33)(rollup@3.29.4)(vite@4.5.2)
       unplugin-auto-import:
-        specifier: ^0.16.6
-        version: 0.16.7(@vueuse/core@10.7.2)(rollup@3.29.4)
+        specifier: ^0.17.0
+        version: 0.17.3(@vueuse/core@10.7.2)(rollup@3.29.4)
       unplugin-vue-components:
         specifier: ^0.25.1
         version: 0.25.2(rollup@3.29.4)(vue@3.4.15)
@@ -9189,8 +9189,8 @@ packages:
       - vite
     dev: true
 
-  /unplugin-auto-import@0.16.7(@vueuse/core@10.7.2)(rollup@3.29.4):
-    resolution: {integrity: sha512-w7XmnRlchq6YUFJVFGSvG1T/6j8GrdYN6Em9Wf0Ye+HXgD/22kont+WnuCAA0UaUoxtuvRR1u/mXKy63g/hfqQ==}
+  /unplugin-auto-import@0.17.3(@vueuse/core@10.7.2)(rollup@3.29.4):
+    resolution: {integrity: sha512-0cn0wr8X579TtdZKUAps0dDVrYzttx38ImdxZjmCeNlMDJX8UuSjO83vFqgS4ClNDIGWAute+xl9j5vRSX+vsw==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': ^3.2.2
