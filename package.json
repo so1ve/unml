@@ -1,0 +1,43 @@
+{
+	"name": "unml",
+	"version": "0.0.0",
+	"author": "Ray <i@mk1.io>",
+	"description": "The UNlimited Minecraft Launcher",
+	"main": "./out/main/index.js",
+	"scripts": {
+		"build": "npm run typecheck && electron-vite build",
+		"build:linux": "npm run build && electron-builder --linux",
+		"build:mac": "npm run build && electron-builder --mac",
+		"build:unpack": "npm run build && electron-builder --dir",
+		"build:win": "npm run build && electron-builder --win",
+		"dev": "electron-vite dev",
+		"postinstall": "electron-builder install-app-deps",
+		"lint": "eslint --cache . && prettier --check .",
+		"lint:fix": "eslint --cache . --fix && prettier --write .",
+		"start": "electron-vite preview",
+		"typecheck": "npm run typecheck:node && npm run typecheck:web",
+		"typecheck:node": "tsgo --noEmit -p tsconfig.node.json --composite false",
+		"typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false"
+	},
+	"dependencies": {
+		"@electron-toolkit/preload": "^3.0.2",
+		"@electron-toolkit/utils": "^4.0.0"
+	},
+	"devDependencies": {
+		"@electron-toolkit/tsconfig": "^2.0.0",
+		"@so1ve/eslint-config": "^3.22.2",
+		"@so1ve/prettier-config": "^3.22.2",
+		"@types/node": "^24.10.4",
+		"@typescript/native-preview": "7.0.0-dev.20251225.1",
+		"@vitejs/plugin-vue": "^6.0.3",
+		"electron": "^39.2.7",
+		"electron-builder": "^26.4.0",
+		"electron-vite": "^5.0.0",
+		"eslint": "^9.39.2",
+		"prettier": "^3.7.4",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.0",
+		"vue": "^3.5.25",
+		"vue-tsc": "^3.2.1"
+	}
+}
