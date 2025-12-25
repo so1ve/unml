@@ -17,14 +17,14 @@
 		"start": "electron-vite preview",
 		"typecheck": "npm run typecheck:node && npm run typecheck:web",
 		"typecheck:node": "tsgo --noEmit -p tsconfig.node.json --composite false",
-		"typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false"
+		"typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
+		"watch": "electron-vite dev --watch"
 	},
 	"dependencies": {
 		"@electron-toolkit/preload": "^3.0.2",
 		"@electron-toolkit/utils": "^4.0.0"
 	},
 	"devDependencies": {
-		"@electron-toolkit/tsconfig": "^2.0.0",
 		"@so1ve/eslint-config": "^3.22.2",
 		"@so1ve/prettier-config": "^3.22.2",
 		"@types/node": "^24.10.4",
