@@ -4,93 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  build:
-    '@vitejs/plugin-vue':
-      specifier: ^6.0.3
-      version: 6.0.3
-    electron-vite:
-      specifier: ^5.0.0
-      version: 5.0.0
-    tsdown:
-      specifier: ^0.18.3
-      version: 0.18.3
-    unocss:
-      specifier: ^66.5.10
-      version: 66.5.10
-    unplugin-auto-import:
-      specifier: ^20.3.0
-      version: 20.3.0
-    unplugin-vue-components:
-      specifier: ^30.0.0
-      version: 30.0.0
-    unplugin-vue-macros:
-      specifier: ^2.14.5
-      version: 2.14.5
-    unplugin-vue-router:
-      specifier: ^0.19.1
-      version: 0.19.1
-    vite:
-      specifier: ^7.3.0
-      version: 7.3.0
-    vite-plugin-vue-devtools:
-      specifier: ^8.0.5
-      version: 8.0.5
-    vite-plugin-vue-meta-layouts:
-      specifier: ^0.6.1
-      version: 0.6.1
-  dev:
-    '@antfu/ni':
-      specifier: ^28.0.0
-      version: 28.0.0
-  electron:
-    '@electron-toolkit/preload':
-      specifier: ^3.0.2
-      version: 3.0.2
-    '@electron-toolkit/utils':
-      specifier: ^4.0.0
-      version: 4.0.0
-    electron:
-      specifier: ^39.2.7
-      version: 39.2.7
-    electron-builder:
-      specifier: ^26.4.0
-      version: 26.4.0
-  linting:
-    '@so1ve/eslint-config':
-      specifier: ^4.0.1
-      version: 4.0.1
-    '@so1ve/prettier-config':
-      specifier: ^4.0.1
-      version: 4.0.1
-    eslint:
-      specifier: ^9.39.2
-      version: 9.39.2
-    prettier:
-      specifier: ^3.7.4
-      version: 3.7.4
-  types:
-    '@types/node':
-      specifier: ^24.10.4
-      version: 24.10.4
-  typescript:
-    '@typescript/native-preview':
-      specifier: 7.0.0-dev.20251225.1
-      version: 7.0.0-dev.20251225.1
-    typescript:
-      specifier: ^5.9.3
-      version: 5.9.3
-    vue-tsc:
-      specifier: ^3.2.1
-      version: 3.2.1
-  vue:
-    vue:
-      specifier: ^3.5.25
-      version: 3.5.26
-    vue-router:
-      specifier: ^4.6.4
-      version: 4.6.4
-
 importers:
 
   .:
@@ -174,6 +87,12 @@ importers:
       vue-tsc:
         specifier: catalog:typescript
         version: 3.2.1(typescript@5.9.3)
+
+  packages/kit:
+    dependencies:
+      unctx:
+        specifier: ^2.5.0
+        version: 2.5.0
 
 packages:
 
@@ -4612,6 +4531,9 @@ packages:
 
   unconfig@7.4.2:
     resolution: {integrity: sha512-nrMlWRQ1xdTjSnSUqvYqJzbTBFugoqHobQj58B2bc8qxHKBBHMNNsWQFP3Cd3/JZK907voM2geYPWqD4VK3MPQ==}
+
+  unctx@2.5.0:
+    resolution: {integrity: sha512-p+Rz9x0R7X+CYDkT+Xg8/GhpcShTlU8n+cf9OtOEf7zEQsNcCZO1dPKNRDqvUTaq+P32PMMkxWHwfrxkqfqAYg==}
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
@@ -10248,6 +10170,13 @@ snapshots:
       jiti: 2.6.1
       quansync: 1.0.0
       unconfig-core: 7.4.2
+
+  unctx@2.5.0:
+    dependencies:
+      acorn: 8.15.0
+      estree-walker: 3.0.3
+      magic-string: 0.30.21
+      unplugin: 2.3.11
 
   undici-types@6.21.0: {}
 
