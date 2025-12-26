@@ -1,14 +1,14 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"jsx": "preserve",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"resolveJsonModule": true,
-		"strict": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"isolatedModules": true,
-		"skipLibCheck": true
-	}
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  }
 }

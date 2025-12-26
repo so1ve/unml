@@ -1,22 +1,22 @@
 {
-	"extends": "./tsconfig.base.json",
-	"compilerOptions": {
-		"composite": true,
-		"lib": ["ESNext", "DOM", "DOM.Iterable"],
-		"baseUrl": ".",
-		"types": [
-			"vite/client",
-			"vite-plugin-vue-meta-layouts/client",
-			"unplugin-vue-router/client"
-		]
-		// "paths": {
-		// 	"@renderer/*": ["src/renderer/src/*"]
-		// }
-	},
-	"include": [
-		"src/env.d.ts",
-		"src/**/*",
-		"src/**/*.vue",
-		"src-electron/preload/*.d.ts"
-	]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "baseUrl": ".",
+    "types": [
+      "unplugin-vue-router/client",
+      "vite-plugin-vue-meta-layouts/client",
+      "vite/client"
+    ]
+    // "paths": {
+    // 	"@renderer/*": ["src/renderer/src/*"]
+    // }
+  },
+  "include": [
+    "src-electron/preload/*.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/env.d.ts"
+  ]
 }

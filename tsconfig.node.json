@@ -1,13 +1,13 @@
 {
-	"extends": "./tsconfig.base.json",
-	"compilerOptions": {
-		"composite": true,
-		"types": ["node", "electron-vite/node"]
-	},
-	"include": [
-		"electron.vite.config.*",
-		"uno.config.ts",
-		"src-electron/main/**/*",
-		"src-electron/preload/**/*"
-	]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["electron-vite/node", "node"]
+  },
+  "include": [
+    "electron.vite.config.*",
+    "src-electron/main/**/*",
+    "src-electron/preload/**/*",
+    "uno.config.ts"
+  ]
 }

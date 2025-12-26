@@ -4,82 +4,162 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  build:
+    '@vitejs/plugin-vue':
+      specifier: ^6.0.3
+      version: 6.0.3
+    electron-vite:
+      specifier: ^5.0.0
+      version: 5.0.0
+    unocss:
+      specifier: ^66.5.10
+      version: 66.5.10
+    unplugin-auto-import:
+      specifier: ^20.3.0
+      version: 20.3.0
+    unplugin-vue-components:
+      specifier: ^30.0.0
+      version: 30.0.0
+    unplugin-vue-macros:
+      specifier: ^2.14.5
+      version: 2.14.5
+    unplugin-vue-router:
+      specifier: ^0.19.1
+      version: 0.19.1
+    vite:
+      specifier: ^7.3.0
+      version: 7.3.0
+    vite-plugin-vue-devtools:
+      specifier: ^8.0.5
+      version: 8.0.5
+    vite-plugin-vue-meta-layouts:
+      specifier: ^0.6.1
+      version: 0.6.1
+  electron:
+    '@electron-toolkit/preload':
+      specifier: ^3.0.2
+      version: 3.0.2
+    '@electron-toolkit/utils':
+      specifier: ^4.0.0
+      version: 4.0.0
+    electron:
+      specifier: ^39.2.7
+      version: 39.2.7
+    electron-builder:
+      specifier: ^26.4.0
+      version: 26.4.0
+  linting:
+    '@so1ve/eslint-config':
+      specifier: ^4.0.0
+      version: 4.0.0
+    '@so1ve/prettier-config':
+      specifier: ^4.0.0
+      version: 4.0.0
+    eslint:
+      specifier: ^9.39.2
+      version: 9.39.2
+    prettier:
+      specifier: ^3.7.4
+      version: 3.7.4
+  types:
+    '@types/node':
+      specifier: ^24.10.4
+      version: 24.10.4
+  typescript:
+    '@typescript/native-preview':
+      specifier: 7.0.0-dev.20251225.1
+      version: 7.0.0-dev.20251225.1
+    typescript:
+      specifier: ^5.9.3
+      version: 5.9.3
+    vue-tsc:
+      specifier: ^3.2.1
+      version: 3.2.1
+  vue:
+    vue:
+      specifier: ^3.5.25
+      version: 3.5.26
+    vue-router:
+      specifier: ^4.6.4
+      version: 4.6.4
+
 importers:
 
   .:
     dependencies:
       '@electron-toolkit/preload':
-        specifier: ^3.0.2
+        specifier: catalog:electron
         version: 3.0.2(electron@39.2.7)
       '@electron-toolkit/utils':
-        specifier: ^4.0.0
+        specifier: catalog:electron
         version: 4.0.0(electron@39.2.7)
     devDependencies:
       '@so1ve/eslint-config':
-        specifier: ^3.22.2
-        version: 3.22.2(@typescript-eslint/eslint-plugin@8.50.1(@typescript-eslint/parser@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.2(jiti@2.6.1))(jiti@2.6.1)(prettier@3.7.4)(typescript@5.9.3)
+        specifier: catalog:linting
+        version: 4.0.0(@typescript-eslint/eslint-plugin@8.50.1(@typescript-eslint/parser@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.2(jiti@2.6.1))(jiti@2.6.1)(prettier@3.7.4)(typescript@5.9.3)
       '@so1ve/prettier-config':
-        specifier: ^3.22.2
-        version: 3.22.2(prettier@3.7.4)
+        specifier: catalog:linting
+        version: 4.0.0(prettier@3.7.4)
       '@types/node':
-        specifier: ^24.10.4
+        specifier: catalog:types
         version: 24.10.4
       '@typescript/native-preview':
-        specifier: 7.0.0-dev.20251225.1
+        specifier: catalog:typescript
         version: 7.0.0-dev.20251225.1
       '@vitejs/plugin-vue':
-        specifier: ^6.0.3
+        specifier: catalog:build
         version: 6.0.3(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))(vue@3.5.26(typescript@5.9.3))
       electron:
-        specifier: ^39.2.7
+        specifier: catalog:electron
         version: 39.2.7
       electron-builder:
-        specifier: ^26.4.0
+        specifier: catalog:electron
         version: 26.4.0(electron-builder-squirrel-windows@26.0.12)
       electron-vite:
-        specifier: ^5.0.0
+        specifier: catalog:build
         version: 5.0.0(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))
       eslint:
-        specifier: ^9.39.2
+        specifier: catalog:linting
         version: 9.39.2(jiti@2.6.1)
       prettier:
-        specifier: ^3.7.4
+        specifier: catalog:linting
         version: 3.7.4
       typescript:
-        specifier: ^5.9.3
+        specifier: catalog:typescript
         version: 5.9.3
       unocss:
-        specifier: ^66.5.10
+        specifier: catalog:build
         version: 66.5.10(postcss@8.5.6)(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))
       unplugin-auto-import:
-        specifier: ^20.3.0
+        specifier: catalog:build
         version: 20.3.0
       unplugin-vue-components:
-        specifier: ^30.0.0
+        specifier: catalog:build
         version: 30.0.0(@babel/parser@7.28.5)(vue@3.5.26(typescript@5.9.3))
       unplugin-vue-macros:
-        specifier: ^2.14.5
+        specifier: catalog:build
         version: 2.14.5(esbuild@0.27.2)(rollup@4.54.0)(typescript@5.9.3)(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))(vue-tsc@3.2.1(typescript@5.9.3))(vue@3.5.26(typescript@5.9.3))
       unplugin-vue-router:
-        specifier: ^0.19.1
+        specifier: catalog:build
         version: 0.19.1(@vue/compiler-sfc@3.5.26)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vite:
-        specifier: ^7.3.0
+        specifier: catalog:build
         version: 7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2)
       vite-plugin-vue-devtools:
-        specifier: ^8.0.5
+        specifier: catalog:build
         version: 8.0.5(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))(vue@3.5.26(typescript@5.9.3))
       vite-plugin-vue-meta-layouts:
-        specifier: ^0.6.1
+        specifier: catalog:build
         version: 0.6.1(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(yaml@2.8.2))(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))
       vue:
-        specifier: ^3.5.25
+        specifier: catalog:vue
         version: 3.5.26(typescript@5.9.3)
       vue-router:
-        specifier: ^4.6.4
+        specifier: catalog:vue
         version: 4.6.4(vue@3.5.26(typescript@5.9.3))
       vue-tsc:
-        specifier: ^3.2.1
+        specifier: catalog:typescript
         version: 3.2.1(typescript@5.9.3)
 
 packages:
@@ -1026,27 +1106,27 @@ packages:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
     engines: {node: '>=10'}
 
-  '@so1ve/eslint-config@3.22.2':
-    resolution: {integrity: sha512-9iRc6hmncHs1nKw0/MkS7XSWLKSatwJqTiKNUgpdA8es6GTvE6aboGNSjljueuL46h19WhNF/GAvL2DJaihIxw==}
+  '@so1ve/eslint-config@4.0.0':
+    resolution: {integrity: sha512-Iyk4e+wuR+G1yd+oYXwTO7R1yNw42VjmtlP3rNqVQNJldwUlboHBmyghN+biLzF4k//TFC83aT3ZZxP4ldHxxQ==}
     peerDependencies:
       eslint: ^9.39.2
       prettier: ^3.7.4
 
-  '@so1ve/eslint-plugin-sort-imports@3.22.2':
-    resolution: {integrity: sha512-yRrVunkjklWYjz5t6jcHovW8+E6R1jZXiac00JndsaTvSMmBsqcTMKEcO8CxNyU47rZXeVnuiU/yeWTXhXKoAg==}
+  '@so1ve/eslint-plugin-sort-imports@4.0.0':
+    resolution: {integrity: sha512-wZOrNV9bNzmEb7EEXZlqsEdGgpt/YkhYtpgbES1ubyr5wbs3+VylL4xtPCV4PWSZsudr2dGlySF8D+oG44mW1Q==}
     peerDependencies:
       eslint: ^9.39.2
 
-  '@so1ve/eslint-plugin@3.22.2':
-    resolution: {integrity: sha512-t5SiyOWKuODymZqyvcKGGwk9iWL+Q60OAqH+8fXY4tiyJ3/oJ6sBzt50eRAhwftlnwIuCKBdhkDlV98yok4hrg==}
+  '@so1ve/eslint-plugin@4.0.0':
+    resolution: {integrity: sha512-btjkcRJGbJBB5MFS6ZvqV3PHjb0cNmJWVhMFFg2IxDS2TmCsG8LUrgmNMg5ioaEgWh5AQb2HBmTjiSGo+zWGHA==}
 
-  '@so1ve/prettier-config@3.22.2':
-    resolution: {integrity: sha512-F4VvjC2sTKoH/gQmwCYdsIXfnVcew5BI3g91sjEAxZNHQNhibeyCkkNPIb3UuAzM7RW8ztSsHQFhcv6gm92rhQ==}
+  '@so1ve/prettier-config@4.0.0':
+    resolution: {integrity: sha512-tdDch6krJjsizRknPwW/U6oqyu0hg/M/WsDYI7mlp9W8FDJrWF4MFGiFNp2BeM/TdZ0ykmiLucvSGn83hNptlQ==}
     peerDependencies:
       prettier: ^3.7.4
 
-  '@so1ve/prettier-plugin-toml@3.22.2':
-    resolution: {integrity: sha512-Auu9W52Sv0NiGSVPNzfxmJ9/m9oqg1haEpYBp7JO0moSMPEgi8N8ocRADoscZ0zXlafevtLFizI5fnBJNGtGmg==}
+  '@so1ve/prettier-plugin-toml@4.0.0':
+    resolution: {integrity: sha512-hjXLf2kgQpdIWT0lyec2aEXfS3DuV9U7qAXHjtPw3OpqrJa15AqA6OxBLC2JCK2AtHCSkfMS82kiqjKkfTTROg==}
     peerDependencies:
       prettier: ^3.7.4
 
@@ -1111,12 +1191,6 @@ packages:
 
   '@types/node@24.10.4':
     resolution: {integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==}
-
-  '@types/parse-author@2.0.3':
-    resolution: {integrity: sha512-pgRW2K/GVQoogylrGJXDl7PBLW9A6T4OOc9Hy9MLT5f7vgufK2GQ8FcfAbjFHR5HjcN9ByzuCczAORk49REqoA==}
-
-  '@types/parse-json@4.0.2':
-    resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -1863,10 +1937,6 @@ packages:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
 
-  author-regex@1.0.0:
-    resolution: {integrity: sha512-KbWgR8wOYRAPekEmMXrYYdc7BRyhn2Ftk7KWfMUnQ43hFdojWEFRxhhRUm3/OFEdPa1r0KAvTTg9YQK57xTe0g==}
-    engines: {node: '>=0.8'}
-
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
@@ -1883,6 +1953,9 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
+
+  binary-searching@2.0.5:
+    resolution: {integrity: sha512-v4N2l3RxL+m4zDxyxz3Ne2aTmiPn8ZUpKFpdPtO+ItW1NcTCXA7JeHG5GMBSvoKSkQZ9ycS+EouDVxYB9ufKWA==}
 
   birpc@2.9.0:
     resolution: {integrity: sha512-KrayHS5pBi69Xi9JmvoqrIgYGDkD6mcSe/i6YKi3w5kekCLzrX4+nawcXqrj2tIp50Kw/mT/s3p+GVK0A0sKxw==}
@@ -2076,10 +2149,6 @@ packages:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
 
-  commander@4.1.1:
-    resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
-    engines: {node: '>= 6'}
-
   commander@5.1.0:
     resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==}
     engines: {node: '>= 6'}
@@ -2128,10 +2197,6 @@ packages:
 
   core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
-
-  cosmiconfig@7.1.0:
-    resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
-    engines: {node: '>=10'}
 
   crc@3.8.0:
     resolution: {integrity: sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==}
@@ -3239,9 +3304,6 @@ packages:
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
-  json-parse-even-better-errors@2.3.1:
-    resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
-
   json-parse-even-better-errors@3.0.2:
     resolution: {integrity: sha512-fi0NG4bPjCHunUJffmLd0gxssIgkNmArMvis4iNah6Owg1MCJjWhEcDLmsK6iGkJq3tHwbDkTlce70/tmXN4cQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -3292,9 +3354,6 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
-
-  lines-and-columns@1.2.4:
-    resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
   lines-and-columns@2.0.4:
     resolution: {integrity: sha512-wM1+Z03eypVAVUCE7QdSqpVIvelbOakn1M0bPDoA4SGWPx3sNDVUiMo3L6To6WWGClB7VyXnhQ4Sn7gxiJbE6A==}
@@ -3781,16 +3840,8 @@ packages:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
 
-  parse-author@2.0.0:
-    resolution: {integrity: sha512-yx5DfvkN8JsHL2xk2Os9oTia467qnvRgey4ahSm2X8epehBLx/gWLcy5KI+Y36ful5DzGbCS6RazqZGgy1gHNw==}
-    engines: {node: '>=0.10.0'}
-
   parse-entities@4.0.2:
     resolution: {integrity: sha512-GG2AQYWoLgL877gQIKeRPGO1xF9+eG1ujIb5soS5gPvLQ1y2o8FL90w2QWNdf9I361Mpp7726c+lj3U0qK1uGw==}
-
-  parse-json@5.2.0:
-    resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
-    engines: {node: '>=8'}
 
   parse-json@7.1.1:
     resolution: {integrity: sha512-SgOTCX/EZXtZxBE5eJ97P4yGM5n37BwRU+YMsH4vNzFqJV/oWFXXCmwFlgWUM4PrakybVOueJJ6pwHqSVhTFDw==}
@@ -3817,10 +3868,6 @@ packages:
   path-scurry@1.11.1:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
     engines: {node: '>=16 || 14 >=14.18'}
-
-  path-type@4.0.0:
-    resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
-    engines: {node: '>=8'}
 
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
@@ -3883,16 +3930,13 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-package-json@2.8.0:
-    resolution: {integrity: sha512-WxtodH/wWavfw3MR7yK/GrS4pASEQ+iSTkdtSxPJWvqzG55ir5nvbLt9rw5AOiEcqqPCRM92WCtR1rk3TG3JSQ==}
-    hasBin: true
-
   prettier-plugin-astro@0.14.1:
     resolution: {integrity: sha512-RiBETaaP9veVstE4vUwSIcdATj6dKmXljouXc/DDNwBSPTp8FRkLGDSGFClKsAFeeg+13SB0Z1JZvbD76bigJw==}
     engines: {node: ^14.15.0 || >=16.0.0}
 
-  prettier-plugin-pkgsort@0.3.0:
-    resolution: {integrity: sha512-dUtSMvFvuZPfrni0/gqgLdwAevVAG1IYpv53IKWGPSaq4ZKm0nsz3jybzpv56Bo+1yv+vIAW3W8jKKBh8U/kOA==}
+  prettier-plugin-jsdoc@1.8.0:
+    resolution: {integrity: sha512-byW8EBZ1DSA3CPdDGBXfcdqqhh2eq0+HlIOPTGZ6rf9O2p/AwBmtS0e49ot5ZeOdcszj81FyzbyHr/VS0eYpCg==}
+    engines: {node: '>=14.13.1 || >=16.0.0'}
     peerDependencies:
       prettier: ^3.0.0
 
@@ -4156,12 +4200,6 @@ packages:
   socks@2.8.7:
     resolution: {integrity: sha512-HLpt+uLy/pxB+bum/9DzAgiKS8CX1EvbWxI4zlmgGCExImLdiad2iCwXT5Z4c9c3Eq8rP2318mPW2c+QbtjK8A==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
-
-  sort-object-keys@1.1.3:
-    resolution: {integrity: sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==}
-
-  sort-order@1.1.2:
-    resolution: {integrity: sha512-Q8tOrwB1TSv9fNUXym9st3TZJODtmcOIi2JWCkVNQPrRg17KPwlpwweTEb7pMwUIFMTAgx2/JsQQXEPFzYQj3A==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -4771,10 +4809,6 @@ packages:
   yaml-eslint-parser@1.3.2:
     resolution: {integrity: sha512-odxVsHAkZYYglR30aPYRY4nUGJnoJ2y1ww2HDvZALo0BDETv9kWbi16J52eHs+PWRNmF4ub6nZqfVOeesOvntg==}
     engines: {node: ^14.17.0 || >=16.0.0}
-
-  yaml@1.10.2:
-    resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
-    engines: {node: '>= 6'}
 
   yaml@2.8.2:
     resolution: {integrity: sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==}
@@ -5753,13 +5787,13 @@ snapshots:
 
   '@sindresorhus/is@4.6.0': {}
 
-  '@so1ve/eslint-config@3.22.2(@typescript-eslint/eslint-plugin@8.50.1(@typescript-eslint/parser@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.2(jiti@2.6.1))(jiti@2.6.1)(prettier@3.7.4)(typescript@5.9.3)':
+  '@so1ve/eslint-config@4.0.0(@typescript-eslint/eslint-plugin@8.50.1(@typescript-eslint/parser@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.2(jiti@2.6.1))(jiti@2.6.1)(prettier@3.7.4)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.5.0(eslint@9.39.2(jiti@2.6.1))
       '@html-eslint/eslint-plugin': 0.52.0(eslint@9.39.2(jiti@2.6.1))(jiti@2.6.1)
       '@html-eslint/parser': 0.52.0(jiti@2.6.1)
-      '@so1ve/eslint-plugin': 3.22.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      '@so1ve/eslint-plugin-sort-imports': 3.22.2(eslint@9.39.2(jiti@2.6.1))
+      '@so1ve/eslint-plugin': 4.0.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      '@so1ve/eslint-plugin-sort-imports': 4.0.0(eslint@9.39.2(jiti@2.6.1))
       '@stylistic/eslint-plugin': 5.6.1(eslint@9.39.2(jiti@2.6.1))
       '@typescript-eslint/parser': 8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/utils': 8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
@@ -5817,12 +5851,12 @@ snapshots:
       - typescript
       - vitest
 
-  '@so1ve/eslint-plugin-sort-imports@3.22.2(eslint@9.39.2(jiti@2.6.1))':
+  '@so1ve/eslint-plugin-sort-imports@4.0.0(eslint@9.39.2(jiti@2.6.1))':
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
       natsort: 2.0.3
 
-  '@so1ve/eslint-plugin@3.22.2(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
+  '@so1ve/eslint-plugin@4.0.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/types': 8.50.1
       '@typescript-eslint/utils': 8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
@@ -5831,14 +5865,16 @@ snapshots:
       - supports-color
       - typescript
 
-  '@so1ve/prettier-config@3.22.2(prettier@3.7.4)':
+  '@so1ve/prettier-config@4.0.0(prettier@3.7.4)':
     dependencies:
-      '@so1ve/prettier-plugin-toml': 3.22.2(prettier@3.7.4)
+      '@so1ve/prettier-plugin-toml': 4.0.0(prettier@3.7.4)
       prettier: 3.7.4
       prettier-plugin-astro: 0.14.1
-      prettier-plugin-pkgsort: 0.3.0(prettier@3.7.4)
+      prettier-plugin-jsdoc: 1.8.0(prettier@3.7.4)
+    transitivePeerDependencies:
+      - supports-color
 
-  '@so1ve/prettier-plugin-toml@3.22.2(prettier@3.7.4)':
+  '@so1ve/prettier-plugin-toml@4.0.0(prettier@3.7.4)':
     dependencies:
       prettier: 3.7.4
 
@@ -5915,10 +5951,6 @@ snapshots:
   '@types/node@24.10.4':
     dependencies:
       undici-types: 7.16.0
-
-  '@types/parse-author@2.0.3': {}
-
-  '@types/parse-json@4.0.2': {}
 
   '@types/plist@3.0.5':
     dependencies:
@@ -6929,8 +6961,6 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
-  author-regex@1.0.0: {}
-
   bail@2.0.2: {}
 
   balanced-match@1.0.2: {}
@@ -6940,6 +6970,8 @@ snapshots:
   baseline-browser-mapping@2.9.11: {}
 
   binary-extensions@2.3.0: {}
+
+  binary-searching@2.0.5: {}
 
   birpc@2.9.0: {}
 
@@ -7199,8 +7231,6 @@ snapshots:
     dependencies:
       delayed-stream: 1.0.0
 
-  commander@4.1.1: {}
-
   commander@5.1.0: {}
 
   commander@9.5.0:
@@ -7242,14 +7272,6 @@ snapshots:
 
   core-util-is@1.0.2:
     optional: true
-
-  cosmiconfig@7.1.0:
-    dependencies:
-      '@types/parse-json': 4.0.2
-      import-fresh: 3.3.1
-      parse-json: 5.2.0
-      path-type: 4.0.0
-      yaml: 1.10.2
 
   crc@3.8.0:
     dependencies:
@@ -8537,8 +8559,6 @@ snapshots:
 
   json-buffer@3.0.1: {}
 
-  json-parse-even-better-errors@2.3.1: {}
-
   json-parse-even-better-errors@3.0.2: {}
 
   json-schema-traverse@0.4.1: {}
@@ -8585,8 +8605,6 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
-
-  lines-and-columns@1.2.4: {}
 
   lines-and-columns@2.0.4: {}
 
@@ -9287,10 +9305,6 @@ snapshots:
     dependencies:
       callsites: 3.1.0
 
-  parse-author@2.0.0:
-    dependencies:
-      author-regex: 1.0.0
-
   parse-entities@4.0.2:
     dependencies:
       '@types/unist': 2.0.11
@@ -9300,13 +9314,6 @@ snapshots:
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
       is-hexadecimal: 2.0.1
-
-  parse-json@5.2.0:
-    dependencies:
-      '@babel/code-frame': 7.27.1
-      error-ex: 1.3.4
-      json-parse-even-better-errors: 2.3.1
-      lines-and-columns: 1.2.4
 
   parse-json@7.1.1:
     dependencies:
@@ -9330,8 +9337,6 @@ snapshots:
     dependencies:
       lru-cache: 10.4.3
       minipass: 7.1.2
-
-  path-type@4.0.0: {}
 
   pathe@2.0.3: {}
 
@@ -9391,28 +9396,20 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-package-json@2.8.0:
-    dependencies:
-      '@types/parse-author': 2.0.3
-      commander: 4.1.1
-      cosmiconfig: 7.1.0
-      fs-extra: 10.1.0
-      glob: 7.2.3
-      minimatch: 3.1.2
-      parse-author: 2.0.0
-      sort-object-keys: 1.1.3
-      sort-order: 1.1.2
-
   prettier-plugin-astro@0.14.1:
     dependencies:
       '@astrojs/compiler': 2.13.0
       prettier: 3.7.4
       sass-formatter: 0.7.9
 
-  prettier-plugin-pkgsort@0.3.0(prettier@3.7.4):
+  prettier-plugin-jsdoc@1.8.0(prettier@3.7.4):
     dependencies:
+      binary-searching: 2.0.5
+      comment-parser: 1.4.1
+      mdast-util-from-markdown: 2.0.2
       prettier: 3.7.4
-      prettier-package-json: 2.8.0
+    transitivePeerDependencies:
+      - supports-color
 
   prettier@3.7.4: {}
 
@@ -9684,10 +9681,6 @@ snapshots:
     dependencies:
       ip-address: 10.1.0
       smart-buffer: 4.2.0
-
-  sort-object-keys@1.1.3: {}
-
-  sort-order@1.1.2: {}
 
   source-map-js@1.2.1: {}
 
@@ -10443,8 +10436,6 @@ snapshots:
     dependencies:
       eslint-visitor-keys: 3.4.3
       yaml: 2.8.2
-
-  yaml@1.10.2: {}
 
   yaml@2.8.2: {}
 

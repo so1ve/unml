@@ -15,58 +15,58 @@ const r = (p: string) => resolve(__dirname, p);
 const DIST_ELECTRON = r("dist-electron");
 
 export default defineConfig({
-	main: {
-		build: {
-			outDir: join(DIST_ELECTRON, "main"),
-			lib: {
-				entry: r("src-electron/main/index.ts"),
-			},
-		},
-	},
-	preload: {
-		build: {
-			outDir: join(DIST_ELECTRON, "preload"),
-			lib: {
-				entry: r("src-electron/preload/index.ts"),
-			},
-		},
-	},
-	renderer: {
-		root: ".",
-		build: {
-			outDir: join(DIST_ELECTRON, "renderer"),
-			rollupOptions: {
-				input: r("index.html"),
-			},
-		},
-		resolve: {
-			// alias: {
-			// 	"@renderer": resolve("src/renderer/src"),
-			// },
-		},
-		plugins: [
-			VueMacros({
-				plugins: {
-					vue: Vue(),
-					vueRouter: VueRouter({
-						extensions: [".vue", ".md"],
-						exclude: ["node_modules"],
-						dts: "src/typed-router.d.ts",
-					}),
-				},
-			}),
-			MetaLayouts(),
-			AutoImport({
-				imports: ["vue", VueRouterAutoImports],
-				dts: "src/auto-imports.d.ts",
-			}),
-			Components({
-				extensions: ["vue"],
-				dts: "src/components.d.ts",
-				dirs: ["src/components"],
-			}),
-			UnoCSS(),
-			VueDevTools(),
-		],
-	},
+  main: {
+    build: {
+      outDir: join(DIST_ELECTRON, "main"),
+      lib: {
+        entry: r("src-electron/main/index.ts"),
+      },
+    },
+  },
+  preload: {
+    build: {
+      outDir: join(DIST_ELECTRON, "preload"),
+      lib: {
+        entry: r("src-electron/preload/index.ts"),
+      },
+    },
+  },
+  renderer: {
+    root: ".",
+    build: {
+      outDir: join(DIST_ELECTRON, "renderer"),
+      rollupOptions: {
+        input: r("index.html"),
+      },
+    },
+    resolve: {
+      // alias: {
+      // 	"@renderer": resolve("src/renderer/src"),
+      // },
+    },
+    plugins: [
+      VueMacros({
+        plugins: {
+          vue: Vue(),
+          vueRouter: VueRouter({
+            extensions: [".vue", ".md"],
+            exclude: ["node_modules"],
+            dts: "src/typed-router.d.ts",
+          }),
+        },
+      }),
+      MetaLayouts(),
+      AutoImport({
+        imports: ["vue", VueRouterAutoImports],
+        dts: "src/auto-imports.d.ts",
+      }),
+      Components({
+        extensions: ["vue"],
+        dts: "src/components.d.ts",
+        dirs: ["src/components"],
+      }),
+      UnoCSS(),
+      VueDevTools(),
+    ],
+  },
 });
