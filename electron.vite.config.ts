@@ -1,4 +1,4 @@
-import { resolve } from "node:path";
+import { join, resolve } from "node:path";
 
 import Vue from "@vitejs/plugin-vue";
 import { defineConfig } from "electron-vite";
@@ -11,26 +11,32 @@ import VueRouter from "unplugin-vue-router/vite";
 import VueDevTools from "vite-plugin-vue-devtools";
 import MetaLayouts from "vite-plugin-vue-meta-layouts";
 
+const r = (p: string) => resolve(__dirname, p);
+const DIST_ELECTRON = r("dist-electron");
+
 export default defineConfig({
 	main: {
 		build: {
+			outDir: join(DIST_ELECTRON, "main"),
 			lib: {
-				entry: resolve(__dirname, "src-electron/main/index.ts"),
+				entry: r("src-electron/main/index.ts"),
 			},
 		},
 	},
 	preload: {
 		build: {
+			outDir: join(DIST_ELECTRON, "preload"),
 			lib: {
-				entry: resolve(__dirname, "src-electron/preload/index.ts"),
+				entry: r("src-electron/preload/index.ts"),
 			},
 		},
 	},
 	renderer: {
 		root: ".",
 		build: {
+			outDir: join(DIST_ELECTRON, "renderer"),
 			rollupOptions: {
-				input: resolve(__dirname, "index.html"),
+				input: r("index.html"),
 			},
 		},
 		resolve: {

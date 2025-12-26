@@ -1,6 +1,5 @@
 node_modules
-dist
-out
+dist*
 .DS_Store
 .eslintcache
 *.log*
