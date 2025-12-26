@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 
-import vue from "@vitejs/plugin-vue";
+import Vue from "@vitejs/plugin-vue";
 import { defineConfig } from "electron-vite";
 
 export default defineConfig({
@@ -19,7 +19,7 @@ export default defineConfig({
 		},
 	},
 	renderer: {
-		root: __dirname,
+		root: ".",
 		build: {
 			rollupOptions: {
 				input: resolve(__dirname, "index.html"),
@@ -30,6 +30,6 @@ export default defineConfig({
 			// 	"@renderer": resolve("src/renderer/src"),
 			// },
 		},
-		plugins: [vue()],
+		plugins: [Vue()],
 	},
 });
