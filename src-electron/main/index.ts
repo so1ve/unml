@@ -1,9 +1,13 @@
 import { join } from "node:path";
 
 import { electronApp, is, optimizer } from "@electron-toolkit/utils";
+import { provideUnml } from "@unml/ctx";
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 
 import icon from "../../resources/icon.png?asset";
+import { unmlApiImpl } from "./core/api";
+
+provideUnml(unmlApiImpl);
 
 function createWindow(): void {
   // Create the browser window.

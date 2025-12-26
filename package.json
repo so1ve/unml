@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@electron-toolkit/preload": "catalog:electron",
-    "@electron-toolkit/utils": "catalog:electron"
+    "@electron-toolkit/utils": "catalog:electron",
+    "@unml/ctx": "workspace:*"
   },
   "devDependencies": {
     "@antfu/ni": "catalog:dev",

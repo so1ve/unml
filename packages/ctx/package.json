@@ -1,17 +1,17 @@
 {
-  "name": "@unml/kit",
+  "name": "@unml/ctx",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
   "type": "module",
-  "description": "UNML Kit",
+  "description": "UNML Context",
   "keywords": [
     "unml"
   ],
-  "homepage": "https://github.com/so1ve/unml/tree/main/packages/kit#readme",
+  "homepage": "https://github.com/so1ve/unml/tree/main/packages/ctx#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/so1ve/unml.git",
-    "directory": "/packages/kit"
+    "directory": "/packages/ctx"
   },
   "bugs": {
     "url": "https://github.com/so1ve/unml/issues"
@@ -40,6 +40,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@unml/ctx": "workspace:*"
+    "unctx": "catalog:core"
   }
 }
