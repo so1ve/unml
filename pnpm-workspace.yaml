@@ -8,6 +8,7 @@ catalogs:
   build:
     "@vitejs/plugin-vue": ^6.0.3
     electron-vite: ^5.0.0
+    tsdown: ^0.18.3
     unocss: ^66.5.10
     unplugin-auto-import: ^20.3.0
     unplugin-vue-components: ^30.0.0
@@ -17,6 +18,9 @@ catalogs:
     vite-plugin-vue-devtools: ^8.0.5
     vite-plugin-vue-meta-layouts: ^0.6.1
 
+  dev:
+    "@antfu/ni": ^28.0.0
+
   electron:
     "@electron-toolkit/preload": ^3.0.2
     "@electron-toolkit/utils": ^4.0.0
@@ -24,8 +28,8 @@ catalogs:
     electron-builder: ^26.4.0
 
   linting:
-    "@so1ve/eslint-config": ^4.0.0
-    "@so1ve/prettier-config": ^4.0.0
+    "@so1ve/eslint-config": ^4.0.1
+    "@so1ve/prettier-config": ^4.0.1
     eslint: ^9.39.2
     prettier: ^3.7.4
 
