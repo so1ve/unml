@@ -6,6 +6,7 @@
 	},
 	"include": [
 		"electron.vite.config.*",
+		"uno.config.ts",
 		"src-electron/main/**/*",
 		"src-electron/preload/**/*"
 	]

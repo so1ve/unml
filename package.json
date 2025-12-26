@@ -10,15 +10,14 @@
 		"build:mac": "npm run build && electron-builder --mac",
 		"build:unpack": "npm run build && electron-builder --dir",
 		"build:win": "npm run build && electron-builder --win",
-		"dev": "electron-vite dev",
+		"dev": "electron-vite dev --watch",
 		"postinstall": "electron-builder install-app-deps",
 		"lint": "eslint --cache . && prettier --check .",
 		"lint:fix": "eslint --cache . --fix && prettier --write .",
 		"start": "electron-vite preview",
 		"typecheck": "npm run typecheck:node && npm run typecheck:web",
 		"typecheck:node": "tsgo --noEmit -p tsconfig.node.json --composite false",
-		"typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
-		"watch": "electron-vite dev --watch"
+		"typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false"
 	},
 	"dependencies": {
 		"@electron-toolkit/preload": "^3.0.2",
@@ -36,8 +35,16 @@
 		"eslint": "^9.39.2",
 		"prettier": "^3.7.4",
 		"typescript": "^5.9.3",
+		"unocss": "^66.5.10",
+		"unplugin-auto-import": "^20.3.0",
+		"unplugin-vue-components": "^30.0.0",
+		"unplugin-vue-macros": "^2.14.5",
+		"unplugin-vue-router": "^0.19.1",
 		"vite": "^7.3.0",
+		"vite-plugin-vue-devtools": "^8.0.5",
+		"vite-plugin-vue-meta-layouts": "^0.6.1",
 		"vue": "^3.5.25",
+		"vue-router": "^4.6.4",
 		"vue-tsc": "^3.2.1"
 	}
 }
