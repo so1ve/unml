@@ -1,6 +1,7 @@
 {
   "references": [
     { "path": "./tsconfig.isolated.json" },
+    { "path": "./tsconfig.plugins.json" },
     { "path": "./tsconfig.node.json" },
     { "path": "./tsconfig.web.json" }
   ],

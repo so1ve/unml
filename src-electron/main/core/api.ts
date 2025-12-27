@@ -6,6 +6,8 @@ import type {
   UIManager,
   UnmlAPI,
 } from "@unml/kit";
+import { RPC_PUSH_CHANNEL } from "@unml/ui-kit";
+import { BrowserWindow } from "electron";
 
 class CommandRegistryImpl implements CommandRegistry {
   private commands = new Map<string, (...args: any[]) => any>();
@@ -49,6 +51,22 @@ class RPCManagerImpl implements RPCManager {
     }
     throw new Error(`RPC handler for "${command}" not found.`);
   }
+
+  public send(_event: string, _data: any): void {
+    console.warn(
+      "Cannot send RPC event without pluginId. Use a plugin-scoped UnmlAPI wrapper.",
+    );
+  }
+
+  public sendFrom(pluginId: string, event: string, data: any): void {
+    for (const win of BrowserWindow.getAllWindows()) {
+      win.webContents.send(RPC_PUSH_CHANNEL, {
+        pluginId,
+        event,
+        data,
+      });
+    }
+  }
 }
 
 class ServiceManagerImpl implements ServiceManager {
@@ -70,3 +88,17 @@ export const unmlApiImpl: UnmlAPI = {
   rpc: new RPCManagerImpl(),
   services: new ServiceManagerImpl(),
 };
+
+export function createPluginUnmlApi(pluginId: string): UnmlAPI {
+  const rpcImpl = unmlApiImpl.rpc as RPCManagerImpl;
+
+  return {
+    ...unmlApiImpl,
+    rpc: {
+      handle: rpcImpl.handle.bind(rpcImpl),
+      call: rpcImpl.call.bind(rpcImpl),
+      send: (event: string, data: any) =>
+        rpcImpl.sendFrom(pluginId, event, data),
+    },
+  };
+}

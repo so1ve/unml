@@ -2,7 +2,7 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   workspace: {
-    include: ["packages/*"],
+    include: ["packages/*", "plugins/*"],
   },
   entry: ["src/index.ts"],
   dts: {

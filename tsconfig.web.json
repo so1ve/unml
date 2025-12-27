@@ -13,9 +13,9 @@
     // }
   },
   "include": [
+    "packages/*/src",
+    "src",
     "src-electron/preload/*.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
     "src/env.d.ts"
   ]
 }

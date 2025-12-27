@@ -10,6 +10,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@unml-plugins/*": ["./plugins/*/src/index.ts"],
+      "@unml/*": ["./packages/*/src/index.ts"]
+    }
   }
 }

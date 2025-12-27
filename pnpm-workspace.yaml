@@ -1,8 +1,10 @@
+ignoreWorkspaceRootCheck: true
 shamefullyHoist: true
 shellEmulator: true
 
 packages:
   - "packages/*"
+  - "plugins/*"
 
 onlyBuiltDependencies:
   - unrs-resolver
@@ -20,12 +22,15 @@ catalogs:
     vite: ^7.3.0
     vite-plugin-vue-devtools: ^8.0.5
     vite-plugin-vue-meta-layouts: ^0.6.1
+    vite-tsconfig-paths: ^6.0.3
 
   core:
+    mrmime: ^2.0.1
     unctx: ^2.5.0
 
   dev:
     "@antfu/ni": ^28.0.0
+    concurrently: ^9.2.1
 
   electron:
     "@electron-toolkit/preload": ^3.0.2

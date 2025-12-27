@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from "node:async_hooks";
+
 import { createContext } from "unctx";
 
 export interface CommandRegistry {
@@ -16,6 +18,7 @@ export interface UIManager {
 export interface RPCManager {
   handle: (command: string, handler: (args: any) => any) => void;
   call: (command: string, args: any) => Promise<any>;
+  send: (event: string, data: any) => void;
 }
 
 export interface ServiceManager {
@@ -31,8 +34,13 @@ export interface UnmlAPI {
   services: ServiceManager;
 }
 
-const unmlCtx = createContext<UnmlAPI>();
+const unmlCtx = createContext<UnmlAPI>({
+  asyncContext: true,
+  AsyncLocalStorage,
+});
 
 export const useUnml: () => UnmlAPI = unmlCtx.use;
 export const provideUnml: (value: UnmlAPI, replace?: boolean) => void =
   unmlCtx.set;
+export const executeWithUnml: <T>(value: UnmlAPI, fn: () => T) => T =
+  unmlCtx.call;

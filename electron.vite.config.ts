@@ -8,28 +8,44 @@ import Components from "unplugin-vue-components/vite";
 import VueMacros from "unplugin-vue-macros/vite";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import VueRouter from "unplugin-vue-router/vite";
+import type { BuildEnvironmentOptions } from "vite";
 import VueDevTools from "vite-plugin-vue-devtools";
 import MetaLayouts from "vite-plugin-vue-meta-layouts";
+import TsconfigPaths from "vite-tsconfig-paths";
 
 const r = (p: string) => resolve(__dirname, p);
 const DIST_ELECTRON = r("dist-electron");
 
+const sharedPlugins = [
+  TsconfigPaths({
+    configNames: ["tsconfig.base.json", "tsconfig.json"],
+  }),
+];
+
+const watchOptions: BuildEnvironmentOptions["watch"] = {
+  include: ["src-electron/**", "plugins/**", "packages/**"],
+};
+
 export default defineConfig({
   main: {
     build: {
+      watch: watchOptions,
       outDir: join(DIST_ELECTRON, "main"),
       lib: {
         entry: r("src-electron/main/index.ts"),
       },
     },
+    plugins: sharedPlugins,
   },
   preload: {
     build: {
+      watch: watchOptions,
       outDir: join(DIST_ELECTRON, "preload"),
       lib: {
         entry: r("src-electron/preload/index.ts"),
       },
     },
+    plugins: sharedPlugins,
   },
   renderer: {
     root: ".",
@@ -39,12 +55,9 @@ export default defineConfig({
         input: r("index.html"),
       },
     },
-    resolve: {
-      // alias: {
-      // 	"@renderer": resolve("src/renderer/src"),
-      // },
-    },
     plugins: [
+      ...sharedPlugins,
+
       VueMacros({
         plugins: {
           vue: Vue(),

@@ -5,8 +5,11 @@
   },
   "include": [
     "electron.vite.config.*",
-    "src-electron/main/**/*",
-    "src-electron/preload/**/*",
+    "packages/*/src",
+    "packages/*/tsdown.config.ts",
+    "plugins/*/src",
+    "src-electron/main",
+    "src-electron/preload",
     "tsdown.config.ts",
     "uno.config.ts"
   ]
