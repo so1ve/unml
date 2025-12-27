@@ -9,6 +9,9 @@ packages:
 onlyBuiltDependencies:
   - unrs-resolver
 
+defines:
+  - &codestyle-config ^4.1.1
+
 catalogs:
   build:
     "@vitejs/plugin-vue": ^6.0.3
@@ -39,8 +42,8 @@ catalogs:
     electron-builder: ^26.4.0
 
   linting:
-    "@so1ve/eslint-config": ^4.1.0
-    "@so1ve/prettier-config": ^4.1.0
+    "@so1ve/eslint-config": *codestyle-config
+    "@so1ve/prettier-config": *codestyle-config
     eslint: ^9.39.2
     prettier: ^3.7.4
 

@@ -1,0 +1,2 @@
+export const DEFAULT_PROBE_TIMEOUT_MS = 15_000;
+export const DEFAULT_MAX_PROBE_COUNT = 50;
