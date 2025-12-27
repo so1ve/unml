@@ -8,6 +8,7 @@
     "packages/*/src",
     "packages/*/tsdown.config.ts",
     "plugins/*/src",
+    "plugins/*/vite.config.ts",
     "src-electron/main",
     "src-electron/preload",
     "tsdown.config.ts",
