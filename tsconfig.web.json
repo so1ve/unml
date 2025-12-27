@@ -8,9 +8,6 @@
       "vite-plugin-vue-meta-layouts/client",
       "vite/client"
     ]
-    // "paths": {
-    // 	"@renderer/*": ["src/renderer/src/*"]
-    // }
   },
   "include": [
     "packages/*/src",

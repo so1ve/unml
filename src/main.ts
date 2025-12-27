@@ -4,6 +4,5 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./rpc-bridge";
-import "uno.css";
 
 createApp(App).use(router).mount("#app");

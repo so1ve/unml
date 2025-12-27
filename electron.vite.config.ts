@@ -1,8 +1,8 @@
 import { join, resolve } from "node:path";
 
+import Tailwindcss from "@tailwindcss/vite";
 import Vue from "@vitejs/plugin-vue";
 import { defineConfig } from "electron-vite";
-import UnoCSS from "unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import VueMacros from "unplugin-vue-macros/vite";
@@ -78,7 +78,7 @@ export default defineConfig({
         dts: "src/components.d.ts",
         dirs: ["src/components"],
       }),
-      UnoCSS(),
+      Tailwindcss(),
       VueDevTools(),
     ],
   },

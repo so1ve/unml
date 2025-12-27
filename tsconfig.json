@@ -1,4 +1,10 @@
 {
+  // To make shadcn-vue cli work
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
   "references": [
     { "path": "./tsconfig.isolated.json" },
     { "path": "./tsconfig.plugins.json" },
