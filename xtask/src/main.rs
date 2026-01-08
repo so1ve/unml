@@ -1,7 +1,11 @@
+use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicU32, Ordering};
 
 use anyhow::Result;
 use clap::{Parser, Subcommand};
+use xtask_watch::Watch;
 
 #[derive(Parser)]
 #[command(name = "xtask")]
@@ -14,7 +18,11 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Run the application in development mode with auto-reload
-    Dev,
+    Dev {
+        /// Watch for changes under `crates/` and restart automatically
+        #[arg(short, long, default_value_t = true)]
+        watch: bool,
+    },
     /// Build all workspace crates
     Build {
         /// Build in release mode
@@ -55,7 +63,7 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Dev => run_dev()?,
+        Commands::Dev { watch } => run_dev(watch)?,
         Commands::Build { release } => run_build(release)?,
         Commands::Fmt { check } => run_fmt(check)?,
         Commands::Clippy { fix } => run_clippy(fix)?,
@@ -68,18 +76,118 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-fn run_dev() -> Result<()> {
-    println!("Starting development mode...");
+fn run_dev(watch: bool) -> Result<()> {
+    let workspace_root = workspace_root()?;
 
-    let status = Command::new("cargo")
-        .args(["run", "--package", "unml-gui", "--bin", "unml"])
-        .status()?;
+    let crates_dir = workspace_root.join("crates");
 
-    if !status.success() {
-        anyhow::bail!("Development mode failed");
+    // Best-effort: ensure Ctrl+C kills the spawned dev app window too.
+    // - Non-watch: we own the `cargo run` child pid.
+    // - Watch: xtask-watch owns the child; we fall back to killing `unml.exe`.
+    let child_pid = Arc::new(AtomicU32::new(0));
+    install_ctrlc_handler(child_pid.clone())?;
+
+    if !watch {
+        println!("Starting development mode...");
+        let mut child = spawn_dev_command(&workspace_root).spawn()?;
+        child_pid.store(child.id(), Ordering::SeqCst);
+
+        let status = child.wait()?;
+        child_pid.store(0, Ordering::SeqCst);
+        if !status.success() {
+            anyhow::bail!("Development mode failed");
+        }
+        return Ok(());
     }
 
+    println!("Starting development mode (watching crates/) ...");
+    if !crates_dir.exists() {
+        anyhow::bail!("Missing crates directory: {}", crates_dir.display());
+    }
+
+    let watch = Watch::default().watch_path(&crates_dir);
+    let command = spawn_dev_command(&workspace_root);
+    watch.run(command)?;
+
     Ok(())
+}
+
+fn workspace_root() -> Result<PathBuf> {
+    let xtask_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    xtask_dir
+        .parent()
+        .map(Path::to_path_buf)
+        .ok_or_else(|| anyhow::anyhow!("Failed to determine workspace root"))
+}
+
+fn spawn_dev_command(workspace_root: &Path) -> Command {
+    let mut command = Command::new("cargo");
+    command
+        .current_dir(workspace_root)
+        .args(["run", "--package", "unml-gui", "--bin", "unml"]);
+    command
+}
+
+fn install_ctrlc_handler(child_pid: Arc<AtomicU32>) -> Result<()> {
+    ctrlc::set_handler(move || {
+        let pid = child_pid.load(Ordering::SeqCst);
+        if pid != 0 {
+            let _ = kill_process_tree(pid);
+        } else {
+            let _ = kill_dev_app_fallback();
+        }
+
+        // 130 is a conventional exit code for SIGINT.
+        std::process::exit(130);
+    })?;
+
+    Ok(())
+}
+
+fn kill_process_tree(pid: u32) -> Result<()> {
+    #[cfg(windows)]
+    {
+        let status = Command::new("taskkill")
+            .args(["/PID", &pid.to_string(), "/T", "/F"])
+            .status()?;
+
+        if !status.success() {
+            anyhow::bail!("taskkill failed for pid {pid}");
+        }
+
+        return Ok(());
+    }
+
+    #[cfg(unix)]
+    {
+        let status = Command::new("kill")
+            .args(["-TERM", &pid.to_string()])
+            .status()?;
+        if !status.success() {
+            anyhow::bail!("kill failed for pid {pid}");
+        }
+        return Ok(());
+    }
+
+    #[allow(unreachable_code)]
+    Ok(())
+}
+
+fn kill_dev_app_fallback() -> Result<()> {
+    #[cfg(windows)]
+    {
+        // Watch mode: we don't have the child PID (xtask-watch owns it), so kill by
+        // image name. This is best-effort and intended for dev only.
+        let _ = Command::new("taskkill")
+            .args(["/IM", "unml.exe", "/F"])
+            .status();
+        Ok(())
+    }
+
+    #[cfg(not(windows))]
+    {
+        Ok(())
+    }
 }
 
 fn run_build(release: bool) -> Result<()> {

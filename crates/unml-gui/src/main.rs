@@ -1,43 +1,29 @@
 mod app;
+mod components;
+mod pages;
 
-use anyhow::Result;
+use gpui::*;
+use gpui_component_assets::Assets;
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    println!("UNML - Minecraft Launcher");
-    println!("Framework initialized successfully!");
-    println!();
-    println!("Available crates:");
-    println!("  - unml-core: Core traits and types");
-    println!("  - unml-java: Java detection and management");
-    println!("  - unml-download: Download providers");
-    println!("  - unml-launcher: Game launcher");
-    println!("  - unml-mods: Mod management");
-    println!("  - unml-auth: Authentication");
-    println!();
+fn main() {
+    Application::new().with_assets(Assets).run(|cx: &mut App| {
+        gpui_component::init(cx);
+        gpui_router::init(cx);
 
-    // 测试 Java 检测
-    println!("Testing Java detection...");
-    let detector = unml_java::JavaDetector::new();
-    match detector.detect_all().await {
-        Ok(installations) => {
-            println!("Found {} Java installation(s):", installations.len());
-            for java in installations {
-                println!(
-                    "  - Java {} ({}) at {:?}",
-                    java.major_version,
-                    java.vendor.as_deref().unwrap_or("Unknown"),
-                    java.executable
-                );
-            }
-        }
-        Err(e) => {
-            println!("  Error: {}", e);
-        }
-    }
+        let bounds = Bounds::centered(None, size(px(960.), px(600.)), cx);
 
-    println!();
-    println!("GUI will be implemented with GPUI in future updates.");
+        cx.open_window(
+            WindowOptions {
+                window_decorations: Some(WindowDecorations::Client),
+                titlebar: Some(gpui_component::TitleBar::title_bar_options()),
+                window_bounds: Some(WindowBounds::Windowed(bounds)),
+                is_resizable: false,
+                ..Default::default()
+            },
+            |_, cx| cx.new(|_| app::LauncherView::new()),
+        )
+        .unwrap();
 
-    Ok(())
+        cx.activate(true);
+    });
 }
