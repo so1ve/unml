@@ -6,9 +6,9 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
-tokio = { workspace = true, features = ["process", "fs", "io-util"] }
 serde = { workspace = true }
 thiserror = { workspace = true }
+tokio = { workspace = true, features = ["process", "fs", "io-util"] }
 
 [dev-dependencies]
 tokio = { workspace = true }

@@ -11,6 +11,7 @@ rustflags = ["-C", "link-arg=-fuse-ld=lld"]
 rustflags = ["-C", "link-arg=-fuse-ld=lld"]
 
 [alias]
+xtask = "run --package xtask --"
 check-all = "check --workspace --all-features"
 test-all = "test --workspace --all-features"
 clippy-all = "clippy --workspace --all-features -- -D warnings"

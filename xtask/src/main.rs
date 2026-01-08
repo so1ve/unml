@@ -45,6 +45,8 @@ enum Commands {
         #[arg(long)]
         all_features: bool,
     },
+    /// Sort all Cargo.toml
+    Sort,
     /// Clean build artifacts
     Clean,
 }
@@ -59,6 +61,7 @@ fn main() -> Result<()> {
         Commands::Clippy { fix } => run_clippy(fix)?,
         Commands::Test { release } => run_test(release)?,
         Commands::Check { all_features } => run_check(all_features)?,
+        Commands::Sort => run_sort()?,
         Commands::Clean => run_clean()?,
     }
 
@@ -66,7 +69,7 @@ fn main() -> Result<()> {
 }
 
 fn run_dev() -> Result<()> {
-    println!("🚀 Starting development mode...");
+    println!("Starting development mode...");
 
     let status = Command::new("cargo")
         .args(["run", "--package", "unml-gui", "--bin", "unml"])
@@ -80,7 +83,7 @@ fn run_dev() -> Result<()> {
 }
 
 fn run_build(release: bool) -> Result<()> {
-    println!("🔨 Building workspace...");
+    println!("Building workspace...");
 
     let mut args = vec!["build", "--workspace"];
     if release {
@@ -99,9 +102,9 @@ fn run_build(release: bool) -> Result<()> {
 
 fn run_fmt(check: bool) -> Result<()> {
     if check {
-        println!("🔍 Checking code formatting...");
+        println!("Checking code formatting...");
     } else {
-        println!("✨ Formatting code...");
+        println!("Formatting code...");
     }
 
     let mut args = vec!["fmt", "--all"];
@@ -120,9 +123,9 @@ fn run_fmt(check: bool) -> Result<()> {
     }
 
     if check {
-        println!("✅ Code formatting is correct");
+        println!("Code formatting is correct");
     } else {
-        println!("✅ Code formatted successfully");
+        println!("Code formatted successfully");
     }
     Ok(())
 }
@@ -149,12 +152,12 @@ fn run_clippy(fix: bool) -> Result<()> {
         anyhow::bail!("Clippy found issues");
     }
 
-    println!("✅ Clippy checks passed");
+    println!("Clippy checks passed");
     Ok(())
 }
 
 fn run_test(release: bool) -> Result<()> {
-    println!("🧪 Running tests...");
+    println!("Running tests...");
 
     let mut args = vec!["test", "--workspace"];
     if release {
@@ -167,12 +170,12 @@ fn run_test(release: bool) -> Result<()> {
         anyhow::bail!("Tests failed");
     }
 
-    println!("✅ All tests passed");
+    println!("All tests passed");
     Ok(())
 }
 
 fn run_check(all_features: bool) -> Result<()> {
-    println!("🔍 Checking workspace...");
+    println!("Checking workspace...");
 
     let mut args = vec!["check", "--workspace"];
     if all_features {
@@ -185,12 +188,27 @@ fn run_check(all_features: bool) -> Result<()> {
         anyhow::bail!("Check failed");
     }
 
-    println!("✅ Check completed successfully");
+    println!("Check completed successfully");
+    Ok(())
+}
+
+fn run_sort() -> Result<()> {
+    println!("Sorting Cargo.toml files...");
+
+    let status = Command::new("cargo")
+        .args(["sort", "--workspace"])
+        .status()?;
+
+    if !status.success() {
+        anyhow::bail!("Sort failed");
+    }
+
+    println!("Cargo.toml files sorted successfully");
     Ok(())
 }
 
 fn run_clean() -> Result<()> {
-    println!("🧹 Cleaning build artifacts...");
+    println!("Cleaning build artifacts...");
 
     let status = Command::new("cargo").args(["clean"]).status()?;
 
@@ -198,6 +216,6 @@ fn run_clean() -> Result<()> {
         anyhow::bail!("Clean failed");
     }
 
-    println!("✅ Cleaned successfully");
+    println!("Cleaned successfully");
     Ok(())
 }
