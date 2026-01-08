@@ -1,0 +1,18 @@
+[build]
+rustflags = ["-C", "target-cpu=native"]
+
+[target.'cfg(windows)']
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[target.'cfg(target_os = "macos")']
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+[alias]
+xtask = "run --package xtask --"
+check-all = "check --workspace --all-features"
+test-all = "test --workspace --all-features"
+clippy-all = "clippy --workspace --all-features -- -D warnings"
+fmt-all = "fmt --all"

@@ -1,0 +1,26 @@
+[package]
+name = "unml-gui"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "unml"
+path = "src/main.rs"
+
+[dependencies]
+unml-core = { workspace = true }
+unml-download = { workspace = true }
+unml-launcher = { workspace = true }
+unml-java = { workspace = true }
+unml-mods = { workspace = true }
+unml-auth = { workspace = true }
+
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+
+# GPUI - 暂时注释掉，因为需要特殊的构建配置
+# gpui = { workspace = true }
