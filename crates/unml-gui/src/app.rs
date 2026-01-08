@@ -3,11 +3,11 @@ use gpui::*;
 use crate::components::{router, sidebar, titlebar};
 
 #[derive(Clone)]
-pub struct LauncherView {}
+pub struct LauncherView;
 
 impl LauncherView {
     pub fn new() -> Self {
-        Self {}
+        Self
     }
 
     fn content(&self) -> impl IntoElement {

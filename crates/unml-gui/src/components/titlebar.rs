@@ -16,7 +16,7 @@ impl TitleBar {
 }
 
 impl RenderOnce for TitleBar {
-    fn render(self, window: &mut Window, _cx: &mut App) -> impl IntoElement {
+    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
         div()
             .id("title-bar")
             .h(px(40.0))
@@ -77,17 +77,13 @@ impl RenderOnce for TitleBar {
                             )
                             .child(SharedString::from("离线")),
                     )
-                    .child(WindowControls {
-                        maximized: window.is_maximized(),
-                    }),
+                    .child(WindowControls)
             )
     }
 }
 
 #[derive(IntoElement)]
-struct WindowControls {
-    maximized: bool,
-}
+struct WindowControls;
 
 impl RenderOnce for WindowControls {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {

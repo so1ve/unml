@@ -10,4 +10,5 @@ publish = false
 anyhow = { workspace = true }
 clap = { version = "4", features = ["derive"] }
 ctrlc = "3"
-xtask-watch = "0.3.2"
+kill_tree = "0.2"
+notify = "8"
