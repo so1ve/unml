@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/*", "xtask"]
+members = ["crates/*"]
 resolver = "3"
 
 [workspace.package]
@@ -9,35 +9,34 @@ authors = ["UNML Contributors"]
 license = "AGPL-3.0-or-later"
 
 [workspace.dependencies]
-tokio = { version = "1", features = ["full"] }
+anyhow = "1"
 async-trait = "0.1"
+base64 = "0.22"
 futures = "0.3"
-
+gpui = { git = "https://github.com/zed-industries/zed" }
+num_cpus = "1"
+reqwest = { version = "0.12", features = ["json", "stream"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-
-thiserror = "2.0"
-anyhow = "1"
-
-clap = { version = "4", features = ["derive"] }
-
-reqwest = { version = "0.12", features = ["json", "stream"] }
-
 sha1 = "0.10"
 sha2 = "0.10"
-
-num_cpus = "1"
-uuid = { version = "1", features = ["v4", "serde"] }
-base64 = "0.22"
-
-gpui = { git = "https://github.com/zed-industries/zed" }
-
+thiserror = "2.0"
+tokio = { version = "1", features = ["full"] }
+unml-auth = { path = "crates/unml-auth" }
 unml-core = { path = "crates/unml-core" }
 unml-download = { path = "crates/unml-download" }
-unml-launcher = { path = "crates/unml-launcher" }
 unml-java = { path = "crates/unml-java" }
+unml-launcher = { path = "crates/unml-launcher" }
 unml-mods = { path = "crates/unml-mods" }
-unml-auth = { path = "crates/unml-auth" }
+uuid = { version = "1", features = ["v4", "serde"] }
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(coverage_nightly)'] }
+
+[workspace.lints.clippy]
+all = "warn"
+pedantic = "warn"
+nursery = "warn"
 
 [profile.release]
 opt-level = 3
@@ -48,11 +47,3 @@ strip = true
 [profile.dev]
 opt-level = 0
 debug = true
-
-[workspace.lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = ['cfg(coverage_nightly)'] }
-
-[workspace.lints.clippy]
-all = "warn"
-pedantic = "warn"
-nursery = "warn"
