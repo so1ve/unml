@@ -27,28 +27,35 @@ impl RenderOnce for TitleBar {
             .child(
                 div()
                     .flex()
+                    .flex_1()
                     .items_center()
-                    .gap_2()
-                    .pl_3()
                     .child(
                         div()
-                            .w(px(18.0))
-                            .h(px(18.0))
-                            .rounded(px(4.0))
-                            .bg(cx.theme().secondary)
+                            .flex()
+                            .items_center()
+                            .gap_2()
+                            .pl_3()
                             .child(
                                 div()
                                     .w(px(18.0))
                                     .h(px(18.0))
-                                    .flex()
-                                    .items_center()
-                                    .justify_center()
-                                    .child(SharedString::from("U")),
-                            ),
+                                    .rounded(px(4.0))
+                                    .bg(cx.theme().secondary)
+                                    .child(
+                                        div()
+                                            .w(px(18.0))
+                                            .h(px(18.0))
+                                            .flex()
+                                            .items_center()
+                                            .justify_center()
+                                            .child(SharedString::from("U")),
+                                    ),
+                            )
+                            .child(SharedString::from("UNML")),
                     )
-                    .child(SharedString::from("UNML")),
+                    .child(div().flex_1().h(px(40.0)))
+                    .window_control_area(WindowControlArea::Drag),
             )
-            .child(div().flex_1().h(px(40.0)))
             .child(
                 div()
                     .flex()
@@ -56,7 +63,6 @@ impl RenderOnce for TitleBar {
                     .pr_2()
                     .child(WindowControls::new()),
             )
-            .window_control_area(WindowControlArea::Drag)
     }
 }
 
