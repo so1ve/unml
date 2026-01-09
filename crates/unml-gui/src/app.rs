@@ -1,17 +1,14 @@
 use gpui::*;
 use gpui_component::ActiveTheme;
-use unml_core::Account;
 
-use crate::components::{router, sidebar, titlebar};
+use crate::components::{navbar, router, sidebar, titlebar};
 
 #[derive(Clone)]
-pub struct LauncherView {
-    account: Option<Account>,
-}
+pub struct LauncherView;
 
 impl LauncherView {
     pub fn new() -> Self {
-        Self { account: None }
+        Self
     }
 
     fn content(&self, cx: &App) -> impl IntoElement {
@@ -19,6 +16,7 @@ impl LauncherView {
             .id("content")
             .flex()
             .flex_col()
+            .flex_1()
             .bg(cx.theme().background)
             .text_color(cx.theme().foreground)
             .p(px(16.0))
@@ -33,13 +31,18 @@ impl Render for LauncherView {
             .bg(cx.theme().background)
             .flex()
             .flex_col()
-            .child(titlebar::titlebar(self.account.clone()))
+            // TitleBar (40px)
+            .child(titlebar::titlebar())
+            // NavBar (48px)
+            .child(navbar::NavBar::new())
+            // Main layout: Sidebar + Content
             .child(
                 div()
                     .flex()
-                    .size_full()
-                    .child(sidebar::Sidebar::new())
-                    .child(div().flex().flex_col().flex_1().child(self.content(cx))),
+                    .flex_1()
+                    .overflow_hidden()
+                    .child(sidebar::ContextSidebar::new())
+                    .child(self.content(cx)),
             )
     }
 }

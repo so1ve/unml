@@ -1,35 +1,22 @@
 use gpui::prelude::*;
 use gpui::*;
-use gpui_component::avatar::Avatar;
-use gpui_component::button::{Button, ButtonCustomVariant, ButtonVariants};
-use gpui_component::popover::Popover;
 use gpui_component::*;
-use unml_core::{Account, AccountType};
 
-pub fn titlebar(account: Option<Account>) -> TitleBar {
-    TitleBar::new(account)
+pub fn titlebar() -> TitleBar {
+    TitleBar::new()
 }
 
 #[derive(IntoElement)]
-pub struct TitleBar {
-    account: Option<Account>,
-}
+pub struct TitleBar;
 
 impl TitleBar {
-    pub fn new(account: Option<Account>) -> Self {
-        Self { account }
+    pub fn new() -> Self {
+        Self
     }
 }
 
 impl RenderOnce for TitleBar {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
-        let account = self.account.clone();
-
-        let (display_name, avatar_name) = match self.account.as_ref() {
-            Some(account) => (account.username.clone(), account.username.clone()),
-            None => ("未登录".to_string(), "未登录".to_string()),
-        };
-
         div()
             .id("title-bar")
             .h(px(40.0))
@@ -69,98 +56,25 @@ impl RenderOnce for TitleBar {
                     .h(px(40.0))
                     .window_control_area(WindowControlArea::Drag),
             )
-            // Right: user + window controls
+            // Right: window controls only
             .child(
                 div()
                     .flex()
                     .items_center()
-                    .gap_2()
                     .pr_2()
-                    .child(
-                        Popover::new("user-popover")
-                            .anchor(Corner::TopRight)
-                            .trigger(
-                                Button::new("user-popover-trigger")
-                                    .custom(
-                                        ButtonCustomVariant::new(cx)
-                                            .hover(cx.theme().secondary.opacity(0.18))
-                                            .active(cx.theme().secondary.opacity(0.28)),
-                                    )
-                                    .compact()
-                                    .child(
-                                        h_flex()
-                                            .items_center()
-                                            .gap_2()
-                                            .child(Avatar::new().name(avatar_name).with_size(gpui_component::Size::Small))
-                                            .child(SharedString::from(display_name)),
-                                    )
-                                    .dropdown_caret(true),
-                            )
-                            .content(move |_, _window, cx| -> AnyElement {
-                                match account.as_ref() {
-                                    Some(account) => {
-                                        let account_type = match account.account_type {
-                                            AccountType::Offline => "离线",
-                                            AccountType::Microsoft => "微软",
-                                        };
-
-                                        v_flex()
-                                            .min_w(px(240.0))
-                                            .gap_2()
-                                            .p_3()
-                                            .child(
-                                                h_flex()
-                                                    .items_center()
-                                                    .gap_2()
-                                                    .child(Avatar::new().name(account.username.clone()).with_size(gpui_component::Size::Small))
-                                                    .child(
-                                                        v_flex()
-                                                            .gap_1()
-                                                            .child(SharedString::from(account.username.clone()))
-                                                            .child(
-                                                                div()
-                                                                    .text_sm()
-                                                                    .text_color(cx.theme().muted_foreground)
-                                                                    .child(SharedString::from(account_type)),
-                                                            ),
-                                                    ),
-                                            )
-                                            .child(div().h(px(1.0)).bg(cx.theme().border))
-                                            .child(
-                                                v_flex()
-                                                    .gap_1()
-                                                    .child(
-                                                        div()
-                                                            .text_sm()
-                                                            .text_color(cx.theme().muted_foreground)
-                                                            .child(SharedString::from("UUID")),
-                                                    )
-                                                    .child(SharedString::from(account.uuid.clone())),
-                                            )
-                                            .into_any_element()
-                                    }
-                                    None => v_flex()
-                                        .min_w(px(220.0))
-                                        .gap_2()
-                                        .p_3()
-                                        .child(SharedString::from("未登录"))
-                                        .child(
-                                            div()
-                                                .text_sm()
-                                                .text_color(cx.theme().muted_foreground)
-                                                .child(SharedString::from("请先登录以查看账号信息")),
-                                        )
-                                        .into_any_element(),
-                                }
-                            }),
-                    )
-                    .child(WindowControls)
+                    .child(WindowControls::new()),
             )
     }
 }
 
 #[derive(IntoElement)]
 struct WindowControls;
+
+impl WindowControls {
+    pub fn new() -> Self {
+        Self
+    }
+}
 
 impl RenderOnce for WindowControls {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
@@ -231,7 +145,6 @@ impl RenderOnce for ControlIcon {
             (0x2d2d2d, 0x4c4c4c, 0x2f2f2f)
         };
 
-        // Close icon foreground was too bright on active; keep it slightly muted.
         let hover_fg = cx.theme().secondary_foreground;
         let active_fg = cx.theme().secondary_foreground;
 
