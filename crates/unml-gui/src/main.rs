@@ -1,6 +1,7 @@
 mod app;
 mod components;
 mod pages;
+mod theme;
 
 use gpui::*;
 use gpui_component_assets::Assets;
@@ -9,6 +10,8 @@ fn main() {
     Application::new().with_assets(Assets).run(|cx: &mut App| {
         gpui_component::init(cx);
         gpui_router::init(cx);
+
+        theme::apply_unml_dark_theme(cx);
 
         let bounds = Bounds::centered(None, size(px(960.), px(600.)), cx);
 
