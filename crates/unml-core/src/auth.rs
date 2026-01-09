@@ -31,6 +31,9 @@ pub struct Account {
     pub username: String,
     pub uuid: String,
     pub access_token: String,
+    /// 刷新令牌（仅微软账号需要）
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub refresh_token: Option<String>,
     pub account_type: AccountType,
 }
 

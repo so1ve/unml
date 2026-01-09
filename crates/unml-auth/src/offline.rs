@@ -29,6 +29,7 @@ impl AuthProvider for OfflineAuthProvider {
                     username,
                     uuid,
                     access_token: String::new(),
+                    refresh_token: None,
                     account_type: AccountType::Offline,
                 })
             }
