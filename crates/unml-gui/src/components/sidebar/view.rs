@@ -40,7 +40,7 @@ impl RenderOnce for SidebarView {
             .id("sidebar")
             .w(px(240.0))
             .h_full()
-            .bg(rgb(0x252525))
+            .bg(cx.theme().sidebar)
             .border_r_1()
             .border_color(cx.theme().border)
             .flex()

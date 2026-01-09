@@ -53,7 +53,7 @@ impl RenderOnce for InstanceCard {
                     .child(
                         div()
                             .text_size(px(40.0))
-                            .text_color(rgb(0xffffff))
+                            .text_color(theme.primary_foreground)
                             .child(self.name.chars().next().unwrap_or('?').to_string()),
                     ),
             )

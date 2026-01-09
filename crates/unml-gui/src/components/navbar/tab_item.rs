@@ -1,6 +1,6 @@
 use gpui::prelude::*;
 use gpui::*;
-use gpui_component::Icon;
+use gpui_component::{ActiveTheme, Icon};
 use gpui_router::NavLink;
 use rust_i18n::t;
 
@@ -19,7 +19,7 @@ impl TabItemView {
 }
 
 impl RenderOnce for TabItemView {
-    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
+    fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let active = self.tab.is_active(&self.pathname);
         let to = match self.tab.default_id {
             Some(default_id) => {
@@ -27,6 +27,14 @@ impl RenderOnce for TabItemView {
             }
             None => SharedString::from(self.tab.active_prefix),
         };
+
+        let theme = cx.theme();
+        let text_color = if active {
+            theme.tab_active_foreground
+        } else {
+            theme.tab_foreground
+        };
+        let bg_color = if active { theme.tab_active } else { theme.tab };
 
         NavLink::new().to(to).child(
             div()
@@ -39,16 +47,15 @@ impl RenderOnce for TabItemView {
                 .flex()
                 .items_center()
                 .gap_2()
-                .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 }))
-                .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
-                .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
-                .active(|s| s.bg(rgb(0x353535)))
-                .when(active, |s| s.border_color(rgb(0x3b82f6)).rounded_b_none())
-                .child(Icon::new(self.tab.icon).size_4().text_color(rgb(if active {
-                    0xe8e8e8
-                } else {
-                    0xa0a0a0
-                })))
+                .text_color(text_color)
+                .bg(bg_color)
+                .hover(|s| {
+                    s.bg(theme.tab_active)
+                        .text_color(theme.tab_active_foreground)
+                })
+                .active(|s| s.bg(theme.secondary_hover))
+                .when(active, |s| s.border_color(theme.primary).rounded_b_none())
+                .child(Icon::new(self.tab.icon).size_4().text_color(text_color))
                 .child(t!(self.tab.label).to_string()),
         )
     }

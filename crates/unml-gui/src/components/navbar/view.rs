@@ -4,9 +4,9 @@ use gpui_component::popover::Popover;
 use gpui_component::{ActiveTheme, IconName};
 use gpui_router::use_location;
 
+use super::TabItem;
 use super::language_item::LanguageItem;
 use super::tab_item::TabItemView;
-use super::TabItem;
 use crate::components::icon_button::IconButton;
 use crate::routes::NAV_TABS;
 
@@ -35,7 +35,7 @@ impl RenderOnce for NavBar {
             .id("navbar")
             .h(px(48.0))
             .w_full()
-            .bg(rgb(0x252525))
+            .bg(cx.theme().tab_bar)
             .border_b_1()
             .border_color(cx.theme().border)
             .flex()

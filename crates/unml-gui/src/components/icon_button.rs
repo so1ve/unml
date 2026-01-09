@@ -2,7 +2,7 @@
 
 use gpui::prelude::*;
 use gpui::*;
-use gpui_component::{Icon, IconName, Selectable};
+use gpui_component::{ActiveTheme, Icon, IconName, Selectable};
 
 /// A simple icon button with hover and active states.
 #[derive(IntoElement)]
@@ -21,6 +21,7 @@ impl IconButton {
         }
     }
 
+    #[allow(dead_code)]
     pub fn size(mut self, size: Pixels) -> Self {
         self.size = size;
         self
@@ -38,7 +39,9 @@ impl Selectable for IconButton {
 }
 
 impl RenderOnce for IconButton {
-    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
+    fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
+        let theme = cx.theme();
+
         div()
             .id(self.id)
             .size(self.size)
@@ -47,9 +50,9 @@ impl RenderOnce for IconButton {
             .flex()
             .items_center()
             .justify_center()
-            .text_color(rgb(0xa0a0a0))
-            .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
-            .active(|s| s.bg(rgb(0x353535)))
+            .text_color(theme.muted_foreground)
+            .hover(|s| s.bg(theme.secondary).text_color(theme.foreground))
+            .active(|s| s.bg(theme.secondary_hover))
             .child(Icon::new(self.icon).size_4())
     }
 }

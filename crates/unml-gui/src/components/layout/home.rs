@@ -51,13 +51,15 @@ struct AccountSidebar;
 
 impl RenderOnce for AccountSidebar {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
+        let theme = cx.theme();
+
         div()
             .id("account-panel")
             .w(px(240.0))
             .h_full()
-            .bg(rgb(0x252525))
+            .bg(theme.sidebar)
             .border_r_1()
-            .border_color(cx.theme().border)
+            .border_color(theme.border)
             .flex()
             .flex_col()
             .items_center()
@@ -69,11 +71,11 @@ impl RenderOnce for AccountSidebar {
                     .w(px(96.0))
                     .h(px(96.0))
                     .rounded(px(8.0))
-                    .bg(rgb(0x3b82f6))
+                    .bg(theme.primary)
                     .flex()
                     .items_center()
                     .justify_center()
-                    .text_color(rgb(0xffffff))
+                    .text_color(theme.primary_foreground)
                     .text_xl()
                     .child(SharedString::from("S")),
             )
@@ -82,14 +84,14 @@ impl RenderOnce for AccountSidebar {
                 div()
                     .text_lg()
                     .font_weight(FontWeight::MEDIUM)
-                    .text_color(rgb(0xe8e8e8))
+                    .text_color(theme.foreground)
                     .child(SharedString::from("Steve")),
             )
             // Account type label
             .child(
                 div()
                     .text_sm()
-                    .text_color(cx.theme().muted_foreground)
+                    .text_color(theme.muted_foreground)
                     .child(t!("account.microsoft").to_string()),
             )
             // Account selector
@@ -103,21 +105,21 @@ impl RenderOnce for AccountSidebar {
                             .h(px(36.0))
                             .px_3()
                             .rounded(px(6.0))
-                            .bg(rgb(0x2d2d2d))
+                            .bg(theme.secondary)
                             .border_1()
-                            .border_color(cx.theme().border)
-                            .hover(|s| s.bg(rgb(0x353535)))
+                            .border_color(theme.border)
+                            .hover(|s| s.bg(theme.secondary_hover))
                             .cursor_pointer()
                             .flex()
                             .items_center()
                             .justify_between()
-                            .text_color(rgb(0xe8e8e8))
+                            .text_color(theme.foreground)
                             .child(t!("account.steve_microsoft").to_string())
                             .child(SharedString::from("▼")),
                     ),
             )
             // Divider
-            .child(div().w_full().h(px(1.0)).bg(cx.theme().border).my_2())
+            .child(div().w_full().h(px(1.0)).bg(theme.border).my_2())
             // Add account button
             .child(
                 div()
@@ -128,14 +130,14 @@ impl RenderOnce for AccountSidebar {
                             .w_full()
                             .h(px(36.0))
                             .rounded(px(6.0))
-                            .bg(rgb(0x2d2d2d))
-                            .hover(|s| s.bg(rgb(0x3d3d3d)))
+                            .bg(theme.secondary)
+                            .hover(|s| s.bg(theme.secondary_active))
                             .cursor_pointer()
                             .flex()
                             .items_center()
                             .justify_center()
                             .gap_2()
-                            .text_color(rgb(0xa0a0a0))
+                            .text_color(theme.muted_foreground)
                             .child(t!("account.add").to_string()),
                     ),
             )

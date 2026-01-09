@@ -1,6 +1,6 @@
 use gpui::prelude::*;
 use gpui::*;
-use gpui_component::{Icon, IconName};
+use gpui_component::{ActiveTheme, Icon, IconName};
 use rust_i18n::t;
 
 #[derive(IntoElement)]
@@ -16,7 +16,7 @@ impl LanguageItem {
 }
 
 impl RenderOnce for LanguageItem {
-    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
+    fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let label = match self.locale {
             "zh-CN" => t!("lang.zh-CN"),
             "en" => t!("lang.en"),
@@ -25,6 +25,12 @@ impl RenderOnce for LanguageItem {
         .to_string();
 
         let locale = self.locale;
+        let theme = cx.theme();
+        let text_color = if self.selected {
+            theme.foreground
+        } else {
+            theme.muted_foreground
+        };
 
         div()
             .id(SharedString::from(self.locale))
@@ -34,8 +40,8 @@ impl RenderOnce for LanguageItem {
             .flex()
             .items_center()
             .justify_between()
-            .text_color(rgb(if self.selected { 0xe8e8e8 } else { 0xa0a0a0 }))
-            .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
+            .text_color(text_color)
+            .hover(|s| s.bg(theme.list_hover).text_color(theme.foreground))
             .on_click(move |_, _, cx| {
                 rust_i18n::set_locale(locale);
                 cx.refresh_windows();
@@ -45,7 +51,7 @@ impl RenderOnce for LanguageItem {
                 s.child(
                     Icon::new(IconName::Check)
                         .size_4()
-                        .text_color(rgb(0x3b82f6)),
+                        .text_color(theme.primary),
                 )
             })
     }

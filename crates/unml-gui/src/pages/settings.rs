@@ -1,4 +1,5 @@
 use gpui::*;
+use gpui_component::ActiveTheme;
 use gpui_router::use_params;
 use rust_i18n::t;
 
@@ -44,7 +45,7 @@ impl RenderOnce for Page {
             .child(div().text_size(px(20.0)).child(title.to_string()))
             .child(
                 div()
-                    .text_color(rgb(0xa0a0a0))
+                    .text_color(cx.theme().muted_foreground)
                     .child(content.to_string()),
             )
     }
