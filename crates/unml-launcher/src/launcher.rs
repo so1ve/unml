@@ -3,6 +3,8 @@ use std::path::PathBuf;
 use async_trait::async_trait;
 use unml_core::{Account, GameLauncher, GameProcess, LaunchConfig};
 
+use crate::{Error, Result};
+
 pub struct StandardLauncher {
     #[allow(dead_code)]
     game_dir: PathBuf,
@@ -18,12 +20,14 @@ impl StandardLauncher {
 
 #[async_trait]
 impl GameLauncher for StandardLauncher {
+    type Error = Error;
+
     async fn launch(
         &self,
         _version: &str,
         _account: &Account,
         _config: LaunchConfig,
-    ) -> unml_core::Result<GameProcess> {
+    ) -> Result<GameProcess> {
         // TODO: 实现
         Ok(GameProcess::new(None))
     }

@@ -1,45 +1,30 @@
+use std::error::Error;
+
 use thiserror::Error;
 
+/// 所有 unml 错误类型的基础 trait
+pub trait UnmlError: Error + Send + Sync + 'static {}
+impl<T: Error + Send + Sync + 'static> UnmlError for T {}
+
+/// 通用 IO 错误包装
 #[derive(Debug, Error)]
-pub enum Error {
-    #[error("IO error: {0}")]
-    Io(#[from] std::io::Error),
+#[error("IO error: {0}")]
+pub struct IoError(#[from] pub std::io::Error);
 
-    #[error("HTTP error: {0}")]
-    Http(String),
+/// 通用 HTTP 错误
+#[derive(Debug, Error)]
+#[error("HTTP error: {0}")]
+pub struct HttpError(pub String);
 
-    #[error("JSON error: {0}")]
-    Json(#[from] serde_json::Error),
+/// 通用 JSON 解析错误
+#[derive(Debug, Error)]
+#[error("JSON error: {0}")]
+pub struct JsonError(#[from] pub serde_json::Error);
 
-    #[error("Version not found: {0}")]
-    VersionNotFound(String),
-
-    #[error("Checksum mismatch: expected {expected}, got {calculated}")]
-    ChecksumMismatch {
-        expected: String,
-        calculated: String,
-    },
-
-    #[error("Cache not found: {0}")]
-    CacheNotFound(String),
-
-    #[error("Java not found")]
-    JavaNotFound,
-
-    #[error("Java version parse failed")]
-    JavaVersionParseFailed,
-
-    #[error("Invalid Java path")]
-    InvalidJavaPath,
-
-    #[error("No suitable Java installation found (required version: {0})")]
-    NoSuitableJava(u32),
-
-    #[error("Authentication failed: {0}")]
-    AuthFailed(String),
-
-    #[error("Unknown error: {0}")]
-    Unknown(String),
+/// 校验和不匹配错误
+#[derive(Debug, Error)]
+#[error("Checksum mismatch: expected {expected}, got {actual}")]
+pub struct ChecksumError {
+    pub expected: String,
+    pub actual: String,
 }
-
-pub type Result<T> = std::result::Result<T, Error>;

@@ -2,14 +2,18 @@ use std::path::PathBuf;
 
 use async_trait::async_trait;
 
+use crate::UnmlError;
+
 /// 游戏文件仓库管理
 #[async_trait]
 pub trait GameRepository: Send + Sync {
+    type Error: UnmlError;
+
     /// 列出所有已安装的游戏版本
-    async fn list_installed_versions(&self) -> crate::Result<Vec<String>>;
+    async fn list_installed_versions(&self) -> Result<Vec<String>, Self::Error>;
 
     /// 检查版本是否完整（所有文件都存在且校验通过）
-    async fn verify_version(&self, version_id: &str) -> crate::Result<bool>;
+    async fn verify_version(&self, version_id: &str) -> Result<bool, Self::Error>;
 
     /// 获取版本的安装路径
     fn get_version_path(&self, version_id: &str) -> PathBuf;
@@ -24,13 +28,15 @@ pub trait GameRepository: Send + Sync {
 /// 游戏启动器
 #[async_trait]
 pub trait GameLauncher: Send + Sync {
+    type Error: UnmlError;
+
     /// 启动游戏
     async fn launch(
         &self,
         version: &str,
         account: &crate::Account,
         config: LaunchConfig,
-    ) -> crate::Result<GameProcess>;
+    ) -> Result<GameProcess, Self::Error>;
 }
 
 /// 启动配置

@@ -3,6 +3,8 @@ use std::path::PathBuf;
 use async_trait::async_trait;
 use unml_core::GameRepository;
 
+use crate::{Error, Result};
+
 pub struct FileSystemRepository {
     root: PathBuf,
 }
@@ -15,12 +17,14 @@ impl FileSystemRepository {
 
 #[async_trait]
 impl GameRepository for FileSystemRepository {
-    async fn list_installed_versions(&self) -> unml_core::Result<Vec<String>> {
+    type Error = Error;
+
+    async fn list_installed_versions(&self) -> Result<Vec<String>> {
         // TODO: 实现
         Ok(Vec::new())
     }
 
-    async fn verify_version(&self, _version_id: &str) -> unml_core::Result<bool> {
+    async fn verify_version(&self, _version_id: &str) -> Result<bool> {
         // TODO: 实现
         Ok(true)
     }

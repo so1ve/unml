@@ -1,9 +1,11 @@
+mod error;
 mod http;
 mod mirror;
 mod mojang;
 
 use std::sync::OnceLock;
 
+pub use error::{Error, Result};
 pub use mirror::BMCLAPIDownloadProvider;
 pub use mojang::MojangDownloadProvider;
 use reqwest::Client;

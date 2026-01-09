@@ -17,7 +17,7 @@ impl RenderOnce for Sidebar {
 
         div()
             .id("sidebar")
-            .w(px(240.0))
+            .w(px(200.0))
             .bg(rgb(0x252525))
             .text_color(rgb(0xa0a0a0))
             .p(px(12.0))

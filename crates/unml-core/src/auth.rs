@@ -1,17 +1,21 @@
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
+use crate::UnmlError;
+
 /// 认证提供者
 #[async_trait]
 pub trait AuthProvider: Send + Sync {
+    type Error: UnmlError;
+
     /// 登录
-    async fn login(&self, credentials: Credentials) -> crate::Result<Account>;
+    async fn login(&self, credentials: Credentials) -> Result<Account, Self::Error>;
 
     /// 刷新令牌
-    async fn refresh(&self, account: &Account) -> crate::Result<Account>;
+    async fn refresh(&self, account: &Account) -> Result<Account, Self::Error>;
 
     /// 验证账号
-    async fn validate(&self, account: &Account) -> crate::Result<bool>;
+    async fn validate(&self, account: &Account) -> Result<bool, Self::Error>;
 }
 
 /// 登录凭据

@@ -3,16 +3,20 @@ use std::path::Path;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 
+use crate::UnmlError;
+
 pub type ProgressCallback = Box<dyn Fn(u64, u64) + Send + Sync>;
 
 /// 下载提供者的核心 trait
 #[async_trait]
 pub trait DownloadProvider: Send + Sync {
+    type Error: UnmlError;
+
     /// 获取版本清单
-    async fn fetch_version_manifest(&self) -> crate::Result<VersionManifest>;
+    async fn fetch_version_manifest(&self) -> Result<VersionManifest, Self::Error>;
 
     /// 获取指定版本的详细信息
-    async fn fetch_version_info(&self, version_id: &str) -> crate::Result<VersionInfo>;
+    async fn fetch_version_info(&self, version_id: &str) -> Result<VersionInfo, Self::Error>;
 
     /// 下载文件，支持进度回调
     async fn download_file(
@@ -21,7 +25,7 @@ pub trait DownloadProvider: Send + Sync {
         dest: &Path,
         checksum: Option<&Checksum>,
         progress: Option<ProgressCallback>,
-    ) -> crate::Result<()>;
+    ) -> Result<(), Self::Error>;
 
     /// 获取并发数配置
     fn concurrency(&self) -> usize {

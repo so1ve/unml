@@ -2,20 +2,20 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum Error {
-    #[error("Java not found")]
-    JavaNotFound,
+    #[error("Version not found: {0}")]
+    VersionNotFound(String),
 
-    #[error("No suitable Java installation found (required version: {0})")]
-    NoSuitableJava(u32),
+    #[error("Launch failed: {0}")]
+    LaunchFailed(String),
 
-    #[error("Failed to parse Java version")]
-    VersionParseFailed,
-
-    #[error("Invalid Java installation path")]
-    InvalidJavaPath,
+    #[error("Game directory not found")]
+    GameDirNotFound,
 
     #[error(transparent)]
     Io(#[from] unml_core::IoError),
+
+    #[error(transparent)]
+    Json(#[from] unml_core::JsonError),
 }
 
 impl From<std::io::Error> for Error {

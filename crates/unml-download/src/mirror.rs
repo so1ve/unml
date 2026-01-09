@@ -1,7 +1,9 @@
 use std::path::Path;
 
 use async_trait::async_trait;
-use unml_core::{Checksum, DownloadProvider, VersionInfo, VersionManifest};
+use unml_core::{Checksum, DownloadProvider, ProgressCallback, VersionInfo, VersionManifest};
+
+use crate::{Error, Result};
 
 pub struct BMCLAPIDownloadProvider {
     base_provider: super::MojangDownloadProvider,
@@ -19,11 +21,13 @@ impl BMCLAPIDownloadProvider {
 
 #[async_trait]
 impl DownloadProvider for BMCLAPIDownloadProvider {
-    async fn fetch_version_manifest(&self) -> unml_core::Result<VersionManifest> {
+    type Error = Error;
+
+    async fn fetch_version_manifest(&self) -> Result<VersionManifest> {
         self.base_provider.fetch_version_manifest().await
     }
 
-    async fn fetch_version_info(&self, version_id: &str) -> unml_core::Result<VersionInfo> {
+    async fn fetch_version_info(&self, version_id: &str) -> Result<VersionInfo> {
         self.base_provider.fetch_version_info(version_id).await
     }
 
@@ -32,8 +36,8 @@ impl DownloadProvider for BMCLAPIDownloadProvider {
         url: &str,
         dest: &Path,
         checksum: Option<&Checksum>,
-        progress: Option<unml_core::ProgressCallback>,
-    ) -> unml_core::Result<()> {
+        progress: Option<ProgressCallback>,
+    ) -> Result<()> {
         let transformed_url = self.transform_url(url);
         self.base_provider
             .download_file(&transformed_url, dest, checksum, progress)

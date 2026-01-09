@@ -9,6 +9,7 @@ license.workspace = true
 serde = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true, features = ["process", "fs", "io-util"] }
+unml-core = { path = "../unml-core" }
 
 [dev-dependencies]
 tokio = { workspace = true }
