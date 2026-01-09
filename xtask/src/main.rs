@@ -15,11 +15,7 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Run the application in development mode with auto-reload
-    Dev {
-        /// Watch for changes under `crates/` and restart automatically
-        #[arg(short, long, default_value_t = true)]
-        watch: bool,
-    },
+    Dev,
     /// Clean build artifacts
     Clean,
 }
@@ -28,7 +24,7 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Dev { watch } => dev::run_dev(watch)?,
+        Commands::Dev => dev::run_dev()?,
         Commands::Clean => clean::run_clean()?,
     }
 

@@ -7,38 +7,24 @@ use std::time::Duration;
 use anyhow::Result;
 use notify::{RecursiveMode, Watcher};
 
-pub fn run_dev(watch: bool) -> Result<()> {
+pub fn run_dev() -> Result<()> {
     let workspace_root = workspace_root()?;
     let crates_dir = workspace_root.join("crates");
 
-    // Best-effort: ensure Ctrl+C kills the spawned dev app window too.
-    // - Non-watch: we own the `cargo run` child pid.
-    // - Watch: watcher owns no pid; we store the current child pid.
     let child_pid = Arc::new(AtomicU32::new(0));
     install_ctrlc_handler(child_pid.clone())?;
 
-    if !watch {
-        println!("Starting development mode...");
-        let mut child = spawn_dev_command(&workspace_root).spawn()?;
-        child_pid.store(child.id(), Ordering::SeqCst);
-
-        let status = child.wait()?;
-        child_pid.store(0, Ordering::SeqCst);
-        if !status.success() {
-            anyhow::bail!("Development mode failed");
-        }
-        return Ok(());
-    }
-
     run_dev_watch(&workspace_root, &crates_dir, child_pid)
 }
+
+const IGNORED_PATHS: &[&str] = &["target", ".git"];
 
 fn run_dev_watch(
     workspace_root: &Path,
     crates_dir: &Path,
     child_pid: Arc<AtomicU32>,
 ) -> Result<()> {
-    println!("Starting development mode (watching crates/) ...");
+    println!("Starting development mode...");
     if !crates_dir.exists() {
         anyhow::bail!("Missing crates directory: {}", crates_dir.display());
     }
@@ -52,7 +38,7 @@ fn run_dev_watch(
             if event.paths.iter().any(|p| {
                 p.components().any(|c| {
                     let s = c.as_os_str().to_string_lossy();
-                    s == "target" || s == ".git"
+                    IGNORED_PATHS.contains(&s.as_ref())
                 })
             }) {
                 return;
