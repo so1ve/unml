@@ -17,27 +17,23 @@ crate::define_app_routes! {
         path: "/versions",
         label: "版本",
         icon: Folder,
-        sidebar_variant: Filter,
     }
 
     mods {
         path: "/mods",
         label: "Mod",
         icon: Star,
-        sidebar_variant: Filter,
     }
 
     downloads {
         path: "/downloads",
         label: "下载",
         icon: ArrowDown,
-        sidebar_variant: Filter,
     }
 
     settings {
         path: "/settings",
         label: "设置",
         icon: Settings,
-        sidebar_variant: Navigation,
     }
 }

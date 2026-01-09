@@ -1,44 +1,18 @@
 use gpui::*;
 use gpui_router::use_params;
-use unml_macros::Selection;
 
-use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
+unml_macros::define_sidebar! {
+    variant: Filter,
 
-// ============================================================================
-// Selection
-// ============================================================================
-
-#[derive(Clone, Copy, PartialEq, Eq, Selection)]
-pub enum Selection {
-    #[default]
-    #[id = "release"]
-    Release,
-    #[id = "snapshot"]
-    Snapshot,
-    #[id = "old"]
-    Old,
-    #[id = "installed"]
-    Installed,
+    section "筛选" {
+        Release => "正式版",
+        Snapshot => "快照版",
+        Old => "远古版本",
+    }
+    section {
+        Installed => "仅已安装",
+    }
 }
-
-pub const DEFAULT_ID: &str = Selection::default().id();
-
-// ============================================================================
-// Sidebar Content
-// ============================================================================
-
-const FILTER_ITEMS: &[SidebarItem] = &[
-    SidebarItem::new("release", "正式版"),
-    SidebarItem::new("snapshot", "快照版"),
-    SidebarItem::new("old", "远古版本"),
-];
-
-const OPTIONS_ITEMS: &[SidebarItem] = &[SidebarItem::new("installed", "仅已安装")];
-
-pub static SIDEBAR: SidebarContent = SidebarContent::new(&[
-    SidebarSection::new(FILTER_ITEMS).with_title("筛选"),
-    SidebarSection::new(OPTIONS_ITEMS),
-]);
 
 // ============================================================================
 // Page Content

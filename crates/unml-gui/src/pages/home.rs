@@ -4,6 +4,8 @@ use gpui_component::scroll::ScrollableElement;
 
 use crate::components::instance_card::InstanceCard;
 
+unml_macros::define_sidebar! {}
+
 // ============================================================================
 // Page Content
 // ============================================================================

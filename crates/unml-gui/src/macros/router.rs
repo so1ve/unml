@@ -1,8 +1,8 @@
-//! Router macro for defining application routes.
+//! Implementation of the `define_app_routes!` macro.
 
-/// Macro to define application routes and navigation tabs in one place.
+/// Macro to define application routes and navigation tabs.
 ///
-/// This macro generates:
+/// Generates:
 /// - `pub mod paths` - PATH constants for each route
 /// - `pub fn router() -> impl IntoElement` - the application router
 /// - `pub const NAV_TABS: &[TabItem]` - navigation tabs for the navbar
@@ -21,7 +21,6 @@
 ///         path: "/versions",
 ///         label: "版本",
 ///         icon: Folder,
-///         sidebar_variant: Filter,
 ///     }
 /// }
 /// ```
@@ -31,15 +30,14 @@ macro_rules! define_app_routes {
         home {
             path: $home_path:literal,
             label: $home_label:literal,
-            icon: $home_icon:ident,
+            icon: $home_icon:ident $(,)?
         }
 
         $(
             $name:ident {
                 path: $path:literal,
                 label: $label:literal,
-                icon: $icon:ident,
-                sidebar_variant: $variant:ident,
+                icon: $icon:ident $(,)?
             }
         )*
     ) => {
@@ -49,7 +47,6 @@ macro_rules! define_app_routes {
 
         use $crate::components::layout::{HomeLayout, PageLayout};
         use $crate::components::navbar::TabItem;
-        use $crate::components::sidebar::SidebarVariant;
         use $crate::pages;
 
         /// Path constants for all routes.
@@ -64,23 +61,23 @@ macro_rules! define_app_routes {
         pub fn router() -> impl IntoElement {
             Routes::new()
                 .basename("/")
-                // Home route (uses HomeLayout)
+                // Home route (uses HomeLayout with account sidebar)
                 .child(
                     Route::new()
                         .index()
                         .layout(HomeLayout::new())
                         .child(Route::new().index().element(|_, _| pages::home::page())),
                 )
-                // Standard routes (use PageLayout with sidebar)
+                // Standard routes (use PageLayout with filter/nav sidebar)
                 $(
                     .child(
                         Route::new()
                             .path(stringify!($name))
                             .layout(PageLayout::new(
                                 paths::$name,
-                                &pages::$name::SIDEBAR,
-                                SidebarVariant::$variant,
-                                pages::$name::DEFAULT_ID,
+                                pages::$name::SIDEBAR.unwrap(),
+                                pages::$name::VARIANT.unwrap(),
+                                pages::$name::DEFAULT_ID.unwrap(),
                             ))
                             .child(Route::new().index().element(|_, _| pages::$name::page()))
                             .child(
@@ -90,12 +87,6 @@ macro_rules! define_app_routes {
                             ),
                     )
                 )*
-                // Not found fallback
-                .child(
-                    Route::new()
-                        .path("{*not_match}")
-                        .element(|_, _| pages::not_found::page()),
-                )
         }
 
         pub const NAV_TABS: &[TabItem] = &[
@@ -111,7 +102,7 @@ macro_rules! define_app_routes {
                     stringify!($name),
                     $label,
                     paths::$name,
-                    Some(pages::$name::DEFAULT_ID),
+                    pages::$name::DEFAULT_ID,
                     IconName::$icon,
                 ),
             )*

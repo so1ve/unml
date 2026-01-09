@@ -1,41 +1,16 @@
 use gpui::*;
 use gpui_router::use_params;
-use unml_macros::Selection;
 
-use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
+unml_macros::define_sidebar! {
+    variant: Filter,
 
-// ============================================================================
-// Selection
-// ============================================================================
-
-#[derive(Clone, Copy, PartialEq, Eq, Selection)]
-pub enum Selection {
-    #[default]
-    #[id = "all"]
-    All,
-    #[id = "in_progress"]
-    InProgress,
-    #[id = "completed"]
-    Completed,
-    #[id = "failed"]
-    Failed,
+    section "状态" {
+        All => "全部",
+        InProgress => "进行中",
+        Completed => "已完成",
+        Failed => "失败",
+    }
 }
-
-pub const DEFAULT_ID: &str = Selection::default().id();
-
-// ============================================================================
-// Sidebar Content
-// ============================================================================
-
-const STATUS_ITEMS: &[SidebarItem] = &[
-    SidebarItem::new("all", "全部"),
-    SidebarItem::new("in_progress", "进行中"),
-    SidebarItem::new("completed", "已完成"),
-    SidebarItem::new("failed", "失败"),
-];
-
-pub static SIDEBAR: SidebarContent =
-    SidebarContent::new(&[SidebarSection::new(STATUS_ITEMS).with_title("状态")]);
 
 // ============================================================================
 // Page Content

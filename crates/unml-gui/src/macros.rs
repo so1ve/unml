@@ -1,3 +1,6 @@
-//! Application macros.
+//! Macros for the UNML GUI.
+//!
+//! This module contains declarative macros that need access to crate-internal
+//! types.
 
-pub mod router;
+mod router;

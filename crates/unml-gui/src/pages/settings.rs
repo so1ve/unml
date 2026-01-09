@@ -1,43 +1,17 @@
 use gpui::*;
 use gpui_router::use_params;
-use unml_macros::Selection;
 
-use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
+unml_macros::define_sidebar! {
+    variant: Navigation,
 
-// ============================================================================
-// Selection
-// ============================================================================
-
-#[derive(Clone, Copy, PartialEq, Eq, Selection)]
-pub enum Selection {
-    #[default]
-    #[id = "general"]
-    General,
-    #[id = "java"]
-    Java,
-    #[id = "game"]
-    Game,
-    #[id = "download"]
-    Download,
-    #[id = "about"]
-    About,
+    section {
+        General => "通用",
+        Java => "Java",
+        Game => "游戏",
+        Download => "下载",
+        About => "关于",
+    }
 }
-
-pub const DEFAULT_ID: &str = Selection::default().id();
-
-// ============================================================================
-// Sidebar Content
-// ============================================================================
-
-const NAV_ITEMS: &[SidebarItem] = &[
-    SidebarItem::new("general", "通用"),
-    SidebarItem::new("java", "Java"),
-    SidebarItem::new("game", "游戏"),
-    SidebarItem::new("download", "下载"),
-    SidebarItem::new("about", "关于"),
-];
-
-pub static SIDEBAR: SidebarContent = SidebarContent::new(&[SidebarSection::new(NAV_ITEMS)]);
 
 // ============================================================================
 // Page Content

@@ -1,49 +1,19 @@
 use gpui::*;
 use gpui_router::use_params;
-use unml_macros::Selection;
 
-use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
+unml_macros::define_sidebar! {
+    variant: Filter,
 
-// ============================================================================
-// Selection
-// ============================================================================
-
-#[derive(Clone, Copy, PartialEq, Eq, Selection)]
-pub enum Selection {
-    #[default]
-    #[id = "installed"]
-    Installed,
-    #[id = "browse"]
-    Browse,
-    #[id = "fabric"]
-    Fabric,
-    #[id = "forge"]
-    Forge,
-    #[id = "quilt"]
-    Quilt,
+    section "视图" {
+        Installed => "已安装",
+        Browse => "浏览",
+    }
+    section "筛选" {
+        Fabric => "Fabric",
+        Forge => "Forge",
+        Quilt => "Quilt",
+    }
 }
-
-pub const DEFAULT_ID: &str = Selection::default().id();
-
-// ============================================================================
-// Sidebar Content
-// ============================================================================
-
-const VIEW_ITEMS: &[SidebarItem] = &[
-    SidebarItem::new("installed", "已安装"),
-    SidebarItem::new("browse", "浏览"),
-];
-
-const FILTER_ITEMS: &[SidebarItem] = &[
-    SidebarItem::new("fabric", "Fabric"),
-    SidebarItem::new("forge", "Forge"),
-    SidebarItem::new("quilt", "Quilt"),
-];
-
-pub static SIDEBAR: SidebarContent = SidebarContent::new(&[
-    SidebarSection::new(VIEW_ITEMS).with_title("视图"),
-    SidebarSection::new(FILTER_ITEMS).with_title("筛选"),
-]);
 
 // ============================================================================
 // Page Content

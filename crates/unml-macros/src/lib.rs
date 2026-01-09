@@ -1,39 +1,44 @@
 //! Procedural macros for UNML.
 //!
-//! This crate provides the `Selection` derive macro for generating
-//! selection enums with const default and id methods.
+//! This crate provides macros for the UNML GUI:
+//! - `define_sidebar!` - Define sidebar content, Selection enum, and related
+//!   constants
 
-mod selection;
+mod sidebar;
 
 use proc_macro::TokenStream;
 
-/// Derive macro for selection enums.
+/// Macro to define sidebar content and Selection enum.
 ///
 /// Generates:
-/// - `const fn default() -> Self` - returns the variant marked with
-///   `#[default]`
-/// - `const fn id(&self) -> &'static str` - returns the id from `#[id = "..."]`
-/// - `fn from_id(id: &str) -> Self` - parses an id string to the enum
-/// - `impl Default for Selection` - delegates to `Self::default()`
+/// - `Selection` enum with variants
+/// - `Selection::id()`, `Selection::from_id()`
+/// - `SIDEBAR: Option<&'static SidebarContent>`
+/// - `VARIANT: Option<SidebarVariant>`
+/// - `DEFAULT_ID: Option<&'static str>`
 ///
 /// # Example
 ///
 /// ```ignore
-/// use unml_macros::Selection;
+/// define_sidebar! {
+///     variant: Filter,
 ///
-/// #[derive(Clone, Copy, PartialEq, Eq, Selection)]
-/// pub enum Selection {
-///     #[default]
-///     #[id = "release"]
-///     Release,
-///     #[id = "snapshot"]
-///     Snapshot,
+///     section "筛选" {
+///         Release => "正式版",
+///         Snapshot => "快照版",
+///     }
+///     section {
+///         Installed => "仅已安装",
+///     }
 /// }
-///
-/// // You can then define:
-/// pub const DEFAULT_ID: &str = Selection::default().id();
 /// ```
-#[proc_macro_derive(Selection, attributes(default, id))]
-pub fn derive_selection(input: TokenStream) -> TokenStream {
-    selection::derive(input.into()).into()
+///
+/// For pages without a sidebar:
+///
+/// ```ignore
+/// define_sidebar! {}
+/// ```
+#[proc_macro]
+pub fn define_sidebar(input: TokenStream) -> TokenStream {
+    sidebar::define(input.into()).into()
 }
