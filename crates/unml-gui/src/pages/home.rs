@@ -1,6 +1,8 @@
 use gpui::prelude::*;
 use gpui::*;
+use gpui_component::scroll::ScrollableElement;
 
+use crate::components::instance_card::InstanceCard;
 // ============================================================================
 // Page Path
 // ============================================================================
@@ -16,16 +18,64 @@ pub struct Page;
 
 impl RenderOnce for Page {
     fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
-        div()
-            .flex()
-            .flex_col()
-            .gap(px(10.0))
-            .child(div().text_size(px(20.0)).child(SharedString::from("首页")))
-            .child(
-                div()
-                    .text_color(rgb(0xa0a0a0))
-                    .child(SharedString::from("游戏实例列表")),
-            )
+        div().size_full().overflow_y_scrollbar().child(
+            div()
+                .flex()
+                .flex_col()
+                .gap(px(32.0))
+                .child(
+                    div()
+                        .flex()
+                        .flex_col()
+                        .gap(px(16.0))
+                        .child(
+                            div()
+                                .text_size(px(18.0))
+                                .font_weight(FontWeight::BOLD)
+                                .child(SharedString::from("收藏版本")),
+                        )
+                        .child(div().flex().flex_row().flex_wrap().gap(px(16.0)).child(
+                            InstanceCard::new("Survival World", "1.20.4", "Fabric", rgb(0x4caf50)),
+                        )),
+                )
+                .child(
+                    div()
+                        .flex()
+                        .flex_col()
+                        .gap(px(16.0))
+                        .child(
+                            div()
+                                .text_size(px(18.0))
+                                .font_weight(FontWeight::BOLD)
+                                .child(SharedString::from("最近游玩")),
+                        )
+                        .child(
+                            div()
+                                .flex()
+                                .flex_row()
+                                .flex_wrap()
+                                .gap(px(16.0))
+                                .child(InstanceCard::new(
+                                    "Test Server",
+                                    "1.19.2",
+                                    "Forge",
+                                    rgb(0x2196f3),
+                                ))
+                                .child(InstanceCard::new(
+                                    "Modpack 1",
+                                    "1.18.2",
+                                    "Quilt",
+                                    rgb(0xff9800),
+                                ))
+                                .child(InstanceCard::new(
+                                    "Vanilla",
+                                    "1.21",
+                                    "Vanilla",
+                                    rgb(0x9e9e9e),
+                                )),
+                        ),
+                ),
+        )
     }
 }
 

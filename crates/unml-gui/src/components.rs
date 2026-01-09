@@ -1,3 +1,4 @@
+pub mod instance_card;
 pub mod layout;
 pub mod navbar;
 pub mod router;
