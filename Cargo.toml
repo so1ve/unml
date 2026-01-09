@@ -31,7 +31,7 @@ unml-download = { path = "crates/unml-download" }
 unml-java = { path = "crates/unml-java" }
 unml-launcher = { path = "crates/unml-launcher" }
 unml-mods = { path = "crates/unml-mods" }
-uuid = { version = "1", features = ["v4", "serde"] }
+uuid = { version = "1", features = ["v3",  "serde"] }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(coverage_nightly)'] }

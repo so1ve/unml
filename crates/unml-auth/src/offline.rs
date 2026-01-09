@@ -1,5 +1,6 @@
 use async_trait::async_trait;
 use unml_core::{Account, AccountType, AuthProvider, Credentials};
+use uuid::Uuid;
 
 use crate::{Error, Result};
 
@@ -8,6 +9,11 @@ pub struct OfflineAuthProvider;
 impl OfflineAuthProvider {
     pub fn new() -> Self {
         Self
+    }
+
+    fn offline_uuid(username: &str) -> String {
+        let name = format!("OfflinePlayer:{username}");
+        Uuid::new_v3(&Uuid::NAMESPACE_DNS, name.as_bytes()).to_string()
     }
 }
 
@@ -18,7 +24,7 @@ impl AuthProvider for OfflineAuthProvider {
     async fn login(&self, credentials: Credentials) -> Result<Account> {
         match credentials {
             Credentials::Offline { username } => {
-                let uuid = uuid::Uuid::new_v4().to_string();
+                let uuid = Self::offline_uuid(&username);
                 Ok(Account {
                     username,
                     uuid,
