@@ -237,9 +237,10 @@ impl JavaDetector {
         for line in output.lines() {
             if line.contains("version")
                 && let Some(start) = line.find('"')
-                    && let Some(end) = line[start + 1..].find('"') {
-                        return Ok(line[start + 1..start + 1 + end].to_string());
-                    }
+                && let Some(end) = line[start + 1..].find('"')
+            {
+                return Ok(line[start + 1..start + 1 + end].to_string());
+            }
         }
         Err(Error::VersionParseFailed)
     }
