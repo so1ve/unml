@@ -1,5 +1,6 @@
 use gpui::prelude::*;
 use gpui::*;
+use rust_i18n::t;
 
 #[derive(IntoElement)]
 pub struct SectionTitle {
@@ -19,6 +20,6 @@ impl RenderOnce for SectionTitle {
             .font_weight(FontWeight::MEDIUM)
             .text_color(rgb(0x888888))
             .mb_1()
-            .child(SharedString::from(self.title.to_uppercase()))
+            .child(t!(self.title).to_string().to_uppercase())
     }
 }

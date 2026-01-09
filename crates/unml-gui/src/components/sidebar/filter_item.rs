@@ -1,6 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_router::NavLink;
+use rust_i18n::t;
 
 use super::SidebarItem;
 
@@ -38,7 +39,7 @@ impl RenderOnce for FilterItem {
                 .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 }))
                 .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
                 .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
-                .child(SharedString::from(self.item.label)),
+                .child(t!(self.item.label).to_string()),
         )
     }
 }

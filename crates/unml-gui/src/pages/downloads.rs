@@ -1,14 +1,15 @@
 use gpui::*;
 use gpui_router::use_params;
+use rust_i18n::t;
 
 unml_macros::define_sidebar! {
     variant: Filter,
 
-    section "状态" {
-        All => "全部",
-        InProgress => "进行中",
-        Completed => "已完成",
-        Failed => "失败",
+    section "downloads.status" {
+        All => "downloads.all",
+        InProgress => "downloads.in_progress",
+        Completed => "downloads.completed",
+        Failed => "downloads.failed",
     }
 }
 
@@ -28,10 +29,10 @@ impl RenderOnce for Page {
             .unwrap_or_default();
 
         let content = match selection {
-            Selection::All => "所有下载任务",
-            Selection::InProgress => "正在下载的任务",
-            Selection::Completed => "已完成的下载",
-            Selection::Failed => "下载失败的任务",
+            Selection::All => t!("downloads.all_tasks"),
+            Selection::InProgress => t!("downloads.in_progress_tasks"),
+            Selection::Completed => t!("downloads.completed_tasks"),
+            Selection::Failed => t!("downloads.failed_tasks"),
         };
 
         div()
@@ -41,12 +42,12 @@ impl RenderOnce for Page {
             .child(
                 div()
                     .text_size(px(20.0))
-                    .child(SharedString::from("下载中心")),
+                    .child(t!("downloads.title").to_string()),
             )
             .child(
                 div()
                     .text_color(rgb(0xa0a0a0))
-                    .child(SharedString::from(content)),
+                    .child(content.to_string()),
             )
     }
 }

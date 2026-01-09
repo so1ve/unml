@@ -2,6 +2,7 @@ use gpui::prelude::*;
 use gpui::*;
 use gpui_component::ActiveTheme;
 use gpui_router::{IntoLayout, Outlet};
+use rust_i18n::t;
 
 // ============================================================================
 // Home Layout - Layout with account panel sidebar
@@ -89,7 +90,7 @@ impl RenderOnce for AccountSidebar {
                 div()
                     .text_sm()
                     .text_color(cx.theme().muted_foreground)
-                    .child(SharedString::from("微软账号")),
+                    .child(t!("account.microsoft").to_string()),
             )
             // Account selector
             .child(
@@ -111,7 +112,7 @@ impl RenderOnce for AccountSidebar {
                             .items_center()
                             .justify_between()
                             .text_color(rgb(0xe8e8e8))
-                            .child(SharedString::from("Steve (微软)"))
+                            .child(t!("account.steve_microsoft").to_string())
                             .child(SharedString::from("▼")),
                     ),
             )
@@ -135,7 +136,7 @@ impl RenderOnce for AccountSidebar {
                             .justify_center()
                             .gap_2()
                             .text_color(rgb(0xa0a0a0))
-                            .child(SharedString::from("+ 添加账号")),
+                            .child(t!("account.add").to_string()),
                     ),
             )
     }

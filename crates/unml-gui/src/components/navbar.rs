@@ -1,8 +1,11 @@
 use gpui::prelude::*;
 use gpui::*;
+use gpui_component::popover::Popover;
 use gpui_component::{ActiveTheme, Icon, IconName};
 use gpui_router::{NavLink, use_location};
+use rust_i18n::t;
 
+use crate::components::icon_button::IconButton;
 use crate::routes::{NAV_TABS, paths};
 
 /// A tab item definition for the navigation bar
@@ -89,6 +92,20 @@ impl RenderOnce for NavBar {
                     .iter()
                     .map(|tab| TabItemView::new(tab.clone(), pathname.clone()).into_any_element()),
             )
+            .child(div().flex_1())
+            .child(
+                Popover::new("i18n-popover")
+                    .trigger(IconButton::new("i18n-button", IconName::Globe))
+                    .content(|_, _, _| {
+                        let current_locale = rust_i18n::locale();
+                        let current: &str = &current_locale;
+                        div()
+                            .min_w(px(120.0))
+                            .py_1()
+                            .child(LanguageItem::new("zh-CN", current == "zh-CN"))
+                            .child(LanguageItem::new("en", current == "en"))
+                    }),
+            )
     }
 }
 
@@ -136,7 +153,56 @@ impl RenderOnce for TabItemView {
                 } else {
                     0xa0a0a0
                 })))
-                .child(SharedString::from(self.tab.label)),
+                .child(t!(self.tab.label).to_string()),
         )
+    }
+}
+
+/// Renders a language selection item in the i18n dropdown
+#[derive(IntoElement)]
+struct LanguageItem {
+    locale: &'static str,
+    selected: bool,
+}
+
+impl LanguageItem {
+    fn new(locale: &'static str, selected: bool) -> Self {
+        Self { locale, selected }
+    }
+}
+
+impl RenderOnce for LanguageItem {
+    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
+        let label = match self.locale {
+            "zh-CN" => t!("lang.zh-CN"),
+            "en" => t!("lang.en"),
+            _ => t!("lang.en"),
+        }
+        .to_string();
+
+        let locale = self.locale;
+
+        div()
+            .id(SharedString::from(self.locale))
+            .h(px(32.0))
+            .px_3()
+            .cursor_pointer()
+            .flex()
+            .items_center()
+            .justify_between()
+            .text_color(rgb(if self.selected { 0xe8e8e8 } else { 0xa0a0a0 }))
+            .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
+            .on_click(move |_, _, cx| {
+                rust_i18n::set_locale(locale);
+                cx.refresh_windows();
+            })
+            .child(label)
+            .when(self.selected, |s| {
+                s.child(
+                    Icon::new(IconName::Check)
+                        .size_4()
+                        .text_color(rgb(0x3b82f6)),
+                )
+            })
     }
 }

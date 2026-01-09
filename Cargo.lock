@@ -6673,6 +6673,7 @@ dependencies = [
  "gpui-component",
  "gpui-component-assets",
  "gpui-router",
+ "rust-i18n",
  "serde",
  "serde_json",
  "tokio",

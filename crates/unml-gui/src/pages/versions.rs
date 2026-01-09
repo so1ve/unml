@@ -1,16 +1,17 @@
 use gpui::*;
 use gpui_router::use_params;
+use rust_i18n::t;
 
 unml_macros::define_sidebar! {
     variant: Filter,
 
-    section "筛选" {
-        Release => "正式版",
-        Snapshot => "快照版",
-        Old => "远古版本",
+    section "versions.filter" {
+        Release => "versions.release",
+        Snapshot => "versions.snapshot",
+        Old => "versions.old",
     }
     section {
-        Installed => "仅已安装",
+        Installed => "versions.installed_only",
     }
 }
 
@@ -30,10 +31,10 @@ impl RenderOnce for Page {
             .unwrap_or_default();
 
         let content = match selection {
-            Selection::Release => "正式版版本列表",
-            Selection::Snapshot => "快照版版本列表",
-            Selection::Old => "远古版本列表",
-            Selection::Installed => "已安装的版本",
+            Selection::Release => t!("versions.release_list"),
+            Selection::Snapshot => t!("versions.snapshot_list"),
+            Selection::Old => t!("versions.old_list"),
+            Selection::Installed => t!("versions.installed_list"),
         };
 
         div()
@@ -43,12 +44,12 @@ impl RenderOnce for Page {
             .child(
                 div()
                     .text_size(px(20.0))
-                    .child(SharedString::from("版本管理")),
+                    .child(t!("versions.title").to_string()),
             )
             .child(
                 div()
                     .text_color(rgb(0xa0a0a0))
-                    .child(SharedString::from(content)),
+                    .child(content.to_string()),
             )
     }
 }

@@ -10,6 +10,8 @@ mod theme;
 use gpui::*;
 use gpui_component_assets::Assets;
 
+rust_i18n::i18n!("locales", fallback = "en");
+
 fn main() {
     Application::new().with_assets(Assets).run(|cx: &mut App| {
         gpui_component::init(cx);

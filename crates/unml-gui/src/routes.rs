@@ -9,31 +9,31 @@
 crate::define_app_routes! {
     home {
         path: "/",
-        label: "首页",
+        label: "nav.home",
         icon: LayoutDashboard,
     }
 
     versions {
         path: "/versions",
-        label: "版本",
+        label: "nav.versions",
         icon: Folder,
     }
 
     mods {
         path: "/mods",
-        label: "Mod",
+        label: "nav.mods",
         icon: Star,
     }
 
     downloads {
         path: "/downloads",
-        label: "下载",
+        label: "nav.downloads",
         icon: ArrowDown,
     }
 
     settings {
         path: "/settings",
-        label: "设置",
+        label: "nav.settings",
         icon: Settings,
     }
 }

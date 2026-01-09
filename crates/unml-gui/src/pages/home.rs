@@ -1,6 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::scroll::ScrollableElement;
+use rust_i18n::t;
 
 use crate::components::instance_card::InstanceCard;
 
@@ -29,7 +30,7 @@ impl RenderOnce for Page {
                             div()
                                 .text_size(px(18.0))
                                 .font_weight(FontWeight::BOLD)
-                                .child(SharedString::from("收藏版本")),
+                                .child(t!("home.favorites").to_string()),
                         )
                         .child(div().flex().flex_row().flex_wrap().gap(px(16.0)).child(
                             InstanceCard::new("Survival World", "1.20.4", "Fabric", rgb(0x4caf50)),
@@ -44,7 +45,7 @@ impl RenderOnce for Page {
                             div()
                                 .text_size(px(18.0))
                                 .font_weight(FontWeight::BOLD)
-                                .child(SharedString::from("最近游玩")),
+                                .child(t!("home.recent").to_string()),
                         )
                         .child(
                             div()

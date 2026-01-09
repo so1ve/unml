@@ -1,0 +1,185 @@
+_version: 2
+
+# Navigation
+nav.home:
+  zh-CN: 首页
+  en: Home
+nav.versions:
+  zh-CN: 版本
+  en: Versions
+nav.mods:
+  zh-CN: Mod
+  en: Mods
+nav.downloads:
+  zh-CN: 下载
+  en: Downloads
+nav.settings:
+  zh-CN: 设置
+  en: Settings
+
+# Language names
+lang.zh-CN:
+  zh-CN: 简体中文
+  en: 简体中文
+lang.en:
+  zh-CN: English
+  en: English
+
+# Home page
+home.favorites:
+  zh-CN: 收藏版本
+  en: Favorites
+home.recent:
+  zh-CN: 最近游玩
+  en: Recent
+
+# Account
+account.microsoft:
+  zh-CN: 微软账号
+  en: Microsoft Account
+account.steve_microsoft:
+  zh-CN: Steve (微软)
+  en: Steve (Microsoft)
+account.add:
+  zh-CN: + 添加账号
+  en: + Add Account
+
+# Versions page
+versions.title:
+  zh-CN: 版本管理
+  en: Version Manager
+versions.filter:
+  zh-CN: 筛选
+  en: Filter
+versions.release:
+  zh-CN: 正式版
+  en: Release
+versions.snapshot:
+  zh-CN: 快照版
+  en: Snapshot
+versions.old:
+  zh-CN: 远古版本
+  en: Old Versions
+versions.installed_only:
+  zh-CN: 仅已安装
+  en: Installed Only
+versions.release_list:
+  zh-CN: 正式版版本列表
+  en: Release Versions
+versions.snapshot_list:
+  zh-CN: 快照版版本列表
+  en: Snapshot Versions
+versions.old_list:
+  zh-CN: 远古版本列表
+  en: Old Versions
+versions.installed_list:
+  zh-CN: 已安装的版本
+  en: Installed Versions
+
+# Mods page
+mods.title:
+  zh-CN: Mod 管理
+  en: Mod Manager
+mods.view:
+  zh-CN: 视图
+  en: View
+mods.installed:
+  zh-CN: 已安装
+  en: Installed
+mods.browse:
+  zh-CN: 浏览
+  en: Browse
+mods.filter:
+  zh-CN: 筛选
+  en: Filter
+mods.installed_list:
+  zh-CN: 已安装的 Mod 列表
+  en: Installed Mods
+mods.browse_online:
+  zh-CN: 浏览在线 Mod
+  en: Browse Online Mods
+mods.fabric:
+  en: Fabric
+mods.forge:
+  en: Forge
+mods.quilt:
+  en: Quilt
+
+# Downloads page
+downloads.title:
+  zh-CN: 下载中心
+  en: Download Center
+downloads.status:
+  zh-CN: 状态
+  en: Status
+downloads.all:
+  zh-CN: 全部
+  en: All
+downloads.in_progress:
+  zh-CN: 进行中
+  en: In Progress
+downloads.completed:
+  zh-CN: 已完成
+  en: Completed
+downloads.failed:
+  zh-CN: 失败
+  en: Failed
+downloads.all_tasks:
+  zh-CN: 所有下载任务
+  en: All Downloads
+downloads.in_progress_tasks:
+  zh-CN: 正在下载的任务
+  en: Downloads In Progress
+downloads.completed_tasks:
+  zh-CN: 已完成的下载
+  en: Completed Downloads
+downloads.failed_tasks:
+  zh-CN: 下载失败的任务
+  en: Failed Downloads
+
+# Settings page
+settings.general:
+  zh-CN: 通用
+  en: General
+settings.java:
+  zh-CN: Java
+  en: Java
+settings.game:
+  zh-CN: 游戏
+  en: Game
+settings.download:
+  zh-CN: 下载
+  en: Download
+settings.about:
+  zh-CN: 关于
+  en: About
+settings.general_title:
+  zh-CN: 通用设置
+  en: General Settings
+settings.general_desc:
+  zh-CN: 语言、主题等通用设置
+  en: Language, theme, and other general settings
+settings.java_title:
+  zh-CN: Java 设置
+  en: Java Settings
+settings.java_desc:
+  zh-CN: Java 路径和版本管理
+  en: Java path and version management
+settings.game_title:
+  zh-CN: 游戏设置
+  en: Game Settings
+settings.game_desc:
+  zh-CN: 默认内存、窗口大小等
+  en: Default memory, window size, etc.
+settings.download_title:
+  zh-CN: 下载设置
+  en: Download Settings
+settings.download_desc:
+  zh-CN: 并发数、镜像源选择
+  en: Concurrency and mirror selection
+settings.about_title:
+  zh-CN: 关于
+  en: About
+settings.about_desc:
+  zh-CN: 版本信息和更新
+  en: Version info and updates

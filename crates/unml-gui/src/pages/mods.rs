@@ -1,17 +1,18 @@
 use gpui::*;
 use gpui_router::use_params;
+use rust_i18n::t;
 
 unml_macros::define_sidebar! {
     variant: Filter,
 
-    section "视图" {
-        Installed => "已安装",
-        Browse => "浏览",
+    section "mods.view" {
+        Installed => "mods.installed",
+        Browse => "mods.browse",
     }
-    section "筛选" {
-        Fabric => "Fabric",
-        Forge => "Forge",
-        Quilt => "Quilt",
+    section "mods.filter" {
+        Fabric => "mods.fabric",
+        Forge => "mods.forge",
+        Quilt => "mods.quilt",
     }
 }
 
@@ -31,11 +32,11 @@ impl RenderOnce for Page {
             .unwrap_or_default();
 
         let content = match selection {
-            Selection::Installed => "已安装的 Mod 列表",
-            Selection::Browse => "浏览在线 Mod",
-            Selection::Fabric => "Fabric Mod",
-            Selection::Forge => "Forge Mod",
-            Selection::Quilt => "Quilt Mod",
+            Selection::Installed => t!("mods.installed_list"),
+            Selection::Browse => t!("mods.browse_online"),
+            Selection::Fabric => t!("mods.fabric"),
+            Selection::Forge => t!("mods.forge"),
+            Selection::Quilt => t!("mods.quilt"),
         };
 
         div()
@@ -45,12 +46,12 @@ impl RenderOnce for Page {
             .child(
                 div()
                     .text_size(px(20.0))
-                    .child(SharedString::from("Mod 管理")),
+                    .child(t!("mods.title").to_string()),
             )
             .child(
                 div()
                     .text_color(rgb(0xa0a0a0))
-                    .child(SharedString::from(content)),
+                    .child(content.to_string()),
             )
     }
 }
