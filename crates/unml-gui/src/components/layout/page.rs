@@ -219,6 +219,7 @@ impl RenderOnce for NavItemView {
             .h(px(40.0))
             .px_3()
             .rounded(px(6.0))
+            .border_l_2()
             .cursor_pointer()
             .flex()
             .items_center()
@@ -228,7 +229,7 @@ impl RenderOnce for NavItemView {
             .child(SharedString::from(self.item.label));
 
         let item_div = if active {
-            item_div.border_l_2().border_color(rgb(0x3b82f6))
+            item_div.border_color(rgb(0x3b82f6))
         } else {
             item_div
         };
