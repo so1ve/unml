@@ -38,10 +38,7 @@ impl MicrosoftAuthProvider {
     }
 
     /// 用 MS Token 换取 Minecraft Account
-    async fn exchange_token_for_account(
-        &self,
-        ms_token: &TokenResponse,
-    ) -> Result<Account> {
+    async fn exchange_token_for_account(&self, ms_token: &TokenResponse) -> Result<Account> {
         let client = http_client();
 
         // 1. Xbox Live 认证

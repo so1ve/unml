@@ -30,6 +30,7 @@ unml-core = { path = "crates/unml-core" }
 unml-download = { path = "crates/unml-download" }
 unml-java = { path = "crates/unml-java" }
 unml-launcher = { path = "crates/unml-launcher" }
+unml-macros = { path = "crates/unml-macros" }
 unml-mods = { path = "crates/unml-mods" }
 uuid = { version = "1", features = ["v3",  "serde"] }
 

@@ -1,5 +1,6 @@
 use gpui::*;
 use gpui_router::use_params;
+use unml_macros::Selection;
 
 use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
@@ -9,41 +10,24 @@ use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
 pub const PATH: &str = "/downloads";
 
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Selection)]
 pub enum Selection {
     #[default]
+    #[id = "all"]
     All,
+    #[id = "in_progress"]
     InProgress,
+    #[id = "completed"]
     Completed,
+    #[id = "failed"]
     Failed,
 }
 
-impl Selection {
-    pub const fn id(&self) -> &'static str {
-        match self {
-            Self::All => "all",
-            Self::InProgress => "in_progress",
-            Self::Completed => "completed",
-            Self::Failed => "failed",
-        }
-    }
-
-    pub fn from_id(id: &str) -> Self {
-        match id {
-            "all" => Self::All,
-            "in_progress" => Self::InProgress,
-            "completed" => Self::Completed,
-            "failed" => Self::Failed,
-            _ => Self::default(),
-        }
-    }
-}
+pub const DEFAULT_ID: &str = Selection::default().id();
 
 // ============================================================================
 // Sidebar Content
 // ============================================================================
-
-pub const DEFAULT_ID: &str = Selection::All.id();
 
 const STATUS_ITEMS: &[SidebarItem] = &[
     SidebarItem::new("all", "全部"),

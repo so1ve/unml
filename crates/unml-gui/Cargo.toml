@@ -23,4 +23,5 @@ unml-core = { workspace = true }
 unml-download = { workspace = true }
 unml-java = { workspace = true }
 unml-launcher = { workspace = true }
+unml-macros = { workspace = true }
 unml-mods = { workspace = true }

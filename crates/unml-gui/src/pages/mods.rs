@@ -1,5 +1,6 @@
 use gpui::*;
 use gpui_router::use_params;
+use unml_macros::Selection;
 
 use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
@@ -9,44 +10,26 @@ use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
 pub const PATH: &str = "/mods";
 
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Selection)]
 pub enum Selection {
     #[default]
+    #[id = "installed"]
     Installed,
+    #[id = "browse"]
     Browse,
+    #[id = "fabric"]
     Fabric,
+    #[id = "forge"]
     Forge,
+    #[id = "quilt"]
     Quilt,
 }
 
-impl Selection {
-    pub const fn id(&self) -> &'static str {
-        match self {
-            Self::Installed => "installed",
-            Self::Browse => "browse",
-            Self::Fabric => "fabric",
-            Self::Forge => "forge",
-            Self::Quilt => "quilt",
-        }
-    }
-
-    pub fn from_id(id: &str) -> Self {
-        match id {
-            "installed" => Self::Installed,
-            "browse" => Self::Browse,
-            "fabric" => Self::Fabric,
-            "forge" => Self::Forge,
-            "quilt" => Self::Quilt,
-            _ => Self::default(),
-        }
-    }
-}
+pub const DEFAULT_ID: &str = Selection::default().id();
 
 // ============================================================================
 // Sidebar Content
 // ============================================================================
-
-pub const DEFAULT_ID: &str = Selection::Installed.id();
 
 const VIEW_ITEMS: &[SidebarItem] = &[
     SidebarItem::new("installed", "已安装"),

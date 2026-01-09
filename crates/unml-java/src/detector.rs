@@ -235,13 +235,11 @@ impl JavaDetector {
 
     fn parse_version(output: &str) -> Result<String> {
         for line in output.lines() {
-            if line.contains("version") {
-                if let Some(start) = line.find('"') {
-                    if let Some(end) = line[start + 1..].find('"') {
+            if line.contains("version")
+                && let Some(start) = line.find('"')
+                    && let Some(end) = line[start + 1..].find('"') {
                         return Ok(line[start + 1..start + 1 + end].to_string());
                     }
-                }
-            }
         }
         Err(Error::VersionParseFailed)
     }

@@ -1,5 +1,6 @@
 use gpui::*;
 use gpui_router::use_params;
+use unml_macros::Selection;
 
 use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
@@ -9,44 +10,26 @@ use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
 pub const PATH: &str = "/settings";
 
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Selection)]
 pub enum Selection {
     #[default]
+    #[id = "general"]
     General,
+    #[id = "java"]
     Java,
+    #[id = "game"]
     Game,
+    #[id = "download"]
     Download,
+    #[id = "about"]
     About,
 }
 
-impl Selection {
-    pub const fn id(&self) -> &'static str {
-        match self {
-            Self::General => "general",
-            Self::Java => "java",
-            Self::Game => "game",
-            Self::Download => "download",
-            Self::About => "about",
-        }
-    }
-
-    pub fn from_id(id: &str) -> Self {
-        match id {
-            "general" => Self::General,
-            "java" => Self::Java,
-            "game" => Self::Game,
-            "download" => Self::Download,
-            "about" => Self::About,
-            _ => Self::default(),
-        }
-    }
-}
+pub const DEFAULT_ID: &str = Selection::default().id();
 
 // ============================================================================
 // Sidebar Content
 // ============================================================================
-
-pub const DEFAULT_ID: &str = Selection::General.id();
 
 const NAV_ITEMS: &[SidebarItem] = &[
     SidebarItem::new("general", "通用"),

@@ -15,8 +15,18 @@ pub struct TabItem {
 }
 
 impl TabItem {
-    pub const fn new(id: &'static str, label: &'static str, path: &'static str, icon: IconName) -> Self {
-        Self { id, label, path, icon }
+    pub const fn new(
+        id: &'static str,
+        label: &'static str,
+        path: &'static str,
+        icon: IconName,
+    ) -> Self {
+        Self {
+            id,
+            label,
+            path,
+            icon,
+        }
     }
 
     fn is_active(&self, pathname: &str) -> bool {
@@ -33,8 +43,18 @@ pub const NAV_TABS: &[TabItem] = &[
     TabItem::new("home", "首页", pages::home::PATH, IconName::LayoutDashboard),
     TabItem::new("versions", "版本", pages::versions::PATH, IconName::Folder),
     TabItem::new("mods", "Mod", pages::mods::PATH, IconName::Star),
-    TabItem::new("downloads", "下载", pages::downloads::PATH, IconName::ArrowDown),
-    TabItem::new("settings", "设置", pages::settings::PATH, IconName::Settings),
+    TabItem::new(
+        "downloads",
+        "下载",
+        pages::downloads::PATH,
+        IconName::ArrowDown,
+    ),
+    TabItem::new(
+        "settings",
+        "设置",
+        pages::settings::PATH,
+        IconName::Settings,
+    ),
 ];
 
 #[derive(IntoElement)]
@@ -111,11 +131,11 @@ impl RenderOnce for TabItemView {
                 .when(active, |s| {
                     s.border_b_2().border_color(rgb(0x3b82f6)).rounded_b_none()
                 })
-                .child(
-                    Icon::new(self.tab.icon)
-                        .size_4()
-                        .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 })),
-                )
+                .child(Icon::new(self.tab.icon).size_4().text_color(rgb(if active {
+                    0xe8e8e8
+                } else {
+                    0xa0a0a0
+                })))
                 .child(SharedString::from(self.tab.label)),
         )
     }

@@ -1,7 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::ActiveTheme;
-use gpui_router::{use_location, use_params, NavLink};
+use gpui_router::{NavLink, use_location, use_params};
 
 use crate::pages;
 
@@ -81,12 +81,12 @@ impl RenderOnce for ContextSidebar {
         let pathname = location.pathname.clone();
 
         // Extract base path (e.g., "/versions/release" -> "/versions")
-        let base_path = pathname
-            .split('/')
-            .take(2)
-            .collect::<Vec<_>>()
-            .join("/");
-        let base_path = if base_path.is_empty() { "/" } else { &base_path };
+        let base_path = pathname.split('/').take(2).collect::<Vec<_>>().join("/");
+        let base_path = if base_path.is_empty() {
+            "/"
+        } else {
+            &base_path
+        };
 
         div()
             .id("context-sidebar")
@@ -268,26 +268,25 @@ impl RenderOnce for FilterItemView {
         let active = self.active;
         let path = format!("{}/{}", self.base_path, self.item.id);
 
-        NavLink::new()
-            .to(SharedString::from(path))
-            .child(
-                div()
-                    .id(SharedString::from(self.item.id))
-                    .h(px(32.0))
-                    .px_2()
-                    .rounded(px(4.0))
-                    .cursor_pointer()
-                    .flex()
-                    .items_center()
-                    .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 }))
-                    .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
-                    .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
-                    .child(SharedString::from(self.item.label)),
-            )
+        NavLink::new().to(SharedString::from(path)).child(
+            div()
+                .id(SharedString::from(self.item.id))
+                .h(px(32.0))
+                .px_2()
+                .rounded(px(4.0))
+                .cursor_pointer()
+                .flex()
+                .items_center()
+                .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 }))
+                .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
+                .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
+                .child(SharedString::from(self.item.label)),
+        )
     }
 }
 
-/// Navigation item view with left border indicator - uses NavLink for navigation
+/// Navigation item view with left border indicator - uses NavLink for
+/// navigation
 #[derive(IntoElement)]
 struct NavItemView {
     base_path: &'static str,
@@ -310,22 +309,20 @@ impl RenderOnce for NavItemView {
         let active = self.active;
         let path = format!("{}/{}", self.base_path, self.item.id);
 
-        NavLink::new()
-            .to(SharedString::from(path))
-            .child(
-                div()
-                    .id(SharedString::from(self.item.id))
-                    .h(px(40.0))
-                    .px_3()
-                    .rounded(px(6.0))
-                    .cursor_pointer()
-                    .flex()
-                    .items_center()
-                    .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 }))
-                    .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
-                    .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
-                    .when(active, |s| s.border_l_2().border_color(rgb(0x3b82f6)))
-                    .child(SharedString::from(self.item.label)),
-            )
+        NavLink::new().to(SharedString::from(path)).child(
+            div()
+                .id(SharedString::from(self.item.id))
+                .h(px(40.0))
+                .px_3()
+                .rounded(px(6.0))
+                .cursor_pointer()
+                .flex()
+                .items_center()
+                .text_color(rgb(if active { 0xe8e8e8 } else { 0xa0a0a0 }))
+                .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
+                .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
+                .when(active, |s| s.border_l_2().border_color(rgb(0x3b82f6)))
+                .child(SharedString::from(self.item.label)),
+        )
     }
 }

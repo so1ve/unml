@@ -6681,6 +6681,7 @@ dependencies = [
  "unml-download",
  "unml-java",
  "unml-launcher",
+ "unml-macros",
  "unml-mods",
 ]
 
@@ -6705,6 +6706,15 @@ dependencies = [
  "tokio",
  "unml-core",
  "unml-java",
+]
+
+[[package]]
+name = "unml-macros"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.114",
 ]
 
 [[package]]

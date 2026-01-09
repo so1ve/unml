@@ -1,5 +1,6 @@
 use gpui::*;
 use gpui_router::use_params;
+use unml_macros::Selection;
 
 use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
@@ -9,41 +10,24 @@ use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
 pub const PATH: &str = "/versions";
 
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Selection)]
 pub enum Selection {
     #[default]
+    #[id = "release"]
     Release,
+    #[id = "snapshot"]
     Snapshot,
+    #[id = "old"]
     Old,
+    #[id = "installed"]
     Installed,
 }
 
-impl Selection {
-    pub const fn id(&self) -> &'static str {
-        match self {
-            Self::Release => "release",
-            Self::Snapshot => "snapshot",
-            Self::Old => "old",
-            Self::Installed => "installed",
-        }
-    }
-
-    pub fn from_id(id: &str) -> Self {
-        match id {
-            "release" => Self::Release,
-            "snapshot" => Self::Snapshot,
-            "old" => Self::Old,
-            "installed" => Self::Installed,
-            _ => Self::default(),
-        }
-    }
-}
+pub const DEFAULT_ID: &str = Selection::default().id();
 
 // ============================================================================
 // Sidebar Content
 // ============================================================================
-
-pub const DEFAULT_ID: &str = Selection::Release.id();
 
 const FILTER_ITEMS: &[SidebarItem] = &[
     SidebarItem::new("release", "正式版"),
