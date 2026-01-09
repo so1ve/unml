@@ -1,7 +1,8 @@
 use gpui::*;
 use gpui_component::ActiveTheme;
 
-use crate::components::{navbar, router, titlebar};
+use crate::components::{navbar, titlebar};
+use crate::routes;
 
 #[derive(Clone)]
 pub struct LauncherView;
@@ -31,7 +32,7 @@ impl Render for LauncherView {
                     .overflow_hidden()
                     .bg(cx.theme().background)
                     .text_color(cx.theme().foreground)
-                    .child(router::router()),
+                    .child(routes::router()),
             )
     }
 }

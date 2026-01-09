@@ -3,11 +3,6 @@ use gpui::*;
 use gpui_component::scroll::ScrollableElement;
 
 use crate::components::instance_card::InstanceCard;
-// ============================================================================
-// Page Path
-// ============================================================================
-
-pub const PATH: &str = "/";
 
 // ============================================================================
 // Page Content

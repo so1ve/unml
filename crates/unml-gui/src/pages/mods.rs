@@ -5,10 +5,8 @@ use unml_macros::Selection;
 use crate::components::sidebar::{SidebarContent, SidebarItem, SidebarSection};
 
 // ============================================================================
-// Page Path & Selection
+// Selection
 // ============================================================================
-
-pub const PATH: &str = "/mods";
 
 #[derive(Clone, Copy, PartialEq, Eq, Selection)]
 pub enum Selection {

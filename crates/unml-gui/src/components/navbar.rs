@@ -3,7 +3,7 @@ use gpui::*;
 use gpui_component::{ActiveTheme, Icon, IconName};
 use gpui_router::{NavLink, use_location};
 
-use crate::pages;
+use crate::routes::{NAV_TABS, paths};
 
 /// A tab item definition for the navigation bar
 #[derive(Clone)]
@@ -37,8 +37,8 @@ impl TabItem {
     }
 
     fn is_active(&self, pathname: &str) -> bool {
-        if self.active_prefix == pages::home::PATH {
-            return pathname == pages::home::PATH;
+        if self.active_prefix == paths::HOME {
+            return pathname == paths::HOME;
         }
 
         if !pathname.starts_with(self.active_prefix) {
@@ -51,45 +51,6 @@ impl TabItem {
         pathname.len() == prefix_len || pathname.as_bytes().get(prefix_len) == Some(&b'/')
     }
 }
-
-/// Default navigation tabs
-pub const NAV_TABS: &[TabItem] = &[
-    TabItem::new(
-        "home",
-        "首页",
-        pages::home::PATH,
-        None,
-        IconName::LayoutDashboard,
-    ),
-    TabItem::new(
-        "versions",
-        "版本",
-        pages::versions::PATH,
-        Some(pages::versions::DEFAULT_ID),
-        IconName::Folder,
-    ),
-    TabItem::new(
-        "mods",
-        "Mod",
-        pages::mods::PATH,
-        Some(pages::mods::DEFAULT_ID),
-        IconName::Star,
-    ),
-    TabItem::new(
-        "downloads",
-        "下载",
-        pages::downloads::PATH,
-        Some(pages::downloads::DEFAULT_ID),
-        IconName::ArrowDown,
-    ),
-    TabItem::new(
-        "settings",
-        "设置",
-        pages::settings::PATH,
-        Some(pages::settings::DEFAULT_ID),
-        IconName::Settings,
-    ),
-];
 
 #[derive(IntoElement)]
 pub struct NavBar {
