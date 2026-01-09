@@ -25,7 +25,6 @@ impl RenderOnce for TitleBar {
             .flex()
             .items_center()
             .child(
-                // Left: app identity
                 div()
                     .flex()
                     .items_center()
@@ -49,14 +48,7 @@ impl RenderOnce for TitleBar {
                     )
                     .child(SharedString::from("UNML")),
             )
-            // Center: drag region
-            .child(
-                div()
-                    .flex_1()
-                    .h(px(40.0))
-                    .window_control_area(WindowControlArea::Drag),
-            )
-            // Right: window controls only
+            .child(div().flex_1().h(px(40.0)))
             .child(
                 div()
                     .flex()
@@ -64,6 +56,7 @@ impl RenderOnce for TitleBar {
                     .pr_2()
                     .child(WindowControls::new()),
             )
+            .window_control_area(WindowControlArea::Drag)
     }
 }
 
