@@ -161,6 +161,7 @@ impl RenderOnce for ControlIcon {
             .justify_center()
             .content_center()
             .items_center()
+            .cursor_pointer()
             .text_color(cx.theme().foreground)
             .hover(|style| style.bg(rgb(hover_bg)).text_color(hover_fg))
             .active(|style| style.bg(rgb(active_bg)).text_color(active_fg))

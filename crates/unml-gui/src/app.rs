@@ -1,7 +1,7 @@
 use gpui::*;
 use gpui_component::ActiveTheme;
 
-use crate::components::{navbar, router, sidebar, titlebar};
+use crate::components::{navbar, router, titlebar};
 
 #[derive(Clone)]
 pub struct LauncherView;
@@ -9,18 +9,6 @@ pub struct LauncherView;
 impl LauncherView {
     pub fn new() -> Self {
         Self
-    }
-
-    fn content(&self, cx: &App) -> impl IntoElement {
-        div()
-            .id("content")
-            .flex()
-            .flex_col()
-            .flex_1()
-            .bg(cx.theme().background)
-            .text_color(cx.theme().foreground)
-            .p(px(16.0))
-            .child(router::router())
     }
 }
 
@@ -35,14 +23,15 @@ impl Render for LauncherView {
             .child(titlebar::titlebar())
             // NavBar (48px)
             .child(navbar::NavBar::new())
-            // Main layout: Sidebar + Content
+            // Main content (router handles layout with sidebar)
             .child(
                 div()
                     .flex()
                     .flex_1()
                     .overflow_hidden()
-                    .child(sidebar::ContextSidebar::new())
-                    .child(self.content(cx)),
+                    .bg(cx.theme().background)
+                    .text_color(cx.theme().foreground)
+                    .child(router::router()),
             )
     }
 }

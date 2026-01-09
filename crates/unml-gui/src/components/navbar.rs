@@ -10,7 +10,12 @@ use crate::pages;
 pub struct TabItem {
     pub id: &'static str,
     pub label: &'static str,
-    pub path: &'static str,
+    /// Path prefix used to determine active state (base path like "/versions")
+    pub active_prefix: &'static str,
+    /// Default selection id (e.g. "release"), used to build link target
+    /// `/{active_prefix}/{default_id}`. If None, link target is
+    /// `active_prefix`.
+    pub default_id: Option<&'static str>,
     pub icon: IconName,
 }
 
@@ -18,41 +23,70 @@ impl TabItem {
     pub const fn new(
         id: &'static str,
         label: &'static str,
-        path: &'static str,
+        active_prefix: &'static str,
+        default_id: Option<&'static str>,
         icon: IconName,
     ) -> Self {
         Self {
             id,
             label,
-            path,
+            active_prefix,
+            default_id,
             icon,
         }
     }
 
     fn is_active(&self, pathname: &str) -> bool {
-        if self.path == pages::home::PATH {
-            pathname == pages::home::PATH
-        } else {
-            pathname == self.path || pathname.starts_with(self.path)
+        if self.active_prefix == pages::home::PATH {
+            return pathname == pages::home::PATH;
         }
+
+        if !pathname.starts_with(self.active_prefix) {
+            return false;
+        }
+
+        // Ensure path boundary: "/versions" matches "/versions" and "/versions/...",
+        // but not "/versions2".
+        let prefix_len = self.active_prefix.len();
+        pathname.len() == prefix_len || pathname.as_bytes().get(prefix_len) == Some(&b'/')
     }
 }
 
 /// Default navigation tabs
 pub const NAV_TABS: &[TabItem] = &[
-    TabItem::new("home", "首页", pages::home::PATH, IconName::LayoutDashboard),
-    TabItem::new("versions", "版本", pages::versions::PATH, IconName::Folder),
-    TabItem::new("mods", "Mod", pages::mods::PATH, IconName::Star),
+    TabItem::new(
+        "home",
+        "首页",
+        pages::home::PATH,
+        None,
+        IconName::LayoutDashboard,
+    ),
+    TabItem::new(
+        "versions",
+        "版本",
+        pages::versions::PATH,
+        Some(pages::versions::DEFAULT_ID),
+        IconName::Folder,
+    ),
+    TabItem::new(
+        "mods",
+        "Mod",
+        pages::mods::PATH,
+        Some(pages::mods::DEFAULT_ID),
+        IconName::Star,
+    ),
     TabItem::new(
         "downloads",
         "下载",
         pages::downloads::PATH,
+        Some(pages::downloads::DEFAULT_ID),
         IconName::ArrowDown,
     ),
     TabItem::new(
         "settings",
         "设置",
         pages::settings::PATH,
+        Some(pages::settings::DEFAULT_ID),
         IconName::Settings,
     ),
 ];
@@ -67,6 +101,7 @@ impl NavBar {
         Self { tabs: NAV_TABS }
     }
 
+    #[allow(dead_code)]
     pub fn with_tabs(mut self, tabs: &'static [TabItem]) -> Self {
         self.tabs = tabs;
         self
@@ -112,13 +147,19 @@ impl TabItemView {
 impl RenderOnce for TabItemView {
     fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
         let active = self.tab.is_active(&self.pathname);
-        let path = SharedString::from(self.tab.path);
+        let to = match self.tab.default_id {
+            Some(default_id) => {
+                SharedString::from(format!("{}/{}", self.tab.active_prefix, default_id))
+            }
+            None => SharedString::from(self.tab.active_prefix),
+        };
 
-        NavLink::new().to(path.clone()).child(
+        NavLink::new().to(to).child(
             div()
                 .id(SharedString::from(self.tab.id))
                 .h(px(36.0))
                 .px_4()
+                .border_b_2()
                 .rounded(px(6.0))
                 .cursor_pointer()
                 .flex()
@@ -128,9 +169,7 @@ impl RenderOnce for TabItemView {
                 .bg(rgb(if active { 0x2d2d2d } else { 0x252525 }))
                 .hover(|s| s.bg(rgb(0x2d2d2d)).text_color(rgb(0xe8e8e8)))
                 .active(|s| s.bg(rgb(0x353535)))
-                .when(active, |s| {
-                    s.border_b_2().border_color(rgb(0x3b82f6)).rounded_b_none()
-                })
+                .when(active, |s| s.border_color(rgb(0x3b82f6)).rounded_b_none())
                 .child(Icon::new(self.tab.icon).size_4().text_color(rgb(if active {
                     0xe8e8e8
                 } else {
