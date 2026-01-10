@@ -59,9 +59,9 @@ pub fn apply_unml_dark_theme(cx: &mut App) {
 
     // List
     config.colors.list = Some("#252525".into());
-    config.colors.list_active = Some("#2d2d2d".into());
+    config.colors.list_active = Some("#3c3c3c".into());
     config.colors.list_active_border = Some("#3b82f6".into());
-    config.colors.list_hover = Some("#2d2d2d".into());
+    config.colors.list_hover = Some("#353535".into());
 
     // Ring (focus indicator)
     config.colors.ring = Some("#3b82f6".into());
