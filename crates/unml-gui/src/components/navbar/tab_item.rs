@@ -52,8 +52,7 @@ impl RenderOnce for TabItemView {
                 gap_2
                 text_color={text_color}
                 bg={bg_color}
-                hover={|s| s.bg(theme.tab_active).text_color(theme.tab_active_foreground)}
-                active={|s| s.bg(theme.secondary_hover)}
+                hover={|s| s.bg(theme.list_hover).text_color(theme.foreground)}
             >
                 {.when(active, |s| s.border_color(theme.primary).rounded_b_none())}
                 <{Icon::new(self.tab.icon).size_4().text_color(text_color)} />

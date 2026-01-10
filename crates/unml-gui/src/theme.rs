@@ -53,7 +53,7 @@ pub fn apply_unml_dark_theme(cx: &mut App) {
     // Tab bar
     config.colors.tab_bar = Some("#252525".into());
     config.colors.tab = Some("#252525".into());
-    config.colors.tab_active = Some("#2d2d2d".into());
+    config.colors.tab_active = Some("#3c3c3c".into());
     config.colors.tab_active_foreground = Some("#e8e8e8".into());
     config.colors.tab_foreground = Some("#a0a0a0".into());
 
