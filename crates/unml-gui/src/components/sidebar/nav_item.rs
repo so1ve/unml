@@ -1,6 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::ActiveTheme;
+use gpui_markup::ui;
 use gpui_router::NavLink;
 use rust_i18n::t;
 
@@ -39,27 +40,32 @@ impl RenderOnce for NavItem {
         } else {
             theme.list
         };
-
-        let item_div = div()
-            .id(SharedString::from(self.item.id))
-            .h(px(40.0))
-            .px_3()
-            .rounded(px(6.0))
-            .border_l_2()
-            .cursor_pointer()
-            .flex()
-            .items_center()
-            .text_color(text_color)
-            .bg(bg_color)
-            .hover(|s| s.bg(theme.list_hover).text_color(theme.foreground))
-            .child(t!(self.item.label).to_string());
-
-        let item_div = if active {
-            item_div.border_color(theme.list_active_border)
+        let border_color = if active {
+            theme.list_active_border
         } else {
-            item_div
+            gpui::transparent_black()
         };
 
-        NavLink::new().to(SharedString::from(path)).child(item_div)
+        let item_id = SharedString::from(self.item.id);
+        let label = t!(self.item.label).to_string();
+
+        NavLink::new().to(SharedString::from(path)).child(ui! {
+            <div
+                id={item_id}
+                h={px(40.0)}
+                px_3
+                rounded={px(6.0)}
+                border_l_2
+                border_color={border_color}
+                cursor_pointer
+                flex
+                items_center
+                text_color={text_color}
+                bg={bg_color}
+                hover={|s| s.bg(theme.list_hover).text_color(theme.foreground)}
+            >
+                {label}
+            </div>
+        })
     }
 }

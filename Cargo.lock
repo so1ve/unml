@@ -2462,6 +2462,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "gpui-markup"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b30e6e273031be70defd8a0aacd9ac5999503038d3b86312c378581724f3925f"
+dependencies = [
+ "proc-macro-error2",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.114",
+]
+
+[[package]]
 name = "gpui-router"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6672,6 +6684,7 @@ dependencies = [
  "gpui",
  "gpui-component",
  "gpui-component-assets",
+ "gpui-markup",
  "gpui-router",
  "rust-i18n",
  "serde",

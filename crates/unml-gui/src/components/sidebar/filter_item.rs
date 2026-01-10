@@ -1,6 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::ActiveTheme;
+use gpui_markup::ui;
 use gpui_router::NavLink;
 use rust_i18n::t;
 
@@ -40,19 +41,24 @@ impl RenderOnce for FilterItem {
             theme.list
         };
 
-        NavLink::new().to(SharedString::from(path)).child(
-            div()
-                .id(SharedString::from(self.item.id))
-                .h(px(32.0))
-                .px_2()
-                .rounded(px(4.0))
-                .cursor_pointer()
-                .flex()
-                .items_center()
-                .text_color(text_color)
-                .bg(bg_color)
-                .hover(|s| s.bg(theme.list_hover).text_color(theme.foreground))
-                .child(t!(self.item.label).to_string()),
-        )
+        let item_id = SharedString::from(self.item.id);
+        let label = t!(self.item.label).to_string();
+
+        NavLink::new().to(SharedString::from(path)).child(ui! {
+            <div
+                id={item_id}
+                h={px(32.0)}
+                px_2
+                rounded={px(4.0)}
+                cursor_pointer
+                flex
+                items_center
+                text_color={text_color}
+                bg={bg_color}
+                hover={|s| s.bg(theme.list_hover).text_color(theme.foreground)}
+            >
+                {label}
+            </div>
+        })
     }
 }

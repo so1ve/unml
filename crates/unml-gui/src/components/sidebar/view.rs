@@ -1,6 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::ActiveTheme;
+use gpui_markup::ui;
 
 use super::{FilterItem, NavItem, SectionTitle, SidebarContent, SidebarVariant};
 
@@ -35,19 +36,12 @@ impl RenderOnce for SidebarView {
         let variant = self.variant;
         let base_path = self.base_path;
         let current_id = self.current_id;
+        let theme = cx.theme();
 
-        div()
-            .id("sidebar")
-            .w(px(240.0))
-            .h_full()
-            .bg(cx.theme().sidebar)
-            .border_r_1()
-            .border_color(cx.theme().border)
-            .flex()
-            .flex_col()
-            .p_4()
-            .gap_3()
-            .children(sections.iter().enumerate().flat_map(|(idx, section)| {
+        let children: Vec<AnyElement> = sections
+            .iter()
+            .enumerate()
+            .flat_map(|(idx, section)| {
                 let mut elements: Vec<AnyElement> = Vec::new();
 
                 if let Some(title) = section.title {
@@ -69,15 +63,32 @@ impl RenderOnce for SidebarView {
 
                 if idx < section_count - 1 {
                     elements.push(
-                        div()
-                            .h(px(1.0))
-                            .bg(cx.theme().border)
-                            .my_2()
-                            .into_any_element(),
+                        ui! {
+                            <div h={px(1.0)} bg={theme.border} my_2 />
+                        }
+                        .into_any_element(),
                     );
                 }
 
                 elements
-            }))
+            })
+            .collect();
+
+        ui! {
+            <div
+                id={"sidebar"}
+                w={px(240.0)}
+                h_full
+                bg={theme.sidebar}
+                border_r_1
+                border_color={theme.border}
+                flex
+                flex_col
+                p_4
+                gap_3
+            >
+                {..children}
+            </div>
+        }
     }
 }

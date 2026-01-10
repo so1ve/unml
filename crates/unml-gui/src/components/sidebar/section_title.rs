@@ -1,6 +1,7 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::ActiveTheme;
+use gpui_markup::ui;
 use rust_i18n::t;
 
 #[derive(IntoElement)]
@@ -16,11 +17,12 @@ impl SectionTitle {
 
 impl RenderOnce for SectionTitle {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
-        div()
-            .text_xs()
-            .font_weight(FontWeight::MEDIUM)
-            .text_color(cx.theme().muted_foreground)
-            .mb_1()
-            .child(t!(self.title).to_string().to_uppercase())
+        let title = t!(self.title).to_string().to_uppercase();
+
+        ui! {
+            <div text_xs font_weight={FontWeight::MEDIUM} text_color={cx.theme().muted_foreground} mb_1>
+                {title}
+            </div>
+        }
     }
 }

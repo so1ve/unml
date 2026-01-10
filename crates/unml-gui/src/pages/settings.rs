@@ -1,5 +1,6 @@
 use gpui::*;
 use gpui_component::ActiveTheme;
+use gpui_markup::ui;
 use gpui_router::use_params;
 use rust_i18n::t;
 
@@ -38,16 +39,18 @@ impl RenderOnce for Page {
             Selection::About => (t!("settings.about_title"), t!("settings.about_desc")),
         };
 
-        div()
-            .flex()
-            .flex_col()
-            .gap(px(10.0))
-            .child(div().text_size(px(20.0)).child(title.to_string()))
-            .child(
-                div()
-                    .text_color(cx.theme().muted_foreground)
-                    .child(content.to_string()),
-            )
+        let theme = cx.theme();
+
+        ui! {
+            <div flex flex_col gap={px(10.0)}>
+                <div text_size={px(20.0)}>
+                    {title.to_string()}
+                </div>
+                <div text_color={theme.muted_foreground}>
+                    {content.to_string()}
+                </div>
+            </div>
+        }
     }
 }
 
