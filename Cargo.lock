@@ -2463,9 +2463,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-markup"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b30e6e273031be70defd8a0aacd9ac5999503038d3b86312c378581724f3925f"
+checksum = "b6f54c8878b3d34ddec45df4f642e33ebe79801707ed1ff7303298be37d25aef"
 dependencies = [
  "proc-macro-error2",
  "proc-macro2",
