@@ -17,22 +17,52 @@ impl RenderOnce for TitleBar {
         let theme = cx.theme();
 
         ui! {
-            <div id={"title-bar"} h={px(40.0)} bg={theme.title_bar} text_color={theme.foreground} flex items_center>
-                <div flex flex_1 items_center window_control_area={WindowControlArea::Drag}>
-                    <div flex items_center gap_2 pl_3>
-                        <div w={px(18.0)} h={px(18.0)} rounded={px(4.0)} bg={theme.secondary}>
-                            <div w={px(18.0)} h={px(18.0)} flex items_center justify_center>
-                                {SharedString::from("U")}
-                            </div>
-                        </div>
-                        {SharedString::from("UNML")}
-                    </div>
-                    <div flex_1 h={px(40.0)} />
-                </div>
-                <div flex items_center pr_2>
-                    <WindowControls />
-                </div>
-            </div>
+            div {
+                [
+                    id: "title-bar",
+                    h: px(40.0),
+                    bg: theme.title_bar,
+                    text_color: theme.foreground,
+                    flex,
+                    items_center
+                ]
+                div {
+                    [
+                        flex,
+                        flex_1,
+                        items_center,
+                        window_control_area: WindowControlArea::Drag
+                    ]
+                    div {
+                        [flex, items_center, gap_2, pl_3]
+                        div {
+                            [
+                                w: px(18.0),
+                                h: px(18.0),
+                                rounded: px(4.0),
+                                bg: theme.secondary
+                            ]
+                            div {
+                                [
+                                    w: px(18.0),
+                                    h: px(18.0),
+                                    flex,
+                                    items_center,
+                                    justify_center
+                                ]
+                                SharedString::from("U")
+                            }
+                        },
+                        SharedString::from("UNML")
+                    },
+                    // Spacer
+                    div { [flex_1, h: px(40.0)] }
+                },
+                div {
+                    [flex, items_center, pr_2]
+                    WindowControls {}
+                }
+            }
         }
     }
 }
@@ -49,14 +79,22 @@ impl WindowControls {
 impl RenderOnce for WindowControls {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
         if cfg!(target_os = "macos") {
-            return ui! { <div id={"window-controls"} /> };
+            return ui! { div { [id: "window-controls"] } };
         }
 
         ui! {
-            <div id={"window-controls"} flex items_center gap={px(6.0)} flex_shrink_0 h_full>
-                <{ControlIcon::minimize()} />
-                <{ControlIcon::close()} />
-            </div>
+            div {
+                [
+                    id: "window-controls",
+                    flex,
+                    items_center,
+                    gap: px(6.0),
+                    flex_shrink_0,
+                    h_full
+                ]
+                ControlIcon::minimize(),
+                ControlIcon::close()
+            }
         }
     }
 }
@@ -122,39 +160,40 @@ impl RenderOnce for ControlIcon {
         let icon_name = self.icon();
 
         ui! {
-            <div
-                id={self.id()}
-                flex
-                w={px(36.0)}
-                h={px(28.0)}
-                rounded={px(6.0)}
-                bg={rgb(base_bg)}
-                flex_shrink_0
-                justify_center
-                content_center
-                items_center
-                cursor_pointer
-                text_color={text_color}
-                hover={|style| style.bg(rgb(hover_bg)).text_color(hover_fg)}
-                active={|style| style.bg(rgb(active_bg)).text_color(active_fg)}
-                when={is_windows, |this| this.window_control_area(window_control_area)}
-                when={is_linux, move |this| {
-                    let icon = icon.clone();
-                    this.on_mouse_down(MouseButton::Left, move |_, window, cx| {
-                        window.prevent_default();
-                        cx.stop_propagation();
+            div {
+                [
+                    id: self.id(),
+                    flex,
+                    w: px(36.0),
+                    h: px(28.0),
+                    rounded: px(6.0),
+                    bg: rgb(base_bg),
+                    flex_shrink_0,
+                    justify_center,
+                    content_center,
+                    items_center,
+                    cursor_pointer,
+                    text_color: text_color,
+                    hover: move |style| style.bg(rgb(hover_bg)).text_color(hover_fg),
+                    active: move |style| style.bg(rgb(active_bg)).text_color(active_fg),
+                    when: (is_windows, move |this| this.window_control_area(window_control_area)),
+                    when: (is_linux, move |this| {
+                        let icon = icon.clone();
+                        this.on_mouse_down(MouseButton::Left, move |_, window, cx| {
+                            window.prevent_default();
+                            cx.stop_propagation();
+                        })
+                        .on_click(move |_, window, cx| {
+                            cx.stop_propagation();
+                            match icon {
+                                ControlIcon::Minimize => window.minimize_window(),
+                                ControlIcon::Close => window.remove_window(),
+                            }
+                        })
                     })
-                    .on_click(move |_, window, cx| {
-                        cx.stop_propagation();
-                        match icon {
-                            ControlIcon::Minimize => window.minimize_window(),
-                            ControlIcon::Close => window.remove_window(),
-                        }
-                    })
-                }}
-            >
-                <{Icon::new(icon_name).small()} />
-            </div>
+                ]
+                Icon::new(icon_name).small()
+            }
         }
     }
 }

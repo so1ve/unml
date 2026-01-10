@@ -48,25 +48,27 @@ impl RenderOnce for PageLayout {
         let outlet = self.outlet;
 
         ui! {
-            <div flex flex_1 overflow_hidden>
-                <{SidebarView::new(
+            div {
+                [flex, flex_1, overflow_hidden]
+                SidebarView::new(
                     self.base_path,
                     self.content,
                     self.variant,
                     current_id,
-                )} />
-                <div
-                    id={"content"}
-                    flex
-                    flex_col
-                    flex_1
-                    bg={theme.background}
-                    text_color={theme.foreground}
-                    p={px(16.0)}
-                >
-                    {outlet}
-                </div>
-            </div>
+                ),
+                div {
+                    [
+                        id: "content",
+                        flex,
+                        flex_col,
+                        flex_1,
+                        bg: theme.background,
+                        text_color: theme.foreground,
+                        p: px(16.0)
+                    ]
+                    outlet
+                }
+            }
         }
     }
 }

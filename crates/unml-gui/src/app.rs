@@ -18,13 +18,26 @@ impl LauncherView {
 impl Render for LauncherView {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         ui! {
-            <div size_full bg={cx.theme().background} flex flex_col>
-                <TitleBar />
-                <NavBar />
-                <div flex flex_1 overflow_hidden bg={cx.theme().background} text_color={cx.theme().foreground}>
-                    {routes::router()}
-                </div>
-            </div>
+            div {
+                [
+                    size_full,
+                    bg: cx.theme().background,
+                    flex,
+                    flex_col
+                ]
+                TitleBar {},
+                NavBar {},
+                div {
+                    [
+                        flex,
+                        flex_1,
+                        overflow_hidden,
+                        bg: cx.theme().background,
+                        text_color: cx.theme().foreground
+                    ]
+                    routes::router()
+                }
+            }
         }
     }
 }
