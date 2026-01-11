@@ -44,21 +44,23 @@ impl RenderOnce for FilterItem {
         let item_id = SharedString::from(self.item.id);
         let label = t!(self.item.label).to_string();
 
-        NavLink::new().to(SharedString::from(path)).child(ui! {
-            div @[
-                id: item_id,
-                h: px(32.0),
-                px_2,
-                rounded: px(4.0),
-                cursor_pointer,
-                flex,
-                items_center,
-                text_color: text_color,
-                bg: bg_color,
-                hover: |s| s.bg(theme.list_hover).text_color(theme.foreground)
-            ] {
-                label
+        ui! {
+            NavLink @[to: SharedString::from(path)] {
+                div @[
+                    id: item_id,
+                    h: px(32.0),
+                    px_2,
+                    rounded: px(4.0),
+                    cursor_pointer,
+                    flex,
+                    items_center,
+                    text_color: text_color,
+                    bg: bg_color,
+                    hover: |s| s.bg(theme.list_hover).text_color(theme.foreground)
+                ] {
+                    label
+                }
             }
-        })
+        }
     }
 }

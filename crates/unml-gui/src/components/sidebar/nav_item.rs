@@ -49,23 +49,25 @@ impl RenderOnce for NavItem {
         let item_id = SharedString::from(self.item.id);
         let label = t!(self.item.label).to_string();
 
-        NavLink::new().to(SharedString::from(path)).child(ui! {
-            div @[
-                id: item_id,
-                h: px(40.0),
-                px_3,
-                rounded: px(6.0),
-                border_l_2,
-                border_color: border_color,
-                cursor_pointer,
-                flex,
-                items_center,
-                text_color: text_color,
-                bg: bg_color,
-                hover: |s| s.bg(theme.list_hover).text_color(theme.foreground)
-            ] {
-                label
+        ui! {
+            NavLink @[to: SharedString::from(path)] {
+                div @[
+                    id: item_id,
+                    h: px(40.0),
+                    px_3,
+                    rounded: px(6.0),
+                    border_l_2,
+                    border_color: border_color,
+                    cursor_pointer,
+                    flex,
+                    items_center,
+                    text_color: text_color,
+                    bg: bg_color,
+                    hover: |s| s.bg(theme.list_hover).text_color(theme.foreground)
+                ] {
+                    label
+                }
             }
-        })
+        }
     }
 }

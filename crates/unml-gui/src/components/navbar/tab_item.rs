@@ -39,25 +39,27 @@ impl RenderOnce for TabItemView {
         let tab_id = SharedString::from(self.tab.id);
         let label = t!(self.tab.label).to_string();
 
-        NavLink::new().to(to).child(ui! {
-            div @[
-                id: tab_id,
-                h: px(36.0),
-                px_4,
-                border_b_2,
-                rounded: px(6.0),
-                cursor_pointer,
-                flex,
-                items_center,
-                gap_2,
-                text_color: text_color,
-                bg: bg_color,
-                hover: |s| s.bg(theme.list_hover).text_color(theme.foreground),
-                when: (active, |s| s.border_color(theme.primary).rounded_b_none())
-            ] {
-                Icon::new(self.tab.icon).size_4().text_color(text_color),
-                label
+        ui! {
+            NavLink @[to: to] {
+                div @[
+                    id: tab_id,
+                    h: px(36.0),
+                    px_4,
+                    border_b_2,
+                    rounded: px(6.0),
+                    cursor_pointer,
+                    flex,
+                    items_center,
+                    gap_2,
+                    text_color: text_color,
+                    bg: bg_color,
+                    hover: |s| s.bg(theme.list_hover).text_color(theme.foreground),
+                    when: (active, |s| s.border_color(theme.primary).rounded_b_none())
+                ] {
+                    Icon::new(self.tab.icon).size_4().text_color(text_color),
+                    label
+                }
             }
-        })
+        }
     }
 }
