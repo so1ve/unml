@@ -44,19 +44,18 @@ impl RenderOnce for IconButton {
         let theme = cx.theme();
 
         ui! {
-            div {
-                [
-                    id: self.id,
-                    size: self.size,
-                    rounded: px(6.0),
-                    cursor_pointer,
-                    flex,
-                    items_center,
-                    justify_center,
-                    text_color: theme.muted_foreground,
-                    hover: |s| s.bg(theme.secondary).text_color(theme.foreground),
-                    active: |s| s.bg(theme.secondary_hover)
-                ]
+            div @[
+                id: self.id,
+                size: self.size,
+                rounded: px(6.0),
+                cursor_pointer,
+                flex,
+                items_center,
+                justify_center,
+                text_color: theme.muted_foreground,
+                hover: |s| s.bg(theme.secondary).text_color(theme.foreground),
+                active: |s| s.bg(theme.secondary_hover)
+            ] {
                 Icon::new(self.icon).size_4()
             }
         }

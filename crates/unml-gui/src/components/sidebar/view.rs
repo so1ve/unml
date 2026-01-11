@@ -64,9 +64,7 @@ impl RenderOnce for SidebarView {
                 if idx < section_count - 1 {
                     elements.push(
                         ui! {
-                            div {
-                                [h: px(1.0), bg: theme.border, my_2]
-                            }
+                            div @[h: px(1.0), bg: theme.border, my_2] {}
                         }
                         .into_any_element(),
                     );
@@ -77,19 +75,18 @@ impl RenderOnce for SidebarView {
             .collect();
 
         ui! {
-            div {
-                [
-                    id: "sidebar",
-                    w: px(240.0),
-                    h_full,
-                    bg: theme.sidebar,
-                    border_r_1,
-                    border_color: theme.border,
-                    flex,
-                    flex_col,
-                    p_4,
-                    gap_3
-                ]
+            div @[
+                id: "sidebar",
+                w: px(240.0),
+                h_full,
+                bg: theme.sidebar,
+                border_r_1,
+                border_color: theme.border,
+                flex,
+                flex_col,
+                p_4,
+                gap_3
+            ] {
                 ..children
             }
         }

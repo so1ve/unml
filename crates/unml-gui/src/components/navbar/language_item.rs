@@ -35,29 +35,26 @@ impl RenderOnce for LanguageItem {
         let item_id = SharedString::from(self.locale);
 
         ui! {
-            div {
-                [
-                    id: item_id,
-                    h: px(32.0),
-                    px_3,
-                    cursor_pointer,
-                    flex,
-                    items_center,
-                    justify_between,
-                    text_color: text_color,
-                    hover: |s| s.bg(theme.list_hover).text_color(theme.foreground),
-                    on_click: move |_, _, cx| {
-                        rust_i18n::set_locale(locale);
-                        cx.refresh_windows();
-                    }
-                ]
+            div @[
+                id: item_id,
+                h: px(32.0),
+                px_3,
+                cursor_pointer,
+                flex,
+                items_center,
+                justify_between,
+                text_color: text_color,
+                hover: |s| s.bg(theme.list_hover).text_color(theme.foreground),
+                on_click: move |_, _, cx| {
+                    rust_i18n::set_locale(locale);
+                    cx.refresh_windows();
+                }
+            ] {
                 label,
                 .when(self.selected, |s| {
                     s.child(
                         ui! {
-                            Icon::new(IconName::Check) {
-                                [size_4, text_color: theme.primary]
-                            }
+                            Icon::new(IconName::Check) @[size_4, text_color: theme.primary] {}
                         }
                     )
                 })

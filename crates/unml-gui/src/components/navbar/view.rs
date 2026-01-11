@@ -40,29 +40,26 @@ impl RenderOnce for NavBar {
             .collect();
 
         ui! {
-            div {
-                [
-                    id: "navbar",
-                    h: px(48.0),
-                    w_full,
-                    bg: theme.tab_bar,
-                    border_b_1,
-                    border_color: theme.border,
-                    flex,
-                    items_center,
-                    px_4,
-                    gap_1
-                ]
+            div @[
+                id: "navbar",
+                h: px(48.0),
+                w_full,
+                bg: theme.tab_bar,
+                border_b_1,
+                border_color: theme.border,
+                flex,
+                items_center,
+                px_4,
+                gap_1
+            ] {
                 ..tab_children,
-                div { [flex_1] },
-                Popover::new("i18n-popover") {
-                    [trigger: IconButton::new("i18n-button", IconName::Globe)]
+                div @[flex_1] {},
+                Popover::new("i18n-popover") @[trigger: IconButton::new("i18n-button", IconName::Globe)] {
                     .content(|_, _, _| {
                         let current_locale = rust_i18n::locale();
                         let current: &str = &current_locale;
                         ui! {
-                            div {
-                                [min_w: px(120.0), py_1]
+                            div @[min_w: px(120.0), py_1] {
                                 LanguageItem::new("zh-CN", current == "zh-CN"),
                                 LanguageItem::new("en", current == "en")
                             }

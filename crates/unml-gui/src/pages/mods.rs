@@ -18,10 +18,6 @@ unml_macros::define_sidebar! {
     }
 }
 
-// ============================================================================
-// Page Content
-// ============================================================================
-
 #[derive(IntoElement)]
 pub struct Page;
 
@@ -44,14 +40,11 @@ impl RenderOnce for Page {
         let theme = cx.theme();
 
         ui! {
-            div {
-                [flex, flex_col, gap: px(10.0)]
-                div {
-                    [text_size: px(20.0)]
+            div @[flex, flex_col, gap: px(10.0)] {
+                div @[text_size: px(20.0)] {
                     t!("mods.title").to_string()
                 },
-                div {
-                    [text_color: theme.muted_foreground]
+                div @[text_color: theme.muted_foreground] {
                     content.to_string()
                 }
             }

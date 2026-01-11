@@ -20,13 +20,12 @@ impl RenderOnce for SectionTitle {
         let title = t!(self.title).to_string().to_uppercase();
 
         ui! {
-            div {
-                [
-                    text_xs,
-                    font_weight: FontWeight::MEDIUM,
-                    text_color: cx.theme().muted_foreground,
-                    mb_1
-                ]
+            div @[
+                text_xs,
+                font_weight: FontWeight::MEDIUM,
+                text_color: cx.theme().muted_foreground,
+                mb_1
+            ] {
                 title
             }
         }
