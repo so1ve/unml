@@ -52,11 +52,11 @@ impl RenderOnce for LanguageItem {
             ] {
                 label,
                 .when(self.selected, |s| {
-                    s.child(
-                        ui! {
+                    ui! {
+                        s {
                             Icon::new(IconName::Check) @[size_4, text_color: theme.primary] {}
                         }
-                    )
+                    }
                 })
             }
         }
