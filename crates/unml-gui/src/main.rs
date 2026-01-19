@@ -6,6 +6,7 @@ mod macros;
 mod pages;
 mod routes;
 mod theme;
+mod tokio;
 
 use gpui::*;
 use gpui_component_assets::Assets;
@@ -15,8 +16,12 @@ rust_i18n::i18n!("locales", fallback = "en");
 fn init(cx: &mut App) {
     rust_i18n::set_locale("zh-CN");
 
+    tokio::init(cx);
+
     gpui_component::init(cx);
     gpui_router::init(cx);
+
+    pages::settings::init_java_settings(cx);
 
     theme::apply_unml_dark_theme(cx);
 }
@@ -36,7 +41,10 @@ fn main() {
                     is_resizable: false,
                     ..Default::default()
                 },
-                |_, cx| cx.new(|_| app::LauncherView::new()),
+                |window, cx| {
+                    let view = cx.new(|_| app::LauncherView::new());
+                    cx.new(|cx| gpui_component::Root::new(view, window, cx))
+                },
             )
             .unwrap();
 

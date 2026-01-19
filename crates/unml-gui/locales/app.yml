@@ -165,6 +165,21 @@ settings.java_title:
 settings.java_desc:
   zh-CN: Java 路径和版本管理
   en: Java path and version management
+settings.java_select_label:
+  zh-CN: 选择 Java 版本
+  en: Select Java Version
+settings.java_select_placeholder:
+  zh-CN: 请选择一个 Java 版本...
+  en: Select a Java version...
+settings.java_loading:
+  zh-CN: 正在检测 Java 安装...
+  en: Detecting Java installations...
+settings.java_refresh:
+  zh-CN: 重新检测
+  en: Refresh
+settings.java_not_found:
+  zh-CN: 未找到 Java 安装
+  en: No Java installation found
 settings.game_title:
   zh-CN: 游戏设置
   en: Game Settings
