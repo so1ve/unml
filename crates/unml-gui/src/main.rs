@@ -12,12 +12,18 @@ use gpui_component_assets::Assets;
 
 rust_i18n::i18n!("locales", fallback = "en");
 
+fn init(cx: &mut App) {
+    rust_i18n::set_locale("zh-CN");
+
+    gpui_component::init(cx);
+    gpui_router::init(cx);
+
+    theme::apply_unml_dark_theme(cx);
+}
+
 fn main() {
     Application::new().with_assets(Assets).run(|cx: &mut App| {
-        gpui_component::init(cx);
-        gpui_router::init(cx);
-
-        theme::apply_unml_dark_theme(cx);
+        init(cx);
 
         let bounds = Bounds::centered(None, size(px(960.), px(600.)), cx);
 
