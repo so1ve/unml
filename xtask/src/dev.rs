@@ -7,6 +7,8 @@ use std::time::Duration;
 use anyhow::Result;
 use notify::{RecursiveMode, Watcher};
 
+const MAX_CONSECUTIVE_CRASHES: u32 = 3;
+
 pub fn run_dev() -> Result<()> {
     let workspace_root = workspace_root()?;
     let crates_dir = workspace_root.join("crates");
@@ -51,6 +53,8 @@ fn run_dev_watch(
 
     watcher.watch(crates_dir, RecursiveMode::Recursive)?;
 
+    let mut consecutive_crashes = 0u32;
+
     loop {
         println!("(re)starting unml-gui...");
 
@@ -64,14 +68,42 @@ fn run_dev_watch(
                 if status.success() {
                     // User closed the window (normal exit): stop dev watcher.
                     println!("dev app exited; stopping.");
+
                     return Ok(());
                 }
 
-                eprintln!("dev app exited with {status}; waiting for changes...");
+                // Check if it's a cargo compilation error (exit code 101)
+                let is_compilation_error = status.code() == Some(101);
 
-                // If the app crashes/exits non-zero, restart only after a change to avoid
-                // rapid crash loops.
-                let _ = rx.recv();
+                if is_compilation_error {
+                    eprintln!("cargo compilation failed; waiting for file changes...");
+
+                    let _ = rx.recv();
+                    consecutive_crashes = 0; // Reset counter after file change
+
+                    break;
+                }
+
+                consecutive_crashes += 1;
+
+                eprintln!(
+                    "dev app exited with {status} (crash #{consecutive_crashes}); {}",
+                    if consecutive_crashes >= MAX_CONSECUTIVE_CRASHES {
+                        "waiting for file changes..."
+                    } else {
+                        "restarting in 1 second..."
+                    }
+                );
+
+                if consecutive_crashes >= MAX_CONSECUTIVE_CRASHES {
+                    // Too many consecutive crashes: wait for file changes to avoid infinite crash
+                    // loops.
+                    let _ = rx.recv();
+                    consecutive_crashes = 0;
+                } else {
+                    std::thread::sleep(Duration::from_secs(1));
+                }
+
                 break;
             }
 
@@ -81,10 +113,14 @@ fn run_dev_watch(
                     while rx.try_recv().is_ok() {}
                     std::thread::sleep(Duration::from_millis(150));
 
+                    // File change detected - reset crash counter
+                    consecutive_crashes = 0;
+
                     let pid = child.id();
                     let _ = kill_process_tree(pid);
                     let _ = child.wait();
                     child_pid.store(0, Ordering::SeqCst);
+
                     break;
                 }
                 Err(mpsc::RecvTimeoutError::Timeout) => {
@@ -100,6 +136,7 @@ fn run_dev_watch(
 
 fn workspace_root() -> Result<PathBuf> {
     let xtask_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+
     xtask_dir
         .parent()
         .map(Path::to_path_buf)
@@ -108,9 +145,11 @@ fn workspace_root() -> Result<PathBuf> {
 
 fn spawn_dev_command(workspace_root: &Path) -> Command {
     let mut command = Command::new("cargo");
+
     command
         .current_dir(workspace_root)
         .args(["run", "--package", "unml-gui", "--bin", "unml"]);
+
     command
 }
 
@@ -140,6 +179,7 @@ fn kill_process_tree(pid: u32) -> Result<()> {
         Ok(_) => Ok(()),
         Err(err) => {
             eprintln!("kill_tree failed for pid {pid}: {err}");
+
             Ok(())
         }
     }
@@ -156,6 +196,7 @@ fn kill_own_children() -> Result<()> {
         Ok(_) => Ok(()),
         Err(err) => {
             eprintln!("kill_tree failed for current process children: {err}");
+
             Ok(())
         }
     }
