@@ -1,6 +1,5 @@
 //! Java settings page with Java version selector.
 
-use std::fmt::format;
 use std::path::PathBuf;
 use std::sync::Arc;
 
@@ -230,34 +229,6 @@ impl Render for JavaSettingsView {
     }
 }
 
-pub struct JavaSettingsGlobal {
-    pub view: Option<Entity<JavaSettingsView>>,
-}
-
-impl Global for JavaSettingsGlobal {}
-
-impl JavaSettingsGlobal {
-    pub fn get_or_create(window: &mut Window, cx: &mut App) -> Entity<JavaSettingsView> {
-        if let Some(global) = cx.try_global::<Self>()
-            && let Some(view) = &global.view
-        {
-            return view.clone();
-        }
-
-        let view = cx.new(|cx| JavaSettingsView::new(window, cx));
-
-        cx.set_global(Self {
-            view: Some(view.clone()),
-        });
-
-        view
-    }
-}
-
-pub fn init(cx: &mut App) {
-    cx.set_global(JavaSettingsGlobal { view: None });
-}
-
 pub fn page(window: &mut Window, cx: &mut App) -> Entity<JavaSettingsView> {
-    JavaSettingsGlobal::get_or_create(window, cx)
+    cx.new(|cx| JavaSettingsView::new(window, cx))
 }

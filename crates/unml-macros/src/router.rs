@@ -170,25 +170,22 @@ pub fn define(input: TokenStream) -> TokenStream {
                             ))
                             .child(Route::new().index().element(|_, _| pages::#name::page()))
                             .child(
-                                // TODO: REMOVE this since this is for testing purpose only
                                 Route::new()
-                                    .path("{selection}")
+                                    .path("{subroute}")
                                     .element(|_, _| pages::#name::page()),
                             )
                     )
                 }
             } else {
-                let child_routes: Vec<_> = route
+                let first_child = &route.children[0].name;
+                let child_dispatch_arms: Vec<_> = route
                     .children
                     .iter()
                     .map(|child| {
                         let child_name = &child.name;
+                        let child_name_str = child_name.to_string();
                         quote! {
-                            .child(
-                                Route::new()
-                                    .path(stringify!(#child_name))
-                                    .element(|window, cx| pages::#name::#child_name::page(window, cx))
-                            )
+                            #child_name_str => pages::#name::#child_name::page(window, cx).into_any_element()
                         }
                     })
                     .collect();
@@ -204,7 +201,18 @@ pub fn define(input: TokenStream) -> TokenStream {
                                 pages::#name::DEFAULT_ID.unwrap(),
                             ))
                             .child(Route::new().index().element(|_, _| pages::#name::page()))
-                            #(#child_routes)*
+                            .child(
+                                Route::new()
+                                    .path("{subroute}")
+                                    .element(|window, cx| {
+                                        let params = gpui_router::use_params(cx);
+                                        let subroute = params.get("subroute").map(|s| s.as_str()).unwrap_or(stringify!(#first_child));
+                                        match subroute {
+                                            #(#child_dispatch_arms,)*
+                                            _ => unreachable!("invalid subroute! how did we get here? got {subroute}"),
+                                        }
+                                    })
+                            )
                     )
                 }
             }

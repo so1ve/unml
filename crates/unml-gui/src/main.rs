@@ -20,8 +20,6 @@ fn init(cx: &mut App) {
     gpui_component::init(cx);
     gpui_router::init(cx);
 
-    pages::settings::init_java_settings(cx);
-
     theme::apply_unml_dark_theme(cx);
 }
 

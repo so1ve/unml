@@ -35,8 +35,9 @@ impl PageLayout {
 impl RenderOnce for PageLayout {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let params = use_params(cx);
+
         let current_id = params
-            .get("selection")
+            .get("subroute")
             .map(ToString::to_string)
             .unwrap_or_else(|| self.default_id.to_string());
 
