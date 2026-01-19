@@ -5,35 +5,21 @@ use quote::quote;
 use syn::parse::{Parse, ParseStream};
 use syn::{Ident, LitStr, Result, Token, braced};
 
-/// Convert PascalCase to snake_case
-fn to_snake_case(s: &str) -> String {
-    let mut result = String::new();
-    for (i, c) in s.chars().enumerate() {
-        if c.is_uppercase() {
-            if i > 0 {
-                result.push('_');
-            }
-            result.push(c.to_lowercase().next().unwrap());
-        } else {
-            result.push(c);
-        }
-    }
-    result
-}
-
-/// A single sidebar item: `Variant => "label"`
+/// A single sidebar item: `route_id => "label"`
+///
+/// The route_id should match a child route defined in `define_app_routes!`.
 struct SidebarItem {
-    variant: Ident,
+    route_id: Ident,
     label: LitStr,
 }
 
 impl Parse for SidebarItem {
     fn parse(input: ParseStream) -> Result<Self> {
-        let variant: Ident = input.parse()?;
+        let route_id: Ident = input.parse()?;
         input.parse::<Token![=>]>()?;
         let label: LitStr = input.parse()?;
 
-        Ok(SidebarItem { variant, label })
+        Ok(SidebarItem { route_id, label })
     }
 }
 
@@ -137,6 +123,13 @@ impl Parse for SidebarDef {
 }
 
 /// Core implementation of the define_sidebar macro.
+///
+/// Generates:
+/// - `SIDEBAR: Option<&'static SidebarContent>` - sidebar content for the page layout
+/// - `VARIANT: Option<SidebarVariant>` - sidebar variant (Filter or Navigation)
+/// - `DEFAULT_ID: Option<&'static str>` - default child route ID
+///
+/// Does NOT generate `Selection` enum - pages should use the selection parameter directly.
 pub fn define(input: TokenStream) -> TokenStream {
     let def: SidebarDef = match syn::parse2(input) {
         Ok(def) => def,
@@ -154,26 +147,14 @@ pub fn define(input: TokenStream) -> TokenStream {
 
     let variant_ident = &def.variant.as_ref().unwrap().variant;
 
-    // Collect all items with their info
-    struct ItemInfo {
-        variant: Ident,
-        id: String,
-    }
+    // Collect all items to find the first one (default)
+    let first_item = def
+        .sections
+        .iter()
+        .flat_map(|s| s.items.iter())
+        .next();
 
-    let mut all_items: Vec<ItemInfo> = Vec::new();
-
-    for section in &def.sections {
-        for item in &section.items {
-            let id = to_snake_case(&item.variant.to_string());
-            all_items.push(ItemInfo {
-                variant: item.variant.clone(),
-                id,
-            });
-        }
-    }
-
-    // Use first item as default
-    let first_item = match all_items.first() {
+    let first_item = match first_item {
         Some(item) => item,
         None => {
             return syn::Error::new(
@@ -184,31 +165,7 @@ pub fn define(input: TokenStream) -> TokenStream {
         }
     };
 
-    let default_variant = &first_item.variant;
-    let default_id = &first_item.id;
-
-    // Generate Selection enum
-    let enum_variants: Vec<_> = all_items.iter().map(|item| &item.variant).collect();
-
-    // Generate id() match arms
-    let id_arms: Vec<_> = all_items
-        .iter()
-        .map(|item| {
-            let variant = &item.variant;
-            let id = &item.id;
-            quote! { Self::#variant => #id }
-        })
-        .collect();
-
-    // Generate from_id() match arms
-    let from_id_arms: Vec<_> = all_items
-        .iter()
-        .map(|item| {
-            let variant = &item.variant;
-            let id = &item.id;
-            quote! { #id => Self::#variant }
-        })
-        .collect();
+    let default_id = first_item.route_id.to_string();
 
     // Generate sidebar sections
     let section_tokens: Vec<_> = def
@@ -219,7 +176,7 @@ pub fn define(input: TokenStream) -> TokenStream {
                 .items
                 .iter()
                 .map(|item| {
-                    let id = to_snake_case(&item.variant.to_string());
+                    let id = item.route_id.to_string();
                     let label = &item.label;
                     quote! {
                         crate::components::sidebar::SidebarItem::new(#id, #label)
@@ -239,37 +196,6 @@ pub fn define(input: TokenStream) -> TokenStream {
         .collect();
 
     quote! {
-        #[derive(Clone, Copy, PartialEq, Eq, Debug)]
-        pub enum Selection {
-            #(#enum_variants),*
-        }
-
-        impl Selection {
-            /// Returns the string ID for this selection.
-            #[inline]
-            pub const fn id(&self) -> &'static str {
-                match self {
-                    #(#id_arms),*
-                }
-            }
-
-            /// Creates a selection from a string ID.
-            #[inline]
-            pub fn from_id(id: &str) -> Self {
-                match id {
-                    #(#from_id_arms,)*
-                    _ => unreachable!(),
-                }
-            }
-        }
-
-        impl ::core::default::Default for Selection {
-            #[inline]
-            fn default() -> Self {
-                Self::#default_variant
-            }
-        }
-
         pub const SIDEBAR: Option<&'static crate::components::sidebar::SidebarContent> = Some(&crate::components::sidebar::SidebarContent::new(&[
             #(#section_tokens),*
         ]));

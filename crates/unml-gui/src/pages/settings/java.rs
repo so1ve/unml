@@ -257,3 +257,7 @@ impl JavaSettingsGlobal {
 pub fn init(cx: &mut App) {
     cx.set_global(JavaSettingsGlobal { view: None });
 }
+
+pub fn page(window: &mut Window, cx: &mut App) -> Entity<JavaSettingsView> {
+    JavaSettingsGlobal::get_or_create(window, cx)
+}

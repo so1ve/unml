@@ -2,7 +2,6 @@
 
 mod app;
 mod components;
-mod macros;
 mod pages;
 mod routes;
 mod theme;

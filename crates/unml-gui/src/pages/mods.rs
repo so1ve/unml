@@ -26,16 +26,8 @@ impl RenderOnce for Page {
         let params = use_params(cx);
         let selection = params
             .get("selection")
-            .map(|s| Selection::from_id(s))
-            .unwrap_or_default();
-
-        let content = match selection {
-            Selection::Installed => t!("mods.installed_list"),
-            Selection::Browse => t!("mods.browse_online"),
-            Selection::Fabric => t!("mods.fabric"),
-            Selection::Forge => t!("mods.forge"),
-            Selection::Quilt => t!("mods.quilt"),
-        };
+            .map(|s| s.as_str())
+            .unwrap_or(DEFAULT_ID.unwrap_or("Installed"));
 
         let theme = cx.theme();
 
@@ -45,7 +37,7 @@ impl RenderOnce for Page {
                     t!("mods.title").to_string()
                 },
                 div @[text_color: theme.muted_foreground] {
-                    content.to_string()
+                    format!("Selection: {}", selection)
                 }
             }
         }

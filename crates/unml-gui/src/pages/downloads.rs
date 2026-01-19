@@ -23,15 +23,8 @@ impl RenderOnce for Page {
         let params = use_params(cx);
         let selection = params
             .get("selection")
-            .map(|s| Selection::from_id(s))
-            .unwrap_or_default();
-
-        let content = match selection {
-            Selection::All => t!("downloads.all_tasks"),
-            Selection::InProgress => t!("downloads.in_progress_tasks"),
-            Selection::Completed => t!("downloads.completed_tasks"),
-            Selection::Failed => t!("downloads.failed_tasks"),
-        };
+            .map(|s| s.as_str())
+            .unwrap_or(DEFAULT_ID.unwrap_or("All"));
 
         let theme = cx.theme();
 
@@ -41,7 +34,7 @@ impl RenderOnce for Page {
                     t!("downloads.title").to_string()
                 },
                 div @[text_color: theme.muted_foreground] {
-                    content.to_string()
+                    format!("Selection: {}", selection)
                 }
             }
         }

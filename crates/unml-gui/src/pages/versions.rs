@@ -25,15 +25,8 @@ impl RenderOnce for Page {
         let params = use_params(cx);
         let selection = params
             .get("selection")
-            .map(|s| Selection::from_id(s))
-            .unwrap_or_default();
-
-        let content = match selection {
-            Selection::Release => t!("versions.release_list"),
-            Selection::Snapshot => t!("versions.snapshot_list"),
-            Selection::Old => t!("versions.old_list"),
-            Selection::Installed => t!("versions.installed_list"),
-        };
+            .map(|s| s.as_str())
+            .unwrap_or(DEFAULT_ID.unwrap_or("Release"));
 
         let theme = cx.theme();
 
@@ -43,7 +36,7 @@ impl RenderOnce for Page {
                     t!("versions.title").to_string()
                 },
                 div @[text_color: theme.muted_foreground] {
-                    content.to_string()
+                    format!("Selection: {}", selection)
                 }
             }
         }

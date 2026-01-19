@@ -6,34 +6,33 @@
 //! - `router()` function
 //! - `NAV_TABS` constant
 
-crate::define_app_routes! {
+unml_macros::define_app_routes! {
     home {
-        path: "/",
         label: "nav.home",
         icon: LayoutDashboard,
     }
 
     versions {
-        path: "/versions",
         label: "nav.versions",
         icon: Folder,
     }
 
     mods {
-        path: "/mods",
         label: "nav.mods",
         icon: Star,
     }
 
     downloads {
-        path: "/downloads",
         label: "nav.downloads",
         icon: ArrowDown,
     }
 
     settings {
-        path: "/settings",
         label: "nav.settings",
         icon: Settings,
+
+        children {
+            java,
+        }
     }
 }
