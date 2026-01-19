@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use std::path::Path;
 
 use async_trait::async_trait;
@@ -32,9 +33,8 @@ pub trait DownloadProvider: Send + Sync {
         6
     }
 
-    /// URL 转换（用于镜像源）
-    fn transform_url(&self, url: &str) -> String {
-        url.to_string()
+    fn transform_url<'a>(&self, url: &'a str) -> Cow<'a, str> {
+        Cow::Borrowed(url)
     }
 }
 

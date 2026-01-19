@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use std::path::Path;
 
 use async_trait::async_trait;
@@ -48,7 +49,7 @@ impl DownloadProvider for BMCLAPIDownloadProvider {
         num_cpus::get() * 2
     }
 
-    fn transform_url(&self, url: &str) -> String {
+    fn transform_url<'a>(&self, url: &'a str) -> Cow<'a, str> {
         const REPLACEMENTS: &[(&str, &str)] = &[
             ("https://launchermeta.mojang.com", ""),
             ("https://piston-meta.mojang.com", ""),
@@ -57,11 +58,11 @@ impl DownloadProvider for BMCLAPIDownloadProvider {
 
         for (prefix, replacement) in REPLACEMENTS {
             if let Some(suffix) = url.strip_prefix(prefix) {
-                return format!("{}{}{}", self.mirror_root, replacement, suffix);
+                return Cow::Owned(format!("{}{}{}", self.mirror_root, replacement, suffix));
             }
         }
 
-        url.to_string()
+        Cow::Borrowed(url)
     }
 }
 
