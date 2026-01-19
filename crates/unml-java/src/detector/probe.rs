@@ -43,7 +43,7 @@ impl JavaProbe {
                 && let Some(start) = line.find('"')
                 && let Some(end) = line[start + 1..].find('"')
             {
-                return Ok(line[start + 1..start + 1 + end].to_string());
+                return Ok(line[start + 1..start + 1 + end].to_owned());
             }
         }
 
@@ -67,13 +67,13 @@ impl JavaProbe {
             let lower = line.to_lowercase();
 
             if lower.contains("openjdk") {
-                return Some("OpenJDK".to_string());
+                return Some("OpenJDK".to_owned());
             } else if lower.contains("oracle") {
-                return Some("Oracle".to_string());
+                return Some("Oracle".to_owned());
             } else if lower.contains("zulu") {
-                return Some("Azul Zulu".to_string());
+                return Some("Azul Zulu".to_owned());
             } else if lower.contains("adoptium") || lower.contains("temurin") {
-                return Some("Eclipse Adoptium".to_string());
+                return Some("Eclipse Adoptium".to_owned());
             }
         }
 
@@ -83,9 +83,9 @@ impl JavaProbe {
     fn parse_arch(output: &str) -> Option<String> {
         for line in output.lines() {
             if line.contains("64-Bit") || line.contains("x86_64") || line.contains("amd64") {
-                return Some("x64".to_string());
+                return Some("x64".to_owned());
             } else if line.contains("aarch64") || line.contains("arm64") {
-                return Some("aarch64".to_string());
+                return Some("aarch64".to_owned());
             }
         }
 

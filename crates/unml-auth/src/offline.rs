@@ -34,7 +34,7 @@ impl AuthProvider for OfflineAuthProvider {
                 })
             }
             _ => Err(Error::AuthFailed(
-                "Offline provider only supports offline credentials".to_string(),
+                "Offline provider only supports offline credentials".to_owned(),
             )),
         }
     }

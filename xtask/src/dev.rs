@@ -170,7 +170,7 @@ fn install_ctrlc_handler(child_pid: Arc<AtomicU32>) -> Result<()> {
 
 fn kill_process_tree(pid: u32) -> Result<()> {
     let config = kill_tree::Config {
-        signal: "SIGKILL".to_string(),
+        signal: "SIGKILL".to_owned(),
         ..Default::default()
     };
 
@@ -188,7 +188,7 @@ fn kill_process_tree(pid: u32) -> Result<()> {
 fn kill_own_children() -> Result<()> {
     let current_process_id = std::process::id();
     let config = kill_tree::Config {
-        signal: "SIGKILL".to_string(),
+        signal: "SIGKILL".to_owned(),
         include_target: false,
     };
 

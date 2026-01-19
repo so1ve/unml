@@ -47,7 +47,7 @@ impl MicrosoftAuthProvider {
             .display_claims
             .xui
             .first()
-            .ok_or_else(|| Error::AuthFailed("No Xbox user info".to_string()))?
+            .ok_or_else(|| Error::AuthFailed("No Xbox user info".to_owned()))?
             .uhs
             .clone();
 
@@ -105,7 +105,7 @@ impl AuthProvider for MicrosoftAuthProvider {
         match credentials {
             Credentials::Microsoft { .. } => self.full_login().await,
             _ => Err(Error::AuthFailed(
-                "Microsoft provider only supports Microsoft credentials".to_string(),
+                "Microsoft provider only supports Microsoft credentials".to_owned(),
             )),
         }
     }
@@ -114,7 +114,7 @@ impl AuthProvider for MicrosoftAuthProvider {
         let refresh_token = account
             .refresh_token
             .as_ref()
-            .ok_or_else(|| Error::AuthFailed("No refresh token available".to_string()))?;
+            .ok_or_else(|| Error::AuthFailed("No refresh token available".to_owned()))?;
 
         let client = http_client();
 
