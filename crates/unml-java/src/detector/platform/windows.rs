@@ -12,44 +12,56 @@ pub struct WindowsDetector;
 
 impl WindowsDetector {
     pub async fn detect_from_registry() -> Result<Vec<JavaInstallation>> {
-        let mut installations = Vec::new();
+        // Use spawn_blocking for registry operations since RegKey is not Send + Sync
+        let java_homes = tokio::task::spawn_blocking(|| {
+            let mut homes = Vec::new();
 
-        let registry_paths = vec![
-            (
-                HKEY_LOCAL_MACHINE,
-                r"SOFTWARE\JavaSoft\Java Runtime Environment",
-            ),
-            (
-                HKEY_LOCAL_MACHINE,
-                r"SOFTWARE\JavaSoft\Java Development Kit",
-            ),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\JavaSoft\JRE"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\JavaSoft\JDK"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\Eclipse Adoptium\JRE"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\Eclipse Adoptium\JDK"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\Eclipse Foundation\JDK"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\Azul Systems\Zulu"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\JDK"),
-            (HKEY_LOCAL_MACHINE, r"SOFTWARE\BellSoft\Liberica"),
-        ];
+            let registry_paths = vec![
+                (
+                    HKEY_LOCAL_MACHINE,
+                    r"SOFTWARE\JavaSoft\Java Runtime Environment",
+                ),
+                (
+                    HKEY_LOCAL_MACHINE,
+                    r"SOFTWARE\JavaSoft\Java Development Kit",
+                ),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\JavaSoft\JRE"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\JavaSoft\JDK"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\Eclipse Adoptium\JRE"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\Eclipse Adoptium\JDK"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\Eclipse Foundation\JDK"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\Azul Systems\Zulu"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\JDK"),
+                (HKEY_LOCAL_MACHINE, r"SOFTWARE\BellSoft\Liberica"),
+            ];
 
-        for (hkey, path) in registry_paths {
-            if let Ok(key) = RegKey::predef(hkey).open_subkey(path) {
-                for version_name in key.enum_keys().filter_map(|k| k.ok()) {
-                    if let Ok(version_key) = key.open_subkey(&version_name)
-                        && let Ok(java_home) = version_key.get_value::<String, _>("JavaHome")
-                    {
-                        let java_home_path = PathBuf::from(&java_home);
-                        let executable = java_home_path
-                            .join("bin")
-                            .join(JavaInstallation::executable_name());
-
-                        if let Ok(mut installation) = JavaProbe::probe(&executable).await {
-                            installation.home = java_home_path;
-                            installations.push(installation);
+            for (hkey, path) in registry_paths {
+                if let Ok(key) = RegKey::predef(hkey).open_subkey(path) {
+                    for version_name in key.enum_keys().filter_map(|k| k.ok()) {
+                        if let Ok(version_key) = key.open_subkey(&version_name)
+                            && let Ok(java_home) = version_key.get_value::<String, _>("JavaHome")
+                        {
+                            homes.push(PathBuf::from(java_home));
                         }
                     }
                 }
+            }
+
+            homes
+        })
+        .await
+        .unwrap_or_default();
+
+        let mut installations = Vec::new();
+
+        for java_home_path in java_homes {
+            let executable = java_home_path
+                .join("bin")
+                .join(JavaInstallation::executable_name());
+
+            if let Ok(mut installation) = JavaProbe::probe(&executable).await {
+                installation.home = java_home_path;
+                installations.push(installation);
             }
         }
 
