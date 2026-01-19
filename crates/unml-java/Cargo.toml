@@ -8,8 +8,8 @@ license.workspace = true
 [dependencies]
 serde = { workspace = true }
 thiserror = { workspace = true }
-tokio = { workspace = true, features = ["process", "fs", "io-util"] }
+tokio = { workspace = true, features = ["process", "fs", "sync", "rt"] }
 unml-core = { path = "../unml-core" }
 
-[dev-dependencies]
-tokio = { workspace = true }
+[target.'cfg(windows)'.dependencies]
+winreg = "0.55"

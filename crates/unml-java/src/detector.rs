@@ -1,8 +1,19 @@
+mod platform;
+mod probe;
+mod scanner;
+
+use std::collections::HashSet;
 use std::path::{Path, PathBuf};
+use std::{env, fs};
 
-use tokio::process::Command;
-
-use crate::{Error, JavaInstallation, Result};
+#[cfg(target_os = "linux")]
+use self::platform::LinuxDetector;
+#[cfg(target_os = "macos")]
+use self::platform::MacOSDetector;
+#[cfg(windows)]
+use self::platform::WindowsDetector;
+use self::probe::JavaProbe;
+use crate::{Error, JavaInstallation, JavaVersion, Result};
 
 pub struct JavaDetector;
 
@@ -11,40 +22,44 @@ impl JavaDetector {
         Self
     }
 
-    /// 检测系统中所有 Java 安装
-    pub async fn detect_all(&self) -> Result<Vec<JavaInstallation>> {
+    pub async fn detect(&self) -> Result<Vec<JavaInstallation>> {
         let mut installations = Vec::new();
-        let mut seen_paths = std::collections::HashSet::new();
+        let mut seen_paths = HashSet::new();
 
-        // 1. 检查 JAVA_HOME
+        // 1. JAVA_HOME
         if let Some(installation) = self.detect_from_env().await? {
-            seen_paths.insert(installation.executable.clone());
-            installations.push(installation);
+            let canonical = self.get_canonical_path(&installation.executable);
+            if seen_paths.insert(canonical) {
+                installations.push(installation);
+            }
         }
 
-        // 2. 检查 PATH
+        // 2. PATH
         for installation in self.detect_from_path().await? {
-            if seen_paths.insert(installation.executable.clone()) {
+            let canonical = self.get_canonical_path(&installation.executable);
+            if seen_paths.insert(canonical) {
                 installations.push(installation);
             }
         }
 
-        // 3. 检查系统常见位置
+        // 3. System locations
         for installation in self.detect_from_system().await? {
-            if seen_paths.insert(installation.executable.clone()) {
+            let canonical = self.get_canonical_path(&installation.executable);
+            if seen_paths.insert(canonical) {
                 installations.push(installation);
             }
         }
 
-        // 按主版本号排序（降序）
+        installations.retain(|inst| self.is_valid_installation(inst));
+
+        // descending
         installations.sort_by(|a, b| b.major_version.cmp(&a.major_version));
 
         Ok(installations)
     }
 
-    /// 查找满足版本要求的 Java
-    pub async fn find_suitable(&self, required: crate::JavaVersion) -> Result<JavaInstallation> {
-        let installations = self.detect_all().await?;
+    pub async fn find_suitable(&self, required: JavaVersion) -> Result<JavaInstallation> {
+        let installations = self.detect().await?;
 
         installations
             .into_iter()
@@ -52,9 +67,8 @@ impl JavaDetector {
             .ok_or(Error::NoSuitableJava(required.major))
     }
 
-    /// 从 JAVA_HOME 环境变量检测
     async fn detect_from_env(&self) -> Result<Option<JavaInstallation>> {
-        let java_home = match std::env::var("JAVA_HOME") {
+        let java_home = match env::var("JAVA_HOME") {
             Ok(path) => PathBuf::from(path),
             Err(_) => return Ok(None),
         };
@@ -63,16 +77,16 @@ impl JavaDetector {
             .join("bin")
             .join(JavaInstallation::executable_name());
 
-        match self.probe(&executable).await {
+        match JavaProbe::probe(&executable).await {
             Ok(mut installation) => {
                 installation.home = java_home;
+
                 Ok(Some(installation))
             }
             Err(_) => Ok(None),
         }
     }
 
-    /// 从 PATH 环境变量检测
     async fn detect_from_path(&self) -> Result<Vec<JavaInstallation>> {
         let path = match std::env::var("PATH") {
             Ok(p) => p,
@@ -80,11 +94,23 @@ impl JavaDetector {
         };
 
         let separator = if cfg!(windows) { ";" } else { ":" };
-        let mut installations = Vec::new();
 
-        for dir in path.split(separator) {
-            let executable = PathBuf::from(dir).join(JavaInstallation::executable_name());
-            if let Ok(installation) = self.probe(&executable).await {
+        let candidates: Vec<PathBuf> = path
+            .split(separator)
+            .map(|dir| PathBuf::from(dir).join(JavaInstallation::executable_name()))
+            .filter(|exe| exe.exists())
+            .collect();
+
+        let mut handles = Vec::with_capacity(candidates.len());
+        for executable in candidates {
+            handles.push(tokio::spawn(async move {
+                JavaProbe::probe(&executable).await.ok()
+            }));
+        }
+
+        let mut installations = Vec::new();
+        for handle in handles {
+            if let Ok(Some(installation)) = handle.await {
                 installations.push(installation);
             }
         }
@@ -92,201 +118,77 @@ impl JavaDetector {
         Ok(installations)
     }
 
-    /// 从系统常见位置检测
     async fn detect_from_system(&self) -> Result<Vec<JavaInstallation>> {
         let mut installations = Vec::new();
 
         #[cfg(windows)]
         {
-            let bases = vec![
-                "C:\\Program Files\\Java",
-                "C:\\Program Files (x86)\\Java",
-                "C:\\Program Files\\Eclipse Adoptium",
-                "C:\\Program Files\\Zulu",
-            ];
-
-            for base in bases {
-                if let Ok(found) = self.scan_directory(base).await {
-                    installations.extend(found);
-                }
+            if let Ok(registry_installations) = WindowsDetector::detect_from_registry().await {
+                installations.extend(registry_installations);
+            }
+            if let Ok(system_installations) = WindowsDetector::detect_from_system().await {
+                installations.extend(system_installations);
             }
         }
 
         #[cfg(target_os = "macos")]
         {
-            let bases = vec![
-                "/Library/Java/JavaVirtualMachines",
-                "/System/Library/Java/JavaVirtualMachines",
-            ];
-
-            for base in bases {
-                if let Ok(found) = self.scan_directory_macos(base).await {
-                    installations.extend(found);
-                }
+            if let Ok(system_installations) = MacOSDetector::detect_from_system().await {
+                installations.extend(system_installations);
             }
         }
 
         #[cfg(target_os = "linux")]
         {
-            let bases = vec!["/usr/lib/jvm", "/usr/java", "/opt/java", "/usr/lib64/jvm"];
-
-            for base in bases {
-                if let Ok(found) = self.scan_directory(base).await {
-                    installations.extend(found);
-                }
+            if let Ok(system_installations) = LinuxDetector::detect_from_system().await {
+                installations.extend(system_installations);
             }
         }
 
         Ok(installations)
     }
 
-    /// 扫描目录查找 Java 安装
-    async fn scan_directory(&self, base: impl AsRef<Path>) -> Result<Vec<JavaInstallation>> {
-        let mut installations = Vec::new();
-        let base = base.as_ref();
-
-        if !tokio::fs::try_exists(base).await.unwrap_or(false) {
-            return Ok(installations);
-        }
-
-        let mut entries = tokio::fs::read_dir(base).await?;
-
-        while let Some(entry) = entries.next_entry().await? {
-            if !entry.file_type().await?.is_dir() {
-                continue;
-            }
-
-            let java_home = entry.path();
-            let executable = java_home
-                .join("bin")
-                .join(JavaInstallation::executable_name());
-
-            if let Ok(mut installation) = self.probe(&executable).await {
-                installation.home = java_home;
-                installations.push(installation);
-            }
-        }
-
-        Ok(installations)
+    fn get_canonical_path(&self, path: &Path) -> PathBuf {
+        fs::canonicalize(path).unwrap_or_else(|_| path.to_path_buf())
     }
 
-    /// macOS 特殊处理（Contents/Home 子目录）
-    #[cfg(target_os = "macos")]
-    async fn scan_directory_macos(&self, base: impl AsRef<Path>) -> Result<Vec<JavaInstallation>> {
-        let mut installations = Vec::new();
-        let base = base.as_ref();
+    fn is_valid_installation(&self, installation: &JavaInstallation) -> bool {
+        let path_str = installation.executable.to_string_lossy().to_lowercase();
 
-        if !tokio::fs::try_exists(base).await.unwrap_or(false) {
-            return Ok(installations);
+        let skip_patterns = [
+            "javapath_target_",
+            "java8path_target_",
+            "javatmp",
+            "system32",
+            "syswow64",
+        ];
+
+        if skip_patterns
+            .iter()
+            .any(|pattern| path_str.contains(pattern))
+        {
+            return false;
         }
 
-        let mut entries = tokio::fs::read_dir(base).await?;
-
-        while let Some(entry) = entries.next_entry().await? {
-            if !entry.file_type().await?.is_dir() {
-                continue;
-            }
-
-            let java_home = entry.path().join("Contents/Home");
-            let executable = java_home
-                .join("bin")
-                .join(JavaInstallation::executable_name());
-
-            if let Ok(mut installation) = self.probe(&executable).await {
-                installation.home = java_home;
-                installations.push(installation);
-            }
+        #[cfg(windows)]
+        if !self.is_32bit_system()
+            && let Some(arch) = &installation.arch
+            && (arch != "x64" && arch != "aarch64")
+        {
+            return false;
         }
 
-        Ok(installations)
+        true
     }
 
-    /// 探测特定 Java 可执行文件
-    async fn probe(&self, executable: &Path) -> Result<JavaInstallation> {
-        if !tokio::fs::try_exists(executable).await? {
-            return Err(Error::JavaNotFound);
-        }
-
-        // 执行 java -version
-        let output = Command::new(executable).arg("-version").output().await?;
-
-        let stderr = String::from_utf8_lossy(&output.stderr);
-
-        let version = Self::parse_version(&stderr)?;
-        let major_version = Self::extract_major_version(&version)?;
-        let vendor = Self::parse_vendor(&stderr);
-        let arch = Self::parse_arch(&stderr);
-
-        let home = executable
-            .parent()
-            .and_then(|p| p.parent())
-            .ok_or(Error::InvalidJavaPath)?
-            .to_path_buf();
-
-        Ok(JavaInstallation {
-            executable: executable.to_path_buf(),
-            version,
-            major_version,
-            vendor,
-            home,
-            arch,
-        })
+    #[cfg(windows)]
+    fn is_32bit_system(&self) -> bool {
+        std::mem::size_of::<usize>() == 4
     }
 
-    fn parse_version(output: &str) -> Result<String> {
-        for line in output.lines() {
-            if line.contains("version")
-                && let Some(start) = line.find('"')
-                && let Some(end) = line[start + 1..].find('"')
-            {
-                return Ok(line[start + 1..start + 1 + end].to_string());
-            }
-        }
-        Err(Error::VersionParseFailed)
-    }
-
-    fn extract_major_version(version: &str) -> Result<u32> {
-        // "1.8.0_292" -> 8
-        // "17.0.1" -> 17
-        if let Some(stripped) = version.strip_prefix("1.") {
-            let parts: Vec<&str> = stripped.split('.').collect();
-            if !parts.is_empty() {
-                return parts[0].parse().map_err(|_| Error::VersionParseFailed);
-            }
-        } else {
-            let parts: Vec<&str> = version.split('.').collect();
-            if !parts.is_empty() {
-                return parts[0].parse().map_err(|_| Error::VersionParseFailed);
-            }
-        }
-        Err(Error::VersionParseFailed)
-    }
-
-    fn parse_vendor(output: &str) -> Option<String> {
-        for line in output.lines() {
-            let lower = line.to_lowercase();
-            if lower.contains("openjdk") {
-                return Some("OpenJDK".to_string());
-            } else if lower.contains("oracle") {
-                return Some("Oracle".to_string());
-            } else if lower.contains("zulu") {
-                return Some("Azul Zulu".to_string());
-            } else if lower.contains("adoptium") || lower.contains("temurin") {
-                return Some("Eclipse Adoptium".to_string());
-            }
-        }
-        None
-    }
-
-    fn parse_arch(output: &str) -> Option<String> {
-        for line in output.lines() {
-            if line.contains("64-Bit") || line.contains("x86_64") || line.contains("amd64") {
-                return Some("x64".to_string());
-            } else if line.contains("aarch64") || line.contains("arm64") {
-                return Some("aarch64".to_string());
-            }
-        }
-        None
+    #[cfg(not(windows))]
+    fn is_32bit_system(&self) -> bool {
+        false
     }
 }
 

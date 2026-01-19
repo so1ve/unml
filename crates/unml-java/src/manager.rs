@@ -2,9 +2,8 @@ use std::sync::Arc;
 
 use tokio::sync::RwLock;
 
-use crate::{JavaDetector, JavaInstallation, JavaVersion, Result};
+use crate::{Error, JavaDetector, JavaInstallation, JavaVersion, Result};
 
-/// Java 管理器（带缓存）
 pub struct JavaManager {
     detector: JavaDetector,
     cache: Arc<RwLock<Option<Vec<JavaInstallation>>>>,
@@ -18,7 +17,6 @@ impl JavaManager {
         }
     }
 
-    /// 获取所有 Java 安装（使用缓存）
     pub async fn get_installations(&self) -> Result<Vec<JavaInstallation>> {
         let cache = self.cache.read().await;
         if let Some(ref installations) = *cache {
@@ -26,13 +24,11 @@ impl JavaManager {
         }
         drop(cache);
 
-        // 缓存未命中，重新检测
         self.refresh().await
     }
 
-    /// 刷新缓存
     pub async fn refresh(&self) -> Result<Vec<JavaInstallation>> {
-        let installations = self.detector.detect_all().await?;
+        let installations = self.detector.detect().await?;
 
         let mut cache = self.cache.write().await;
         *cache = Some(installations.clone());
@@ -40,17 +36,15 @@ impl JavaManager {
         Ok(installations)
     }
 
-    /// 查找最佳 Java（满足版本要求）
     pub async fn find_best(&self, required: JavaVersion) -> Result<JavaInstallation> {
         let installations = self.get_installations().await?;
 
         installations
             .into_iter()
             .find(|i| i.satisfies(required))
-            .ok_or(crate::Error::NoSuitableJava(required.major))
+            .ok_or(Error::NoSuitableJava(required.major))
     }
 
-    /// 清除缓存
     pub async fn clear_cache(&self) {
         let mut cache = self.cache.write().await;
         *cache = None;
