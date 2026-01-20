@@ -1,10 +1,4 @@
 //! Parser for the `#[route(...)]` attribute.
-//!
-//! This module handles parsing of route attributes like:
-//! ```ignore
-//! #[route(id = "versions", label = "nav.versions", icon = Folder)]
-//! #[route(id = "", label = "nav.home", icon = LayoutDashboard, home)]
-//! ```
 
 use syn::spanned::Spanned;
 use syn::{Attribute, Ident, LitStr, Result, Token};
@@ -26,7 +20,7 @@ impl RouteAttr {
 
         Err(syn::Error::new(
             proc_macro2::Span::call_site(),
-            "Missing #[route(...)] attribute. Expected: #[route(id = \"...\", label = \"...\")]",
+            "Missing #[route(...)] attribute",
         ))
     }
 

@@ -1,7 +1,4 @@
 //! Implementation of the `#[derive(PageRoute)]` macro.
-//!
-//! This module provides the derive macro that implements the `PageRoute` trait
-//! for page structs.
 
 use proc_macro2::TokenStream;
 use quote::quote;
