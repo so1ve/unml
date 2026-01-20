@@ -2,9 +2,10 @@
 //!
 //! This crate provides derive macros for the UNML GUI:
 //!
-//! - `#[derive(PageRoute)]` - Derive the `PageRoute` trait for a page struct
-//! - `#[derive(SubRoute)]` - Derive the `PageRoute` trait for child/sub pages
-//!   (simplified, only path needed)
+//! - [`PageRoute`](macro@PageRoute) - Derive the `PageRoute` trait for a page
+//!   struct
+//! - [`SubRoute`](macro@SubRoute) - Derive the `SubRoute` trait for child/sub
+//!   pages
 
 mod page_route;
 mod route_attr;
@@ -71,23 +72,25 @@ pub fn derive_page_route(input: TokenStream) -> TokenStream {
         .into()
 }
 
-/// Derive the `PageRoute` trait for a child/sub page.
+/// Derive the `SubRoute` trait for a child/sub page.
 ///
-/// This is a simplified version of `#[derive(PageRoute)]` for child pages
-/// that only need a path, without label or icon.
+/// This macro is for child pages that are rendered within a parent page.
+/// Unlike `PageRoute`, sub-routes only need an ID to identify them.
 ///
 /// # Attributes
 ///
 /// ## `#[subroute(...)]` (required)
 ///
 /// Defines the sub-route configuration:
-/// - `path = "..."` - Route path (e.g., "/settings/java")
+///
+/// - **`id = "..."`** - The route identifier used to match child routes
+///   (required)
 ///
 /// # Example
 ///
 /// ```ignore
 /// #[derive(SubRoute)]
-/// #[subroute(path = "/settings/java")]
+/// #[subroute(id = "java")]
 /// pub struct JavaSettingsPage;
 ///
 /// impl JavaSettingsPage {

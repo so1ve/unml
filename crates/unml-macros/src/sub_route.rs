@@ -3,6 +3,18 @@
 //! This module provides a simplified derive macro for child/sub pages
 //! that only require an ID. Unlike `PageRoute`, sub-routes don't need
 //! paths, labels, or icons since they are rendered within a parent page.
+//!
+//! # Usage
+//!
+//! ```ignore
+//! #[derive(SubRoute)]
+//! #[subroute(id = "java")]
+//! pub struct JavaSettingsPage;
+//! ```
+//!
+//! # Attributes
+//!
+//! - `id`: The route identifier used to match child routes (required)
 
 use proc_macro2::TokenStream;
 use quote::quote;
