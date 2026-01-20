@@ -2,4 +2,9 @@
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.cargo.features": "all",
   "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+  "i18n-ally.localesPaths": [
+    "crates/unml-gui/locales"
+  ],
+  "i18n-ally.pathMatcher": "app.yml",
+  "i18n-ally.keystyle": "flat",
 }

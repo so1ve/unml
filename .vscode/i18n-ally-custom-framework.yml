@@ -1,0 +1,10 @@
+languageIds:
+  - rust
+
+usageMatchRegex:
+  - "[^\\w\\d]t!\\([\\s\\n\\r]*['\"]({key})['\"]"
+
+monopoly: true
+
+sourceCodeDetectionRegex:
+  - "use\\s+rust_i18n::"
