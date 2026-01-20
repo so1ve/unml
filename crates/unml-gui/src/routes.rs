@@ -1,38 +1,15 @@
 //! Application route definitions.
 //!
-//! This module defines all routes and navigation tabs using the
-//! `define_app_routes!` macro. The macro generates:
-//! - `paths` module with PATH constants
-//! - `router()` function
-//! - `NAV_TABS` constant
+//! This module defines all routes and navigation tabs using the trait-based
+//! routing system. Each page implements the `PageRoute` trait via the
+//! `#[derive(PageRoute)]` macro.
 
-unml_macros::define_app_routes! {
-    home {
-        label: "nav.home",
-        icon: LayoutDashboard,
-    }
+use crate::pages::{DownloadsPage, HomePage, ModsPage, SettingsPage, VersionsPage};
 
-    versions {
-        label: "nav.versions",
-        icon: Folder,
-    }
-
-    mods {
-        label: "nav.mods",
-        icon: Star,
-    }
-
-    downloads {
-        label: "nav.downloads",
-        icon: ArrowDown,
-    }
-
-    settings {
-        label: "nav.settings",
-        icon: Settings,
-
-        children {
-            java,
-        }
-    }
-}
+crate::define_routes![
+    HomePage,
+    VersionsPage,
+    ModsPage,
+    DownloadsPage,
+    SettingsPage,
+];

@@ -1,5 +1,3 @@
-//! Java settings page with Java version selector.
-
 use std::path::PathBuf;
 use std::sync::Arc;
 
@@ -10,20 +8,20 @@ use gpui_component::select::{Select, SelectItem, SelectState};
 use gpui_markup::ui;
 use rust_i18n::t;
 use unml_java::{JavaInstallation, JavaManager};
+use unml_macros::SubRoute;
 
 use crate::tokio::Tokio;
 
 #[derive(Debug, Clone)]
-pub struct JavaOption {
-    pub display_name: SharedString,
-    pub path: PathBuf,
-    pub version: String,
-    pub major_version: u32,
-    pub vendor: Option<String>,
+struct JavaOption {
+    display_name: SharedString,
+    path: PathBuf,
+    version: String,
+    vendor: Option<String>,
 }
 
 impl JavaOption {
-    pub fn from_installation(installation: &JavaInstallation) -> Self {
+    fn from_installation(installation: &JavaInstallation) -> Self {
         let vendor_str = if let Some(vendor) = &installation.vendor {
             format!(" ({vendor}) ")
         } else {
@@ -31,7 +29,7 @@ impl JavaOption {
         };
 
         let display = format!(
-            "Java {}{}- {}",
+            "Java {}{}— {}",
             installation.major_version,
             vendor_str,
             installation.executable.display()
@@ -41,7 +39,6 @@ impl JavaOption {
             display_name: display.into(),
             path: installation.executable.clone(),
             version: installation.version.clone(),
-            major_version: installation.major_version,
             vendor: installation.vendor.clone(),
         }
     }
@@ -71,10 +68,20 @@ impl SelectItem for JavaOption {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub enum JavaLoadState {
+enum JavaLoadState {
     Loading,
     Loaded,
     Error(String),
+}
+
+#[derive(SubRoute)]
+#[subroute(path = "/settings/java")]
+pub struct JavaSettingsPage;
+
+impl JavaSettingsPage {
+    pub fn view(window: &mut Window, cx: &mut App) -> impl IntoElement {
+        cx.new(|cx| JavaSettingsView::new(window, cx))
+    }
 }
 
 pub struct JavaSettingsView {
@@ -227,8 +234,4 @@ impl Render for JavaSettingsView {
             }
         }
     }
-}
-
-pub fn page(window: &mut Window, cx: &mut App) -> Entity<JavaSettingsView> {
-    cx.new(|cx| JavaSettingsView::new(window, cx))
 }

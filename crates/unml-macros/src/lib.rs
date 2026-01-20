@@ -1,95 +1,106 @@
 //! Procedural macros for UNML.
 //!
-//! This crate provides macros for the UNML GUI:
-//! - `define_sidebar!` - Define sidebar content, Selection enum, and related
-//!   constants
-//! - `define_app_routes!` - Define application routes and navigation tabs
+//! This crate provides derive macros for the UNML GUI:
+//!
+//! - `#[derive(PageRoute)]` - Derive the `PageRoute` trait for a page struct
+//! - `#[derive(SubRoute)]` - Derive the `PageRoute` trait for child/sub pages
+//!   (simplified, only path needed)
 
-mod router;
-mod sidebar;
+mod page_route;
+mod route_attr;
+mod sidebar_attr;
+mod sub_route;
 
 use proc_macro::TokenStream;
+use syn::DeriveInput;
 
-/// Macro to define sidebar content and Selection enum.
+/// Derive the `PageRoute` trait for a page struct.
 ///
-/// Generates:
-/// - `Selection` enum with variants
-/// - `Selection::id()`, `Selection::from_id()`
-/// - `SIDEBAR: Option<&'static SidebarContent>`
-/// - `VARIANT: Option<SidebarVariant>`
-/// - `DEFAULT_ID: Option<&'static str>`
+/// This macro automatically implements the `PageRoute` trait based on the
+/// `#[route(...)]` and optional `#[sidebar(...)]` attributes.
+///
+/// # Attributes
+///
+/// ## `#[route(...)]` (required)
+///
+/// Defines the route configuration:
+/// - `path = "..."` - Route path (e.g., "/" or "/versions")
+/// - `label = "..."` - Navigation label i18n key
+/// - `icon = IconName` - Navigation icon (optional)
+/// - `home` - Flag indicating this is the home page
+///
+/// ## `#[sidebar(...)]` (optional)
+///
+/// Defines the sidebar content:
+/// - `variant = Filter | Navigation` - Sidebar variant
+/// - `section "title" { ... }` - Section with title
+/// - `section { ... }` - Section without title
+///
+/// The default selected item is always the first item in the first section.
+///
+/// ## `#[children(...)]` (optional)
+///
+/// Lists child page types for nested routing.
 ///
 /// # Example
 ///
 /// ```ignore
-/// define_sidebar! {
-///     variant: Filter,
-///
-///     section "筛选" {
-///         Release => "正式版",
-///         Snapshot => "快照版",
+/// #[derive(PageRoute)]
+/// #[route(path = "/versions", label = "nav.versions", icon = Folder)]
+/// #[sidebar(
+///     variant = Filter,
+///     section "versions.filter" {
+///         Release => "versions.release",
+///         Snapshot => "versions.snapshot",
 ///     }
-///     section {
-///         Installed => "仅已安装",
+/// )]
+/// pub struct VersionsPage;
+///
+/// impl VersionsPage {
+///     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
+///         ui! { div { "Versions content" } }
 ///     }
 /// }
 /// ```
-///
-/// For pages without a sidebar:
-///
-/// ```ignore
-/// define_sidebar! {}
-/// ```
-#[proc_macro]
-pub fn define_sidebar(input: TokenStream) -> TokenStream {
-    sidebar::define(input.into()).into()
+#[proc_macro_derive(PageRoute, attributes(route, sidebar, children))]
+pub fn derive_page_route(input: TokenStream) -> TokenStream {
+    let input = syn::parse_macro_input!(input as DeriveInput);
+
+    page_route::derive(input)
+        .unwrap_or_else(|err| err.to_compile_error())
+        .into()
 }
 
-/// Macro to define application routes and navigation tabs.
+/// Derive the `PageRoute` trait for a child/sub page.
 ///
-/// Generates:
-/// - `pub mod paths` - PATH constants for each route
-/// - `pub fn router()` - the application router
-/// - `pub const NAV_TABS: &[TabItem]` - navigation tabs for the navbar
+/// This is a simplified version of `#[derive(PageRoute)]` for child pages
+/// that only need a path, without label or icon.
 ///
-/// # Syntax
+/// # Attributes
+///
+/// ## `#[subroute(...)]` (required)
+///
+/// Defines the sub-route configuration:
+/// - `path = "..."` - Route path (e.g., "/settings/java")
+///
+/// # Example
 ///
 /// ```ignore
-/// define_app_routes! {
-///     // Home route (special: path is "/")
-///     home {
-///         label: "nav.home",
-///         icon: LayoutDashboard,
-///     }
+/// #[derive(SubRoute)]
+/// #[subroute(path = "/settings/java")]
+/// pub struct JavaSettingsPage;
 ///
-///     // Simple route without children
-///     versions {
-///         label: "nav.versions",
-///         icon: Folder,
-///     }
-///
-///     // Route with children (file-based routing)
-///     settings {
-///         label: "nav.settings",
-///         icon: Settings,
-///
-///         children {
-///             java,       // -> /settings/java -> pages::settings::java::page()
-///             general,    // -> /settings/general -> pages::settings::general::page()
-///         }
+/// impl JavaSettingsPage {
+///     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
+///         ui! { div { "Java settings content" } }
 ///     }
 /// }
 /// ```
-///
-/// # Path Generation Rules
-///
-/// | Route       | Generated Path    | Page Module                      |
-/// |-------------|-------------------|----------------------------------|
-/// | `home`      | `/`               | `pages::home::page()`            |
-/// | `versions`  | `/versions`       | `pages::versions::page()`        |
-/// | `settings`  | `/settings`       | `pages::settings::page()`        |
-/// | `java` (child of settings) | `/settings/java` | `pages::settings::java::page()` |
-#[proc_macro]
-pub fn define_app_routes(input: TokenStream) -> TokenStream {
-    router::define(input.into()).into()
+#[proc_macro_derive(SubRoute, attributes(subroute))]
+pub fn derive_sub_route(input: TokenStream) -> TokenStream {
+    let input = syn::parse_macro_input!(input as DeriveInput);
+
+    sub_route::derive(input)
+        .unwrap_or_else(|err| err.to_compile_error())
+        .into()
 }

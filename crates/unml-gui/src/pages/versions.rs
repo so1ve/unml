@@ -3,30 +3,30 @@ use gpui_component::ActiveTheme;
 use gpui_markup::ui;
 use gpui_router::use_params;
 use rust_i18n::t;
+use unml_macros::PageRoute;
 
-unml_macros::define_sidebar! {
-    variant: Filter,
-
+#[derive(PageRoute)]
+#[route(path = "/versions", label = "nav.versions", icon = Folder)]
+#[sidebar(
+    variant = Filter,
     section "versions.filter" {
         Release => "versions.release",
         Snapshot => "versions.snapshot",
         Old => "versions.old",
-    }
+    },
     section {
         Installed => "versions.installed_only",
     }
-}
+)]
+pub struct VersionsPage;
 
-#[derive(IntoElement)]
-pub struct Page;
-
-impl RenderOnce for Page {
-    fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
+impl VersionsPage {
+    pub fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
         let params = use_params(cx);
         let selection = params
-            .get("selection")
+            .get("subroute")
             .map(|s| s.as_str())
-            .unwrap_or(DEFAULT_ID.unwrap_or("Release"));
+            .unwrap_or("Release");
 
         let theme = cx.theme();
 
@@ -41,8 +41,4 @@ impl RenderOnce for Page {
             }
         }
     }
-}
-
-pub fn page() -> Page {
-    Page
 }

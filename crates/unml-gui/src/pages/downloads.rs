@@ -3,28 +3,27 @@ use gpui_component::ActiveTheme;
 use gpui_markup::ui;
 use gpui_router::use_params;
 use rust_i18n::t;
+use unml_macros::PageRoute;
 
-unml_macros::define_sidebar! {
-    variant: Filter,
-
-    section "downloads.status" {
-        All => "downloads.all",
+#[derive(PageRoute)]
+#[route(path = "/downloads", label = "nav.downloads", icon = ArrowDown)]
+#[sidebar(
+    variant = Filter,
+    section {
         InProgress => "downloads.in_progress",
         Completed => "downloads.completed",
         Failed => "downloads.failed",
     }
-}
+)]
+pub struct DownloadsPage;
 
-#[derive(IntoElement)]
-pub struct Page;
-
-impl RenderOnce for Page {
-    fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
+impl DownloadsPage {
+    pub fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
         let params = use_params(cx);
         let selection = params
-            .get("selection")
+            .get("subroute")
             .map(|s| s.as_str())
-            .unwrap_or(DEFAULT_ID.unwrap_or("All"));
+            .unwrap_or("Downloading");
 
         let theme = cx.theme();
 
@@ -39,8 +38,4 @@ impl RenderOnce for Page {
             }
         }
     }
-}
-
-pub fn page() -> Page {
-    Page
 }

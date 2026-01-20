@@ -1,30 +1,28 @@
-pub mod java;
+mod java;
 
 use gpui::*;
 use gpui_markup::ui;
+use java::JavaSettingsPage;
 use rust_i18n::t;
+use unml_macros::PageRoute;
 
-unml_macros::define_sidebar! {
-    variant: Navigation,
-
+#[derive(PageRoute)]
+#[route(path = "/settings", label = "nav.settings", icon = Settings)]
+#[sidebar(
+    variant = Navigation,
     section {
         java => "settings.java",
     }
-}
+)]
+#[children(JavaSettingsPage)]
+pub struct SettingsPage;
 
-#[derive(IntoElement)]
-pub struct Page;
-
-impl RenderOnce for Page {
-    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
+impl SettingsPage {
+    pub fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
         ui! {
             div @[flex, items_center, justify_center, size_full, text_lg] {
                 t!("settings.select_category").to_string()
             }
         }
     }
-}
-
-pub fn page() -> Page {
-    Page
 }

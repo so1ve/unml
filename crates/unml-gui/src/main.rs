@@ -4,6 +4,7 @@ mod app;
 mod components;
 mod pages;
 mod routes;
+mod routing;
 mod theme;
 mod tokio;
 

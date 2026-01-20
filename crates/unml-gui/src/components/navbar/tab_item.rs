@@ -22,12 +22,10 @@ impl TabItemView {
 impl RenderOnce for TabItemView {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let active = self.tab.is_active(&self.pathname);
-        let to = match self.tab.default_id {
-            Some(default_id) => {
-                SharedString::from(format!("{}/{}", self.tab.active_prefix, default_id))
-            }
-            None => SharedString::from(self.tab.active_prefix),
-        };
+        let to = SharedString::from(format!(
+            "{}/{}",
+            self.tab.active_prefix, self.tab.default_id
+        ));
 
         let theme = cx.theme();
         let text_color = if active {
@@ -38,6 +36,13 @@ impl RenderOnce for TabItemView {
         let bg_color = if active { theme.tab_active } else { theme.tab };
         let tab_id = SharedString::from(self.tab.id);
         let label = t!(self.tab.label).to_string();
+
+        let icon_element = self.tab.icon.map(|icon| {
+            Icon::new(icon)
+                .size_4()
+                .text_color(text_color)
+                .into_any_element()
+        });
 
         ui! {
             NavLink @[to: to] {
@@ -56,7 +61,7 @@ impl RenderOnce for TabItemView {
                     hover: |s| s.bg(theme.list_hover).text_color(theme.foreground),
                     when: (active, |s| s.border_color(theme.primary).rounded_b_none())
                 ] {
-                    Icon::new(self.tab.icon).size_4().text_color(text_color),
+                    ..icon_element,
                     label
                 }
             }

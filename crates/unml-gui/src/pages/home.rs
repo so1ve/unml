@@ -3,16 +3,16 @@ use gpui::*;
 use gpui_component::scroll::ScrollableElement;
 use gpui_markup::ui;
 use rust_i18n::t;
+use unml_macros::PageRoute;
 
 use crate::components::instance_card::InstanceCard;
 
-unml_macros::define_sidebar! {}
+#[derive(PageRoute)]
+#[route(path = "/", label = "nav.home", icon = LayoutDashboard, home)]
+pub struct HomePage;
 
-#[derive(IntoElement)]
-pub struct Page;
-
-impl RenderOnce for Page {
-    fn render(self, _window: &mut Window, _cx: &mut App) -> impl IntoElement {
+impl HomePage {
+    pub fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
         ui! {
             div @[size_full, overflow_y_scrollbar] {
                 div @[flex, flex_col, gap: px(32.0)] {
@@ -38,8 +38,4 @@ impl RenderOnce for Page {
             }
         }
     }
-}
-
-pub fn page() -> Page {
-    Page
 }
