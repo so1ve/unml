@@ -35,6 +35,9 @@ pub trait PageRoute: 'static {
     /// Route path, e.g. "/" or "/versions"
     const PATH: &'static str;
 
+    /// Route ID, the last segment of PATH (e.g., "java" for "/settings/java")
+    const ID: &'static str = "";
+
     /// Navigation label i18n key
     const LABEL: &'static str;
 

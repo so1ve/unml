@@ -78,37 +78,3 @@ macro_rules! define_routes {
             &[$($crate::components::navbar::TabItem::from_page::<$page>()),*];
     };
 }
-
-/// Const function to extract the last segment of a path.
-/// For example, "/settings/java" returns "java".
-#[doc(hidden)]
-pub const fn path_last_segment(path: &'static str) -> &'static str {
-    let bytes = path.as_bytes();
-    let len = bytes.len();
-
-    if len == 0 {
-        return "";
-    }
-
-    // Find the last '/'
-    let mut i = len;
-    while i > 0 {
-        i -= 1;
-        if bytes[i] == b'/' {
-            // Return the substring after the last '/'
-            // SAFETY: We're splitting at a valid UTF-8 boundary (after '/')
-            // since the input is a valid &str
-            let start = i + 1;
-            if start >= len {
-                return "";
-            }
-            // Use split_at which is const-safe
-            let (_, suffix) = path.split_at(start);
-
-            return suffix;
-        }
-    }
-
-    // No '/' found, return the whole path
-    path
-}
