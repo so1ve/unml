@@ -5,6 +5,8 @@ use gpui_router::use_params;
 use rust_i18n::t;
 use unml_macros::PageRoute;
 
+use crate::routing::PageView;
+
 #[derive(PageRoute)]
 #[route(id = "mods", label = "nav.mods", icon = Star)]
 #[sidebar(
@@ -21,8 +23,8 @@ use unml_macros::PageRoute;
 )]
 pub struct ModsPage;
 
-impl ModsPage {
-    pub fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
+impl PageView for ModsPage {
+    fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
         let params = use_params(cx);
         let selection = params
             .get("subroute")

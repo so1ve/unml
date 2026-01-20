@@ -3,10 +3,36 @@
 //! This module defines the [`PageRoute`] trait that all routable pages must
 //! implement, along with the [`ChildRoutes`] trait for handling nested routes.
 
-use gpui::{AnyElement, App, Window};
+use gpui::{AnyElement, App, IntoElement, Window};
 use gpui_component::IconName;
 
 use crate::components::sidebar::{SidebarContent, SidebarVariant};
+
+/// Base trait for all pages that provide a view function.
+///
+/// This trait defines the core `view` method that all pages must implement.
+/// The derive macros for `PageRoute` and `SubRoute` automatically call
+/// `Self::view(window, cx).into_any_element()` to implement the `render`
+/// method.
+///
+/// # Example
+///
+/// ```ignore
+/// use crate::routing::PageView;
+///
+/// impl PageView for HomePage {
+///     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
+///         ui! { div { "Home content" } }
+///     }
+/// }
+/// ```
+pub trait PageView {
+    /// Render the page content.
+    ///
+    /// This method returns an `impl IntoElement` for flexibility, allowing
+    /// pages to return any type that implements `IntoElement`.
+    fn view(window: &mut Window, cx: &mut App) -> impl IntoElement;
+}
 
 /// Page route trait that all routable pages must implement.
 ///

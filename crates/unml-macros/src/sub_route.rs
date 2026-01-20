@@ -77,7 +77,7 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
             const ID: &'static str = #id;
 
             fn render(window: &mut gpui::Window, cx: &mut gpui::App) -> gpui::AnyElement {
-                gpui::IntoElement::into_any_element(Self::view(window, cx))
+                gpui::IntoElement::into_any_element(<Self as crate::routing::PageView>::view(window, cx))
             }
         }
     };

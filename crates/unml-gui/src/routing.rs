@@ -7,7 +7,9 @@
 //! # Architecture
 //!
 //! The routing system consists of:
+//! - [`Page`] trait - Base trait providing the `view` method
 //! - [`PageRoute`] trait - Defines route configuration for a page
+//! - [`SubRoute`] trait - Defines child/sub-route configuration
 //! - [`ChildRoutes`] trait - Handles nested child routes
 //! - [`build_route`] - Builds a `Route` from a `PageRoute` implementation
 //! - [`routes!`] macro - Generates router from page types
@@ -17,9 +19,10 @@
 //!
 //! ```ignore
 //! use unml_macros::PageRoute;
+//! use crate::routing::PageView;
 //!
 //! #[derive(PageRoute)]
-//! #[route(path = "/versions", label = "nav.versions", icon = Folder)]
+//! #[route(id = "versions", label = "nav.versions", icon = Folder)]
 //! #[sidebar(
 //!     variant = Filter,
 //!     section "versions.filter" {
@@ -29,7 +32,7 @@
 //! )]
 //! pub struct VersionsPage;
 //!
-//! impl VersionsPage {
+//! impl PageView for VersionsPage {
 //!     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
 //!         ui! { div { "Versions content" } }
 //!     }
@@ -40,7 +43,7 @@ mod builder;
 mod traits;
 
 pub use builder::build_route;
-pub use traits::{ChildRoutes, PageRoute, SubRoute};
+pub use traits::{ChildRoutes, PageRoute, PageView, SubRoute};
 
 /// Define routes and navigation tabs from a list of page types.
 ///

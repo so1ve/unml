@@ -10,6 +10,7 @@ use rust_i18n::t;
 use unml_java::{JavaInstallation, JavaManager};
 use unml_macros::SubRoute;
 
+use crate::routing::PageView;
 use crate::tokio::Tokio;
 
 #[derive(Debug, Clone)]
@@ -78,8 +79,8 @@ enum JavaLoadState {
 #[subroute(id = "java")]
 pub struct JavaSettingsPage;
 
-impl JavaSettingsPage {
-    pub fn view(window: &mut Window, cx: &mut App) -> impl IntoElement {
+impl PageView for JavaSettingsPage {
+    fn view(window: &mut Window, cx: &mut App) -> impl IntoElement {
         cx.new(|cx| JavaSettingsView::new(window, cx))
     }
 }

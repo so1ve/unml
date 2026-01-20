@@ -6,13 +6,14 @@ use rust_i18n::t;
 use unml_macros::PageRoute;
 
 use crate::components::instance_card::InstanceCard;
+use crate::routing::PageView;
 
 #[derive(PageRoute)]
 #[route(id = "", label = "nav.home", icon = LayoutDashboard, home)]
 pub struct HomePage;
 
-impl HomePage {
-    pub fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
+impl PageView for HomePage {
+    fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
         ui! {
             div @[size_full, overflow_y_scrollbar] {
                 div @[flex, flex_col, gap: px(32.0)] {

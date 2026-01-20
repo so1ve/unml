@@ -46,6 +46,8 @@ use syn::DeriveInput;
 /// # Example
 ///
 /// ```ignore
+/// use crate::routing::PageView;
+///
 /// #[derive(PageRoute)]
 /// #[route(path = "/versions", label = "nav.versions", icon = Folder)]
 /// #[sidebar(
@@ -57,7 +59,7 @@ use syn::DeriveInput;
 /// )]
 /// pub struct VersionsPage;
 ///
-/// impl VersionsPage {
+/// impl PageView for VersionsPage {
 ///     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
 ///         ui! { div { "Versions content" } }
 ///     }
@@ -89,11 +91,13 @@ pub fn derive_page_route(input: TokenStream) -> TokenStream {
 /// # Example
 ///
 /// ```ignore
+/// use crate::routing::PageView;
+///
 /// #[derive(SubRoute)]
 /// #[subroute(id = "java")]
 /// pub struct JavaSettingsPage;
 ///
-/// impl JavaSettingsPage {
+/// impl PageView for JavaSettingsPage {
 ///     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
 ///         ui! { div { "Java settings content" } }
 ///     }
