@@ -36,7 +36,6 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let children = parse_children_attr(&input.attrs)?;
 
     let path = &route_attr.path;
-    let id = route_attr.id();
     let label = &route_attr.label;
     let is_home = route_attr.is_home;
 
@@ -81,8 +80,8 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
             .iter()
             .map(|child| {
                 quote! {
-                    id if id == <#child as crate::routing::PageRoute>::ID => {
-                        Some(<#child as crate::routing::PageRoute>::render(window, cx))
+                    id if id == <#child as crate::routing::SubRoute>::ID => {
+                        Some(<#child as crate::routing::SubRoute>::render(window, cx))
                     }
                 }
             })
@@ -96,13 +95,6 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
                         _ => None,
                     }
                 }
-
-                fn ids() -> &'static [&'static str] {
-                    const IDS: &[&str] = &[#(
-                        <#children as crate::routing::PageRoute>::ID
-                    ),*];
-                    IDS
-                }
             }
         }
     } else {
@@ -112,7 +104,6 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let expanded = quote! {
         impl crate::routing::PageRoute for #name {
             const PATH: &'static str = #path;
-            const ID: &'static str = #id;
             const LABEL: &'static str = #label;
             const IS_HOME: bool = #is_home;
 

@@ -35,9 +35,6 @@ pub trait PageRoute: 'static {
     /// Route path, e.g. "/" or "/versions"
     const PATH: &'static str;
 
-    /// Route ID, the last segment of PATH (e.g., "java" for "/settings/java")
-    const ID: &'static str = "";
-
     /// Navigation label i18n key
     const LABEL: &'static str;
 
@@ -61,27 +58,44 @@ pub trait PageRoute: 'static {
     fn render(window: &mut Window, cx: &mut App) -> AnyElement;
 }
 
+/// Sub-route trait for child pages.
+///
+/// This trait is for child pages that are rendered within a parent page.
+/// Unlike `PageRoute`, sub-routes only need an ID and render function.
+///
+/// # Example
+///
+/// ```ignore
+/// #[derive(SubRoute)]
+/// #[subroute(id = "java")]
+/// pub struct JavaSettingsPage;
+///
+/// impl JavaSettingsPage {
+///     fn view(_window: &mut Window, _cx: &mut App) -> impl IntoElement {
+///         ui! { div { "Java settings" } }
+///     }
+/// }
+/// ```
+pub trait SubRoute: 'static {
+    /// Route ID (e.g., "java" for the Java settings page)
+    const ID: &'static str;
+
+    /// Render the sub-page content
+    fn render(window: &mut Window, cx: &mut App) -> AnyElement;
+}
+
 /// Child routes collection trait.
 ///
-/// This trait is implemented for tuples of page types or for `()` when there
-/// are no child routes. It provides methods to render child pages by ID and
-/// list all available child IDs.
+/// This trait is implemented for tuples of sub-route types or for `()` when
+/// there are no child routes. It provides methods to render child pages by ID.
 pub trait ChildRoutes: 'static {
     /// Render a child page by its ID
     fn render(id: &str, window: &mut Window, cx: &mut App) -> Option<AnyElement>;
-
-    /// Get all child route IDs
-    #[allow(dead_code)]
-    fn ids() -> &'static [&'static str];
 }
 
 /// Empty child routes implementation
 impl ChildRoutes for () {
     fn render(_: &str, _: &mut Window, _: &mut App) -> Option<AnyElement> {
         None
-    }
-
-    fn ids() -> &'static [&'static str] {
-        &[]
     }
 }

@@ -75,7 +75,7 @@ enum JavaLoadState {
 }
 
 #[derive(SubRoute)]
-#[subroute(path = "/settings/java")]
+#[subroute(id = "java")]
 pub struct JavaSettingsPage;
 
 impl JavaSettingsPage {

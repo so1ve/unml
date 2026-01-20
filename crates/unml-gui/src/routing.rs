@@ -40,7 +40,7 @@ mod builder;
 mod traits;
 
 pub use builder::build_route;
-pub use traits::{ChildRoutes, PageRoute};
+pub use traits::{ChildRoutes, PageRoute, SubRoute};
 
 /// Define routes and navigation tabs from a list of page types.
 ///

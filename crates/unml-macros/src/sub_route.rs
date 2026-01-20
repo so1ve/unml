@@ -1,8 +1,8 @@
 //! Implementation of the `#[derive(SubRoute)]` macro.
 //!
 //! This module provides a simplified derive macro for child/sub pages
-//! that only require a path. Unlike `PageRoute`, sub-routes don't need
-//! labels or icons since they are not shown in navigation.
+//! that only require an ID. Unlike `PageRoute`, sub-routes don't need
+//! paths, labels, or icons since they are rendered within a parent page.
 
 use proc_macro2::TokenStream;
 use quote::quote;
@@ -10,7 +10,7 @@ use syn::spanned::Spanned;
 use syn::{Attribute, DeriveInput, LitStr, Result, Token};
 
 struct SubRouteAttr {
-    path: LitStr,
+    id: LitStr,
 }
 
 impl SubRouteAttr {
@@ -23,17 +23,17 @@ impl SubRouteAttr {
 
         Err(syn::Error::new(
             proc_macro2::Span::call_site(),
-            "Missing #[subroute(...)] attribute. Expected: #[subroute(path = \"...\")]",
+            "Missing #[subroute(...)] attribute. Expected: #[subroute(id = \"...\")]",
         ))
     }
 
     fn parse(attr: &Attribute) -> Result<Self> {
-        let mut path: Option<LitStr> = None;
+        let mut id: Option<LitStr> = None;
 
         attr.parse_nested_meta(|meta| {
-            if meta.path.is_ident("path") {
+            if meta.path.is_ident("id") {
                 meta.input.parse::<Token![=]>()?;
-                path = Some(meta.input.parse()?);
+                id = Some(meta.input.parse()?);
             } else {
                 return Err(syn::Error::new(
                     meta.path.span(),
@@ -44,28 +44,25 @@ impl SubRouteAttr {
             Ok(())
         })?;
 
-        let path = path.ok_or_else(|| {
+        let id = id.ok_or_else(|| {
             syn::Error::new(
                 attr.bracket_token.span.join(),
-                "Missing `path` in #[subroute(...)]",
+                "Missing `id` in #[subroute(...)]",
             )
         })?;
 
-        Ok(SubRouteAttr { path })
+        Ok(SubRouteAttr { id })
     }
 }
 
 pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let name = &input.ident;
     let attr = SubRouteAttr::from_attrs(&input.attrs)?;
-    let path = &attr.path;
+    let id = &attr.id;
 
     let expanded = quote! {
-        impl crate::routing::PageRoute for #name {
-            const PATH: &'static str = #path;
-            const LABEL: &'static str = "";
-
-            type Children = ();
+        impl crate::routing::SubRoute for #name {
+            const ID: &'static str = #id;
 
             fn render(window: &mut gpui::Window, cx: &mut gpui::App) -> gpui::AnyElement {
                 gpui::IntoElement::into_any_element(Self::view(window, cx))

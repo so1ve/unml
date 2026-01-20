@@ -79,13 +79,4 @@ impl RouteAttr {
             is_home,
         })
     }
-
-    pub fn id(&self) -> String {
-        let path = self.path.value();
-        if let Some(pos) = path.rfind('/') {
-            path[pos + 1..].to_string()
-        } else {
-            path
-        }
-    }
 }
