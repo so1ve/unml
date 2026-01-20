@@ -7,7 +7,7 @@ use rust_i18n::t;
 use unml_macros::PageRoute;
 
 #[derive(PageRoute)]
-#[route(path = "/settings", label = "nav.settings", icon = Settings)]
+#[route(id = "settings", label = "nav.settings", icon = Settings)]
 #[sidebar(
     variant = Navigation,
     section {

@@ -6,7 +6,7 @@ use rust_i18n::t;
 use unml_macros::PageRoute;
 
 #[derive(PageRoute)]
-#[route(path = "/mods", label = "nav.mods", icon = Star)]
+#[route(id = "mods", label = "nav.mods", icon = Star)]
 #[sidebar(
     variant = Filter,
     section "mods.view" {

@@ -35,7 +35,7 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let sidebar_attr = SidebarAttr::from_attrs(&input.attrs)?;
     let children = parse_children_attr(&input.attrs)?;
 
-    let path = &route_attr.path;
+    let id = &route_attr.id;
     let label = &route_attr.label;
     let is_home = route_attr.is_home;
 
@@ -103,7 +103,7 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
 
     let expanded = quote! {
         impl crate::routing::PageRoute for #name {
-            const PATH: &'static str = #path;
+            const ID: &'static str = #id;
             const LABEL: &'static str = #label;
             const IS_HOME: bool = #is_home;
 

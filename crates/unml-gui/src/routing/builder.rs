@@ -39,12 +39,10 @@ fn build_home_route<P: PageRoute>() -> Route {
 }
 
 fn build_page_route<P: PageRoute>() -> Route {
-    let path = P::PATH.trim_start_matches('/');
-
-    let route = Route::new().path(path);
+    let route = Route::new().path(P::ID);
 
     let route = if let (Some(sidebar), Some(variant)) = (P::SIDEBAR, P::SIDEBAR_VARIANT) {
-        route.layout(PageLayout::new(P::PATH, sidebar, variant, P::DEFAULT_ID))
+        route.layout(PageLayout::new(P::ID, sidebar, variant, P::DEFAULT_ID))
     } else {
         route
     };

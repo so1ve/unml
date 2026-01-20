@@ -27,7 +27,7 @@ impl NavItem {
 impl RenderOnce for NavItem {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let active = self.active;
-        let path = format!("{}/{}", self.base_path, self.item.id);
+        let path = format!("/{}/{}", self.base_path, self.item.id);
         let theme = cx.theme();
 
         let text_color = if active {

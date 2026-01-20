@@ -8,7 +8,7 @@ use unml_macros::PageRoute;
 use crate::components::instance_card::InstanceCard;
 
 #[derive(PageRoute)]
-#[route(path = "/", label = "nav.home", icon = LayoutDashboard, home)]
+#[route(id = "", label = "nav.home", icon = LayoutDashboard, home)]
 pub struct HomePage;
 
 impl HomePage {

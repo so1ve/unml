@@ -6,7 +6,7 @@ use rust_i18n::t;
 use unml_macros::PageRoute;
 
 #[derive(PageRoute)]
-#[route(path = "/downloads", label = "nav.downloads", icon = ArrowDown)]
+#[route(id = "downloads", label = "nav.downloads", icon = ArrowDown)]
 #[sidebar(
     variant = Filter,
     section {

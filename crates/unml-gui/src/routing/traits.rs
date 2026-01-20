@@ -18,7 +18,7 @@ use crate::components::sidebar::{SidebarContent, SidebarVariant};
 ///
 /// ```ignore
 /// #[derive(PageRoute)]
-/// #[route(path = "/", label = "nav.home", icon = LayoutDashboard, home)]
+/// #[route(id = "", label = "nav.home", icon = LayoutDashboard, home)]
 /// pub struct HomePage;
 ///
 /// impl HomePage {
@@ -32,8 +32,8 @@ pub trait PageRoute: 'static {
     /// Defaults to `()` when not specified in the derive macro
     type Children: ChildRoutes;
 
-    /// Route path, e.g. "/" or "/versions"
-    const PATH: &'static str;
+    /// Route identifier (e.g., "versions", "settings", "" for home)
+    const ID: &'static str;
 
     /// Navigation label i18n key
     const LABEL: &'static str;
