@@ -38,7 +38,7 @@ impl MicrosoftAuthProvider {
     }
 
     /// 用 MS Token 换取 Minecraft Account
-    async fn exchange_token_for_account(&self, ms_token: &TokenResponse) -> Result<Account> {
+    async fn exchange_token_for_account(&self, ms_token: TokenResponse) -> Result<Account> {
         let client = http_client();
 
         // 1. Xbox Live 认证
@@ -46,10 +46,10 @@ impl MicrosoftAuthProvider {
         let user_hash = xbox_response
             .display_claims
             .xui
-            .first()
+            .into_iter()
+            .next()
             .ok_or_else(|| Error::AuthFailed("No Xbox user info".to_owned()))?
-            .uhs
-            .clone();
+            .uhs;
 
         // 2. XSTS 认证
         let xsts_response = oauth::authenticate_xsts(client, &xbox_response.token).await?;
@@ -65,7 +65,7 @@ impl MicrosoftAuthProvider {
             username: profile.name,
             uuid: profile.id,
             access_token: mc_auth.access_token,
-            refresh_token: Some(ms_token.refresh_token.clone()),
+            refresh_token: Some(ms_token.refresh_token),
             account_type: AccountType::Microsoft,
         })
     }
@@ -93,7 +93,7 @@ impl MicrosoftAuthProvider {
             oauth::poll_for_token(client, &device_code.device_code, device_code.interval).await?;
 
         // 3. 换取 Minecraft Account
-        self.exchange_token_for_account(&ms_token).await
+        self.exchange_token_for_account(ms_token).await
     }
 }
 
@@ -118,11 +118,10 @@ impl AuthProvider for MicrosoftAuthProvider {
 
         let client = http_client();
 
-        // 用 refresh_token 获取新的 MS token
         let ms_token = oauth::refresh_token(client, refresh_token).await?;
 
         // 换取新的 Minecraft Account
-        self.exchange_token_for_account(&ms_token).await
+        self.exchange_token_for_account(ms_token).await
     }
 
     async fn validate(&self, account: &Account) -> Result<bool> {

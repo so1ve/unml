@@ -30,8 +30,8 @@ impl InstanceCard {
 impl RenderOnce for InstanceCard {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let theme = cx.theme();
-        let first_char = self.name.chars().next().unwrap_or('?').to_string();
-        let name = self.name.clone();
+        let name = self.name;
+        let first_char = name.chars().next().unwrap_or('?').to_string();
 
         ui! {
             div @[
