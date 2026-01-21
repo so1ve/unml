@@ -8,6 +8,7 @@ use crate::routing::PageView;
 
 #[derive(SubRoute)]
 #[subroute(id = "java")]
+#[layout(title = "settings.java_title")]
 pub struct JavaSettingsPage;
 
 impl PageView for JavaSettingsPage {
@@ -16,9 +17,6 @@ impl PageView for JavaSettingsPage {
 
         ui! {
             div @[flex, flex_col, gap: px(16.)] {
-                div @[text_xl, font_weight: FontWeight::SEMIBOLD] {
-                    t!("settings.java_title").to_string()
-                },
                 div @[text_color: theme.muted_foreground] {
                     t!("settings.java_desc").to_string()
                 },

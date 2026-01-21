@@ -2,4 +2,4 @@ mod home;
 mod page;
 
 pub use home::HomeLayout;
-pub use page::PageLayout;
+pub use page::{PageContent, PageLayout};

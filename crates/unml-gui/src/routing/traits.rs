@@ -21,6 +21,7 @@ pub trait PageRoute: 'static {
     const SIDEBAR: Option<&'static SidebarContent> = None;
     const SIDEBAR_VARIANT: Option<SidebarVariant> = None;
     const DEFAULT_ID: &'static str = "";
+    const TITLE: Option<&'static str> = None;
 
     fn render(window: &mut Window, cx: &mut App) -> AnyElement;
 }
@@ -28,6 +29,7 @@ pub trait PageRoute: 'static {
 /// Sub-route trait for child pages.
 pub trait SubRoute: 'static {
     const ID: &'static str;
+    const TITLE: Option<&'static str> = None;
 
     fn render(window: &mut Window, cx: &mut App) -> AnyElement;
 }

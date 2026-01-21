@@ -1,5 +1,6 @@
 //! Procedural macros for UNML.
 
+mod layout_attr;
 mod page_route;
 mod route_attr;
 mod sidebar_attr;
@@ -19,7 +20,7 @@ use syn::DeriveInput;
 ///
 /// - `#[sidebar(variant = Filter|Navigation, section "title" { ... })]`
 /// - `#[children(ChildPage1, ChildPage2)]`
-#[proc_macro_derive(PageRoute, attributes(route, sidebar, children))]
+#[proc_macro_derive(PageRoute, attributes(route, layout, sidebar, children))]
 pub fn derive_page_route(input: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(input as DeriveInput);
 
@@ -33,7 +34,7 @@ pub fn derive_page_route(input: TokenStream) -> TokenStream {
 /// # Required Attributes
 ///
 /// - `#[subroute(id = "...")]`
-#[proc_macro_derive(SubRoute, attributes(subroute))]
+#[proc_macro_derive(SubRoute, attributes(subroute, layout))]
 pub fn derive_sub_route(input: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(input as DeriveInput);
 

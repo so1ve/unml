@@ -4,6 +4,7 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::{DeriveInput, Ident, Result};
 
+use crate::layout_attr::LayoutAttr;
 use crate::route_attr::RouteAttr;
 use crate::sidebar_attr::SidebarAttr;
 
@@ -29,6 +30,7 @@ fn parse_children_attr(attrs: &[syn::Attribute]) -> Result<Vec<Ident>> {
 pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let name = &input.ident;
     let route_attr = RouteAttr::from_attrs(&input.attrs)?;
+    let layout_attr = LayoutAttr::from_attrs(&input.attrs)?;
     let sidebar_attr = SidebarAttr::from_attrs(&input.attrs)?;
     let children = parse_children_attr(&input.attrs)?;
 
@@ -41,6 +43,18 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
             const ICON: Option<gpui_component::IconName> = Some(gpui_component::IconName::#icon);
         },
         None => quote! {},
+    };
+
+    let title_const = if let Some(layout) = layout_attr {
+        if let Some(title) = layout.title {
+            quote! {
+                const TITLE: Option<&'static str> = Some(#title);
+            }
+        } else {
+            quote! {}
+        }
+    } else {
+        quote! {}
     };
 
     let (sidebar_const, variant_const, default_id_const) = if let Some(ref sidebar) = sidebar_attr {
@@ -105,6 +119,7 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
             const IS_HOME: bool = #is_home;
 
             #icon_const
+            #title_const
             #sidebar_const
             #variant_const
             #default_id_const

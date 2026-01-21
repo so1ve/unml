@@ -1,9 +1,10 @@
 //! Route builder utilities.
 
+use gpui::IntoElement;
 use gpui_router::{Route, use_params};
 
 use super::traits::{ChildRoutes, PageRoute};
-use crate::components::layout::{HomeLayout, PageLayout};
+use crate::components::layout::{HomeLayout, PageContent, PageLayout};
 
 pub fn build_route<P: PageRoute>() -> Route {
     if P::IS_HOME {
@@ -30,7 +31,9 @@ fn build_page_route<P: PageRoute>() -> Route {
     };
 
     route
-        .child(Route::new().index().element(|w, cx| P::render(w, cx)))
+        .child(Route::new().index().element(|w, cx| {
+            PageContent::new(P::TITLE, P::render(w, cx)).into_any_element()
+        }))
         .child(Route::new().path("{subroute}").element(|window, cx| {
             let subroute: String = use_params(cx)
                 .get("subroute")
@@ -40,7 +43,7 @@ fn build_page_route<P: PageRoute>() -> Route {
             if let Some(element) = P::Children::render(&subroute, window, cx) {
                 element
             } else {
-                P::render(window, cx)
+                PageContent::new(P::TITLE, P::render(window, cx)).into_any_element()
             }
         }))
 }

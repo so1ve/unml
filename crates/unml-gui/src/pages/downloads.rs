@@ -9,6 +9,7 @@ use crate::routing::PageView;
 
 #[derive(PageRoute)]
 #[route(id = "downloads", label = "nav.downloads", icon = ArrowDown)]
+#[layout(title = "downloads.title")]
 #[sidebar(
     variant = Filter,
     section {
@@ -30,13 +31,8 @@ impl PageView for DownloadsPage {
         let theme = cx.theme();
 
         ui! {
-            div @[flex, flex_col, gap: px(10.0)] {
-                div @[text_size: px(20.0)] {
-                    t!("downloads.title").to_string()
-                },
-                div @[text_color: theme.muted_foreground] {
-                    format!("Selection: {}", selection)
-                }
+            div @[text_color: theme.muted_foreground] {
+                format!("Selection: {}", selection)
             }
         }
     }
