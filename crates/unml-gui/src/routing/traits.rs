@@ -5,6 +5,12 @@ use gpui_component::IconName;
 
 use crate::components::sidebar::{SidebarContent, SidebarVariant};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PageKind {
+    Home,
+    Page,
+}
+
 /// Base trait for pages that provide a `view` function.
 pub trait PageView {
     fn view(window: &mut Window, cx: &mut App) -> impl IntoElement;
@@ -17,11 +23,10 @@ pub trait PageRoute: 'static {
     const ID: &'static str;
     const LABEL: &'static str;
     const ICON: Option<IconName> = None;
-    const IS_HOME: bool = false;
+    const KIND: PageKind = PageKind::Page;
     const SIDEBAR: Option<&'static SidebarContent> = None;
     const SIDEBAR_VARIANT: Option<SidebarVariant> = None;
     const DEFAULT_ID: &'static str = "";
-    const TITLE: Option<&'static str> = None;
 
     fn render(window: &mut Window, cx: &mut App) -> AnyElement;
 }
@@ -36,11 +41,11 @@ pub trait SubRoute: 'static {
 
 /// Child routes collection trait.
 pub trait ChildRoutes: 'static {
-    fn render(id: &str, window: &mut Window, cx: &mut App) -> Option<AnyElement>;
+    fn render(id: &str, window: &mut Window, cx: &mut App) -> AnyElement;
 }
 
 impl ChildRoutes for () {
-    fn render(_: &str, _: &mut Window, _: &mut App) -> Option<AnyElement> {
-        None
+    fn render(_: &str, _: &mut Window, _: &mut App) -> AnyElement {
+        unreachable!("Pages without children should not use subroute paths")
     }
 }

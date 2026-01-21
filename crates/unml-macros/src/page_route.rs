@@ -4,7 +4,6 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::{DeriveInput, Ident, Result};
 
-use crate::layout_attr::LayoutAttr;
 use crate::route_attr::RouteAttr;
 use crate::sidebar_attr::SidebarAttr;
 
@@ -30,7 +29,6 @@ fn parse_children_attr(attrs: &[syn::Attribute]) -> Result<Vec<Ident>> {
 pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let name = &input.ident;
     let route_attr = RouteAttr::from_attrs(&input.attrs)?;
-    let layout_attr = LayoutAttr::from_attrs(&input.attrs)?;
     let sidebar_attr = SidebarAttr::from_attrs(&input.attrs)?;
     let children = parse_children_attr(&input.attrs)?;
 
@@ -38,23 +36,19 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
     let label = &route_attr.label;
     let is_home = route_attr.is_home;
 
+    // Validate: Page type (non-home) must have children
+    if !is_home && children.is_empty() {
+        return Err(syn::Error::new(
+            input.ident.span(),
+            "Page routes require at least one child route. Add #[children(...)] attribute.",
+        ));
+    }
+
     let icon_const = match &route_attr.icon {
         Some(icon) => quote! {
             const ICON: Option<gpui_component::IconName> = Some(gpui_component::IconName::#icon);
         },
         None => quote! {},
-    };
-
-    let title_const = if let Some(layout) = layout_attr {
-        if let Some(title) = layout.title {
-            quote! {
-                const TITLE: Option<&'static str> = Some(#title);
-            }
-        } else {
-            quote! {}
-        }
-    } else {
-        quote! {}
     };
 
     let (sidebar_const, variant_const, default_id_const) = if let Some(ref sidebar) = sidebar_attr {
@@ -79,60 +73,84 @@ pub fn derive(input: DeriveInput) -> Result<TokenStream> {
         (quote! {}, quote! {}, quote! {})
     };
 
-    let children_type = if children.is_empty() {
-        quote! { type Children = (); }
-    } else {
-        let child_types: Vec<_> = children.iter().collect();
-        quote! { type Children = (#(#child_types,)*); }
-    };
+    if is_home {
+        let kind_const = quote! {
+            const KIND: crate::routing::PageKind = crate::routing::PageKind::Home;
+        };
 
-    let children_impl = if !children.is_empty() {
+        let expanded = quote! {
+            impl crate::routing::PageRoute for #name {
+                type Children = ();
+
+                const ID: &'static str = #id;
+                const LABEL: &'static str = #label;
+
+                #icon_const
+                #kind_const
+
+                fn render(window: &mut gpui::Window, cx: &mut gpui::App) -> gpui::AnyElement {
+                    gpui::IntoElement::into_any_element(<Self as crate::routing::PageView>::view(window, cx))
+                }
+            }
+        };
+
+        Ok(expanded)
+    } else {
+        let kind_const = quote! {
+            const KIND: crate::routing::PageKind = crate::routing::PageKind::Page;
+        };
+
+        let child_types: Vec<_> = children.iter().collect();
+        let children_type = quote! { type Children = (#(#child_types,)*); };
+
+        let first_child = &children[0];
         let child_match_arms: Vec<_> = children
             .iter()
             .map(|child| {
                 quote! {
                     id if id == <#child as crate::routing::SubRoute>::ID => {
-                        Some(<#child as crate::routing::SubRoute>::render(window, cx))
+                        <#child as crate::routing::SubRoute>::render(window, cx)
                     }
                 }
             })
             .collect();
 
-        quote! {
+        let children_impl = quote! {
             impl crate::routing::ChildRoutes for (#(#children,)*) {
-                fn render(id: &str, window: &mut gpui::Window, cx: &mut gpui::App) -> Option<gpui::AnyElement> {
+                fn render(id: &str, window: &mut gpui::Window, cx: &mut gpui::App) -> gpui::AnyElement {
                     match id {
                         #(#child_match_arms)*
-                        _ => None,
+                        _ => <#first_child as crate::routing::SubRoute>::render(window, cx),
                     }
                 }
             }
-        }
-    } else {
-        quote! {}
-    };
+        };
 
-    let expanded = quote! {
-        impl crate::routing::PageRoute for #name {
-            const ID: &'static str = #id;
-            const LABEL: &'static str = #label;
-            const IS_HOME: bool = #is_home;
-
-            #icon_const
-            #title_const
-            #sidebar_const
-            #variant_const
-            #default_id_const
-
-            #children_type
-
+        let render_fn = quote! {
             fn render(window: &mut gpui::Window, cx: &mut gpui::App) -> gpui::AnyElement {
-                gpui::IntoElement::into_any_element(<Self as crate::routing::PageView>::view(window, cx))
+                <#first_child as crate::routing::SubRoute>::render(window, cx)
             }
-        }
+        };
 
-        #children_impl
-    };
+        let expanded = quote! {
+            impl crate::routing::PageRoute for #name {
+                #children_type
 
-    Ok(expanded)
+                const ID: &'static str = #id;
+                const LABEL: &'static str = #label;
+
+                #icon_const
+                #kind_const
+                #sidebar_const
+                #variant_const
+                #default_id_const
+
+                #render_fn
+            }
+
+            #children_impl
+        };
+
+        Ok(expanded)
+    }
 }

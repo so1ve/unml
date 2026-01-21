@@ -1,15 +1,14 @@
-use gpui::*;
-use gpui_component::ActiveTheme;
-use gpui_markup::ui;
-use gpui_router::use_params;
-use rust_i18n::t;
-use unml_macros::PageRoute;
+mod browse;
+mod filter;
+mod installed;
 
-use crate::routing::PageView;
+use browse::BrowseModsPage;
+use filter::{FabricModsPage, ForgeModsPage, QuiltModsPage};
+use installed::InstalledModsPage;
+use unml_macros::PageRoute;
 
 #[derive(PageRoute)]
 #[route(id = "mods", label = "nav.mods", icon = Star)]
-#[layout(title = "mods.title")]
 #[sidebar(
     variant = Filter,
     section "mods.view" {
@@ -22,22 +21,5 @@ use crate::routing::PageView;
         Quilt => "mods.quilt",
     }
 )]
+#[children(InstalledModsPage, BrowseModsPage, FabricModsPage, ForgeModsPage, QuiltModsPage)]
 pub struct ModsPage;
-
-impl PageView for ModsPage {
-    fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
-        let params = use_params(cx);
-        let selection = params
-            .get("subroute")
-            .map(|s| s.as_str())
-            .unwrap_or("Installed");
-
-        let theme = cx.theme();
-
-        ui! {
-            div @[text_color: theme.muted_foreground] {
-                format!("Selection: {}", selection)
-            }
-        }
-    }
-}

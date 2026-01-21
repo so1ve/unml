@@ -1,15 +1,14 @@
-use gpui::*;
-use gpui_component::ActiveTheme;
-use gpui_markup::ui;
-use gpui_router::use_params;
-use rust_i18n::t;
-use unml_macros::PageRoute;
+mod completed;
+mod failed;
+mod in_progress;
 
-use crate::routing::PageView;
+use completed::CompletedPage;
+use failed::FailedPage;
+use in_progress::InProgressPage;
+use unml_macros::PageRoute;
 
 #[derive(PageRoute)]
 #[route(id = "downloads", label = "nav.downloads", icon = ArrowDown)]
-#[layout(title = "downloads.title")]
 #[sidebar(
     variant = Filter,
     section {
@@ -18,22 +17,5 @@ use crate::routing::PageView;
         Failed => "downloads.failed",
     }
 )]
+#[children(InProgressPage, CompletedPage, FailedPage)]
 pub struct DownloadsPage;
-
-impl PageView for DownloadsPage {
-    fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
-        let params = use_params(cx);
-        let selection = params
-            .get("subroute")
-            .map(|s| s.as_str())
-            .unwrap_or("Downloading");
-
-        let theme = cx.theme();
-
-        ui! {
-            div @[text_color: theme.muted_foreground] {
-                format!("Selection: {}", selection)
-            }
-        }
-    }
-}

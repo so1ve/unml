@@ -1,15 +1,10 @@
-use gpui::*;
-use gpui_component::ActiveTheme;
-use gpui_markup::ui;
-use gpui_router::use_params;
-use rust_i18n::t;
-use unml_macros::PageRoute;
+mod filter;
 
-use crate::routing::PageView;
+use filter::{InstalledVersionsPage, OldVersionsPage, ReleaseVersionsPage, SnapshotVersionsPage};
+use unml_macros::PageRoute;
 
 #[derive(PageRoute)]
 #[route(id = "versions", label = "nav.versions", icon = Folder)]
-#[layout(title = "versions.title")]
 #[sidebar(
     variant = Filter,
     section "versions.filter" {
@@ -21,22 +16,5 @@ use crate::routing::PageView;
         Installed => "versions.installed_only",
     }
 )]
+#[children(ReleaseVersionsPage, SnapshotVersionsPage, OldVersionsPage, InstalledVersionsPage)]
 pub struct VersionsPage;
-
-impl PageView for VersionsPage {
-    fn view(_window: &mut Window, cx: &mut App) -> impl IntoElement {
-        let params = use_params(cx);
-        let selection = params
-            .get("subroute")
-            .map(|s| s.as_str())
-            .unwrap_or("Release");
-
-        let theme = cx.theme();
-
-        ui! {
-            div @[text_color: theme.muted_foreground] {
-                format!("Selection: {}", selection)
-            }
-        }
-    }
-}

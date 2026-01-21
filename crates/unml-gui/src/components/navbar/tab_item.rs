@@ -25,8 +25,6 @@ impl RenderOnce for TabItemView {
 
         let to = if self.tab.active_id.is_empty() {
             SharedString::from("/")
-        } else if self.tab.default_id.is_empty() {
-            SharedString::from(format!("/{}", self.tab.active_id))
         } else {
             SharedString::from(format!("/{}/{}", self.tab.active_id, self.tab.default_id))
         };
