@@ -26,6 +26,7 @@ impl RenderOnce for PageContent {
                         title
                     }
                 }),
+
                 self.children
             }
         }

@@ -9,7 +9,7 @@ use crate::components::sidebar::{SidebarContent, SidebarVariant, SidebarView};
 #[derive(IntoElement, IntoLayout)]
 pub struct PageLayout {
     outlet: Outlet,
-    base_path: &'static str,
+    route_id: &'static str,
     content: &'static SidebarContent,
     variant: SidebarVariant,
     default_id: &'static str,
@@ -17,14 +17,14 @@ pub struct PageLayout {
 
 impl PageLayout {
     pub fn new(
-        base_path: &'static str,
+        route_id: &'static str,
         content: &'static SidebarContent,
         variant: SidebarVariant,
         default_id: &'static str,
     ) -> Self {
         Self {
             outlet: Outlet::new(),
-            base_path,
+            route_id,
             content,
             variant,
             default_id,
@@ -47,7 +47,7 @@ impl RenderOnce for PageLayout {
         ui! {
             div @[flex, flex_1, overflow_hidden] {
                 SidebarView::new(
-                    self.base_path,
+                    self.route_id,
                     self.content,
                     self.variant,
                     current_id,

@@ -9,15 +9,15 @@ use super::SidebarItem;
 
 #[derive(IntoElement)]
 pub struct FilterItem {
-    base_path: &'static str,
+    route_id: &'static str,
     item: &'static SidebarItem,
     active: bool,
 }
 
 impl FilterItem {
-    pub fn new(base_path: &'static str, item: &'static SidebarItem, active: bool) -> Self {
+    pub fn new(route_id: &'static str, item: &'static SidebarItem, active: bool) -> Self {
         Self {
-            base_path,
+            route_id,
             item,
             active,
         }
@@ -27,7 +27,7 @@ impl FilterItem {
 impl RenderOnce for FilterItem {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let active = self.active;
-        let path = format!("/{}/{}", self.base_path, self.item.id);
+        let path = format!("/{}/{}", self.route_id, self.item.id);
         let theme = cx.theme();
 
         let text_color = if active {

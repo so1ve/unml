@@ -7,7 +7,7 @@ use super::{FilterItem, NavItem, SectionTitle, SidebarContent, SidebarVariant};
 
 #[derive(IntoElement)]
 pub struct SidebarView {
-    base_path: &'static str,
+    route_id: &'static str,
     content: &'static SidebarContent,
     variant: SidebarVariant,
     current_id: String,
@@ -15,13 +15,13 @@ pub struct SidebarView {
 
 impl SidebarView {
     pub fn new(
-        base_path: &'static str,
+        route_id: &'static str,
         content: &'static SidebarContent,
         variant: SidebarVariant,
         current_id: String,
     ) -> Self {
         Self {
-            base_path,
+            route_id,
             content,
             variant,
             current_id,
@@ -34,7 +34,7 @@ impl RenderOnce for SidebarView {
         let sections = self.content.sections;
         let section_count = sections.len();
         let variant = self.variant;
-        let base_path = self.base_path;
+        let route_id = self.route_id;
         let current_id = self.current_id;
         let theme = cx.theme();
 
@@ -52,10 +52,10 @@ impl RenderOnce for SidebarView {
                     let active = item.id == current_id;
                     let element = match variant {
                         SidebarVariant::Filter => {
-                            FilterItem::new(base_path, item, active).into_any_element()
+                            FilterItem::new(route_id, item, active).into_any_element()
                         }
                         SidebarVariant::Navigation => {
-                            NavItem::new(base_path, item, active).into_any_element()
+                            NavItem::new(route_id, item, active).into_any_element()
                         }
                     };
                     elements.push(element);
