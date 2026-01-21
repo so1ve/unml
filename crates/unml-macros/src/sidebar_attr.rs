@@ -87,6 +87,7 @@ impl SidebarAttr {
 
     fn parse(attr: &Attribute) -> Result<Self> {
         let tokens = attr.meta.require_list()?.tokens.clone();
+
         syn::parse2(tokens)
     }
 
