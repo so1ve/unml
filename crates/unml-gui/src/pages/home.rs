@@ -9,7 +9,7 @@ use crate::components::instance_card::InstanceCard;
 use crate::routing::PageView;
 
 #[derive(PageRoute)]
-#[route(id = "", label = "nav.home", icon = LayoutDashboard, home)]
+#[route(id = "", label = "nav.home", icon = LayoutDashboard, plain)]
 pub struct HomePage;
 
 impl PageView for HomePage {

@@ -5,26 +5,17 @@ use gpui_component::{ActiveTheme, IconName};
 use gpui_markup::ui;
 use gpui_router::use_location;
 
-use super::TabItem;
 use super::language_item::LanguageItem;
 use super::tab_item::TabItemView;
 use crate::components::icon_button::IconButton;
 use crate::routes::NAV_TABS;
 
 #[derive(IntoElement)]
-pub struct NavBar {
-    tabs: &'static [TabItem],
-}
+pub struct NavBar;
 
 impl NavBar {
     pub fn new() -> Self {
-        Self { tabs: NAV_TABS }
-    }
-
-    #[allow(dead_code)]
-    pub fn with_tabs(mut self, tabs: &'static [TabItem]) -> Self {
-        self.tabs = tabs;
-        self
+        Self
     }
 }
 
@@ -33,8 +24,7 @@ impl RenderOnce for NavBar {
         let pathname = use_location(cx).pathname.clone();
         let theme = cx.theme();
 
-        let tab_children: Vec<AnyElement> = self
-            .tabs
+        let tab_children: Vec<AnyElement> = NAV_TABS
             .iter()
             .map(|tab| TabItemView::new(tab.clone(), pathname.clone()).into_any_element())
             .collect();

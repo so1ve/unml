@@ -22,12 +22,7 @@ impl TabItemView {
 impl RenderOnce for TabItemView {
     fn render(self, _window: &mut Window, cx: &mut App) -> impl IntoElement {
         let active = self.tab.is_active(&self.pathname);
-
-        let to = if self.tab.active_id.is_empty() {
-            SharedString::from("/")
-        } else {
-            SharedString::from(format!("/{}/{}", self.tab.active_id, self.tab.default_id))
-        };
+        let to = SharedString::from(self.tab.to_path());
 
         let theme = cx.theme();
         let text_color = if active {

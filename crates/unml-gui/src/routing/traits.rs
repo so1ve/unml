@@ -5,30 +5,37 @@ use gpui_component::IconName;
 
 use crate::components::sidebar::{SidebarContent, SidebarVariant};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum PageKind {
-    Home,
-    Page,
+/// Plain route definition for simple pages without sidebar.
+pub struct PlainRouteDef {
+    pub id: &'static str,
+    pub label: &'static str,
+    pub icon: Option<IconName>,
+    pub render: fn(&mut Window, &mut App) -> AnyElement,
+}
+
+/// Sidebar route definition for pages with sidebar navigation.
+pub struct SidebarRouteDef {
+    pub id: &'static str,
+    pub label: &'static str,
+    pub icon: Option<IconName>,
+    pub sidebar: &'static SidebarContent,
+    pub sidebar_variant: SidebarVariant,
+    pub default_id: &'static str,
+    pub render_child: fn(&str, &mut Window, &mut App) -> AnyElement,
+}
+
+pub enum PageRoute {
+    Plain(PlainRouteDef),
+    Sidebar(SidebarRouteDef),
+}
+
+pub trait Routable: 'static {
+    fn route() -> PageRoute;
 }
 
 /// Base trait for pages that provide a `view` function.
 pub trait PageView {
     fn view(window: &mut Window, cx: &mut App) -> impl IntoElement;
-}
-
-/// Page route trait for routable pages.
-pub trait PageRoute: 'static {
-    type Children: ChildRoutes;
-
-    const ID: &'static str;
-    const LABEL: &'static str;
-    const ICON: Option<IconName> = None;
-    const KIND: PageKind = PageKind::Page;
-    const SIDEBAR: Option<&'static SidebarContent> = None;
-    const SIDEBAR_VARIANT: Option<SidebarVariant> = None;
-    const DEFAULT_ID: &'static str = "";
-
-    fn render(window: &mut Window, cx: &mut App) -> AnyElement;
 }
 
 /// Sub-route trait for child pages.

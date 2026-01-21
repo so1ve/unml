@@ -4,9 +4,10 @@ mod builder;
 mod traits;
 
 pub use builder::build_route;
-pub use traits::{ChildRoutes, PageKind, PageRoute, PageView, SubRoute};
+pub use traits::{
+    ChildRoutes, PageRoute, PageView, PlainRouteDef, Routable, SidebarRouteDef, SubRoute,
+};
 
-/// Define routes and navigation tabs from a list of page types.
 #[macro_export]
 macro_rules! define_routes {
     ($($page:ty),* $(,)?) => {
@@ -16,7 +17,9 @@ macro_rules! define_routes {
                 $(.child($crate::routing::build_route::<$page>()))*
         }
 
-        pub const NAV_TABS: &[$crate::components::navbar::TabItem] =
-            &[$($crate::components::navbar::TabItem::from_page::<$page>()),*];
+        pub static NAV_TABS: std::sync::LazyLock<Vec<$crate::components::navbar::TabItem>> =
+            std::sync::LazyLock::new(|| {
+                vec![$($crate::components::navbar::TabItem::from_route(&<$page as $crate::routing::Routable>::route())),*]
+            });
     };
 }

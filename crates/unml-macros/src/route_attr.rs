@@ -7,7 +7,7 @@ pub struct RouteAttr {
     pub id: LitStr,
     pub label: LitStr,
     pub icon: Option<Ident>,
-    pub is_home: bool,
+    pub is_plain: bool,
 }
 
 impl RouteAttr {
@@ -28,7 +28,7 @@ impl RouteAttr {
         let mut id: Option<LitStr> = None;
         let mut label: Option<LitStr> = None;
         let mut icon: Option<Ident> = None;
-        let mut is_home = false;
+        let mut is_plain = false;
 
         attr.parse_nested_meta(|meta| {
             if meta.path.is_ident("id") {
@@ -40,8 +40,8 @@ impl RouteAttr {
             } else if meta.path.is_ident("icon") {
                 meta.input.parse::<Token![=]>()?;
                 icon = Some(meta.input.parse()?);
-            } else if meta.path.is_ident("home") {
-                is_home = true;
+            } else if meta.path.is_ident("plain") {
+                is_plain = true;
             } else {
                 return Err(syn::Error::new(
                     meta.path.span(),
@@ -70,7 +70,7 @@ impl RouteAttr {
             id,
             label,
             icon,
-            is_home,
+            is_plain,
         })
     }
 }

@@ -2,38 +2,36 @@
 
 use gpui_router::{Route, use_params};
 
-use super::traits::{ChildRoutes, PageKind, PageRoute};
+use super::traits::{PageRoute, PlainRouteDef, Routable, SidebarRouteDef};
 use crate::components::layout::{HomeLayout, PageLayout};
 
-pub fn build_route<P: PageRoute>() -> Route {
-    match P::KIND {
-        PageKind::Home => build_home_route::<P>(),
-        PageKind::Page => build_page_route::<P>(),
+pub fn build_route<T: Routable>() -> Route {
+    match T::route() {
+        PageRoute::Plain(def) => build_plain_route(def),
+        PageRoute::Sidebar(def) => build_sidebar_route(def),
     }
 }
 
-fn build_home_route<P: PageRoute>() -> Route {
+fn build_plain_route(def: PlainRouteDef) -> Route {
     Route::new()
-        .index()
+        .path(def.id)
         .layout(HomeLayout::new())
-        .child(Route::new().index().element(|w, cx| P::render(w, cx)))
+        .child(Route::new().index().element(def.render))
 }
 
-fn build_page_route<P: PageRoute>() -> Route {
-    let route = Route::new().path(P::ID);
+fn build_sidebar_route(def: SidebarRouteDef) -> Route {
+    let default_id = def.default_id;
+    let render_child = def.render_child;
 
-    let route = if let (Some(sidebar), Some(variant)) = (P::SIDEBAR, P::SIDEBAR_VARIANT) {
-        route.layout(PageLayout::new(P::ID, sidebar, variant, P::DEFAULT_ID))
-    } else {
-        route
-    };
+    Route::new()
+        .path(def.id)
+        .layout(PageLayout::new(def.id, def.sidebar, def.sidebar_variant, def.default_id))
+        .child(Route::new().path("{subroute}").element(move |window, cx| {
+            let subroute: String = use_params(cx)
+                .get("subroute")
+                .map(|s| s.to_string())
+                .unwrap_or_else(|| default_id.to_string());
 
-    route.child(Route::new().path("{subroute}").element(|window, cx| {
-        let subroute: String = use_params(cx)
-            .get("subroute")
-            .map(|s| s.to_string())
-            .unwrap_or_else(|| P::DEFAULT_ID.to_string());
-
-        P::Children::render(&subroute, window, cx)
-    }))
+            render_child(&subroute, window, cx)
+        }))
 }
