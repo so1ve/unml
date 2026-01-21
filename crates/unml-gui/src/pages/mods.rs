@@ -21,5 +21,11 @@ use unml_macros::PageRoute;
         Quilt => "mods.quilt",
     }
 )]
-#[children(InstalledModsPage, BrowseModsPage, FabricModsPage, ForgeModsPage, QuiltModsPage)]
+#[children(
+    InstalledModsPage,
+    BrowseModsPage,
+    FabricModsPage,
+    ForgeModsPage,
+    QuiltModsPage
+)]
 pub struct ModsPage;

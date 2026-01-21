@@ -16,5 +16,10 @@ use unml_macros::PageRoute;
         Installed => "versions.installed_only",
     }
 )]
-#[children(ReleaseVersionsPage, SnapshotVersionsPage, OldVersionsPage, InstalledVersionsPage)]
+#[children(
+    ReleaseVersionsPage,
+    SnapshotVersionsPage,
+    OldVersionsPage,
+    InstalledVersionsPage
+)]
 pub struct VersionsPage;

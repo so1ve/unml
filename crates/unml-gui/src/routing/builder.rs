@@ -25,7 +25,12 @@ fn build_sidebar_route(def: SidebarRouteDef) -> Route {
 
     Route::new()
         .path(def.id)
-        .layout(PageLayout::new(def.id, def.sidebar, def.sidebar_variant, def.default_id))
+        .layout(PageLayout::new(
+            def.id,
+            def.sidebar,
+            def.sidebar_variant,
+            def.default_id,
+        ))
         .child(Route::new().path("{subroute}").element(move |window, cx| {
             let subroute: String = use_params(cx)
                 .get("subroute")
